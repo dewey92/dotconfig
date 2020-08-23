@@ -68,8 +68,13 @@ nnoremap <silent> <Leader>bb :Buffers <CR>
 " Search current buffers
 nnoremap <silent> <Leader>sb :BLines <CR>
 
+" Search queries project-wide
+nnoremap <silent> <Leader>sp :Rg <CR>
+xmap <silent> <Leader>sp "sy:Rg <CR><M-r>s
+
 " Open vim config dir
 nnoremap <silent> <Leader>fp :FZF ~/.config/nvim <CR>
 
-nnoremap <silent> <Leader>sp :Rg <CR>
-xmap <silent> <Leader>sp "sy:Rg <CR><M-r>s
+" Emac's M-x
+nnoremap <silent> <Leader>: :Commands<CR>
+nnoremap <silent> <M-x> :Commands<CR>

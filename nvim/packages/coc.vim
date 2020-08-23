@@ -60,7 +60,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <silent> <Leader>cr <Plug>(coc-rename)
 nnoremap <silent> <Leader>ce :<C-u>CocList diagnostics <CR>
 nmap <silent> <Leader>ca <Plug>(coc-codeaction)
-nnoremap <silent> <Leader>me :CocList commands<CR>
+nnoremap <silent> <Leader>mc :CocList commands<CR>
 nnoremap <silent> <Leader>si :CocList -I symbols<CR>
 
 " Add (Neo)Vim's native statusline support.

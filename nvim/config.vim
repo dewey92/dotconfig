@@ -11,7 +11,6 @@ set fileencoding=utf-8                  " The encoding written to file
 set number                              " Line numbers
 set ruler                               " Show the cursor position all the time
 set cmdheight=1                         " More space for displaying messages
-set iskeyword+=-                        " treat dash separated words as a word text object"
 set mouse=a                             " Enable your mouse
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
@@ -47,6 +46,8 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+let g:rainbow_active = 1
+
 set laststatus=2
 let g:lightline = {
 	\ 'colorscheme': 'palenight',
@@ -61,9 +62,3 @@ let g:lightline = {
 	\ }
 colorscheme palenight
 let g:palenight_terminal_italics=1
-
-au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
-
-" You can't stop me
-cmap w!! w !sudo tee %
-

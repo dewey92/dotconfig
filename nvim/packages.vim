@@ -21,13 +21,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
 
 " Themes & Apperances
-" Plug 'mhartington/oceanic-next'
-" Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'chuling/ci_dark'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/vim-gitbranch'
 Plug 'TaDaa/vimade'
+Plug 'luochen1990/rainbow'
 
 " Languages
 Plug 'pangloss/vim-javascript'
