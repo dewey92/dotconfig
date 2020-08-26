@@ -50,7 +50,7 @@ let g:rainbow_active = 1
 
 set laststatus=2
 let g:lightline = {
-	\ 'colorscheme': 'palenight',
+	\ 'colorscheme': 'gruvbox',
 	\ 'active': {
 	\   'right': [ [ 'lineinfo' ],
 	\              [ 'percent' ],
@@ -60,5 +60,10 @@ let g:lightline = {
 	\   'gitbranch': 'gitbranch#name'
 	\ },
 	\ }
-colorscheme palenight
-let g:palenight_terminal_italics=1
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
+colorscheme gruvbox
+" let g:palenight_terminal_italics=1
+
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =

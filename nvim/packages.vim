@@ -22,6 +22,7 @@ Plug 'tpope/vim-commentary'
 
 " Themes & Apperances
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'gruvbox-community/gruvbox'
 " Plug 'chuling/ci_dark'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'

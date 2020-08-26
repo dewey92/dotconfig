@@ -35,17 +35,6 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
 	\   <bang>0)
 
-" Ripgrep advanced
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
 " Git grep
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
@@ -78,3 +67,6 @@ nnoremap <silent> <Leader>fp :FZF ~/.config/nvim <CR>
 " Emac's M-x
 nnoremap <silent> <Leader>: :Commands<CR>
 nnoremap <silent> <M-x> :Commands<CR>
+
+" Toggle colorschemes
+nnoremap <silent> <Leader>ht :Colors<CR>
