@@ -31,7 +31,8 @@ set tabstop=2                           " Insert 2 spaces for a tab
 set shiftwidth=2                        " Change the number of space characters inserted for indentation
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 " set expandtab                           " Converts tabs to spaces
-set list lcs=tab:\|\ 
+set list
+set listchars=tab:▸\ ,extends:❯,precedes:❮ 
 
 " }}}
 " Themes & Appearances {{{
@@ -39,7 +40,7 @@ set list lcs=tab:\|\
 set cursorline                          " Enable highlighting of the current line
 set background=dark                     " tell vim what the background color looks like
 set t_Co=256                            " Support 256 colors
-set laststatus=0                        " Always display the status line
+set laststatus=2                        " Always display the status line
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 
 if (has("termguicolors"))
@@ -48,9 +49,8 @@ endif
 
 let g:rainbow_active = 1
 
-set laststatus=2
 let g:lightline = {
-	\ 'colorscheme': 'gruvbox',
+	\ 'colorscheme': 'gruvbox_material',
 	\ 'active': {
 	\   'right': [ [ 'lineinfo' ],
 	\              [ 'percent' ],
@@ -60,10 +60,12 @@ let g:lightline = {
 	\   'gitbranch': 'gitbranch#name'
 	\ },
 	\ }
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_invert_selection = 0
-colorscheme gruvbox
-" let g:palenight_terminal_italics=1
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_current_word = 'bold'
+let g:gruvbox_material_diagnostic_line_highlight = 1
+colorscheme gruvbox-material
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =

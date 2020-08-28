@@ -14,21 +14,19 @@ Plug 'junegunn/fzf.vim'
 " Editors
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
-
-" Completions
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-commentary'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Themes & Apperances
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'gruvbox-community/gruvbox'
-" Plug 'chuling/ci_dark'
+Plug 'sainnhe/gruvbox-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/vim-gitbranch'
 Plug 'TaDaa/vimade'
 Plug 'luochen1990/rainbow'
+Plug 'airblade/vim-gitgutter'
 
 " Languages
 Plug 'pangloss/vim-javascript'
@@ -37,8 +35,8 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " etc
-Plug 'kevinhwang91/rnvimr'
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-rooter'
+Plug 'voldikss/vim-floaterm'
 
 call plug#end()
