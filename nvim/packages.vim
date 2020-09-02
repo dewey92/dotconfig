@@ -21,6 +21,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
+Plug 'franbach/miramare'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/vim-gitbranch'
@@ -33,6 +34,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'purescript-contrib/purescript-vim'
+Plug 'sriharshachilakapati/vimmer-ps'
 
 " etc
 Plug 'wakatime/vim-wakatime'

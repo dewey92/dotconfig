@@ -9,7 +9,7 @@ set encoding=utf-8                      " The encoding displayed
 set pumheight=10                        " Makes popup menu smaller
 set fileencoding=utf-8                  " The encoding written to file
 set number                              " Line numbers
-set ruler                               " Show the cursor position all the time
+" set ruler                               " Show the cursor position all the time
 set cmdheight=1                         " More space for displaying messages
 set mouse=a                             " Enable your mouse
 set splitbelow                          " Horizontal splits will automatically be below
@@ -22,6 +22,7 @@ set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set formatoptions-=cro                  " Stop newline continution of comments
 set clipboard=unnamedplus               " Copy paste between vim and everything else
 " set autochdir                           " Your working directory will always be the same as your working directory
+set so=5                                " Scroll offset to get a code peak
 
 " }}}
 " Tabs & Spaces
@@ -44,28 +45,38 @@ set laststatus=2                        " Always display the status line
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 
 if (has("termguicolors"))
- set termguicolors
+  set termguicolors
 endif
 
 let g:rainbow_active = 1
 
+let g:current_theme = 'gruvbox-material'
+function! LoadTheme()
+  if (g:current_theme == 'gruvbox_material')
+    let g:gruvbox_material_background = 'hard'
+    let g:gruvbox_material_enable_italic = 1
+    let g:gruvbox_material_enable_bold = 1
+    let g:gruvbox_material_current_word = 'bold'
+    let g:gruvbox_material_diagnostic_line_highlight = 1
+  elseif (g:current_theme == 'miramare')
+    let g:miramare_enable_italic = 1
+    let g:miramare_current_word = 'bold'
+  endif
+  
+  execute 'colorscheme ' . g:current_theme
+endfunction
+call LoadTheme()
+
 let g:lightline = {
-	\ 'colorscheme': 'gruvbox_material',
-	\ 'active': {
-	\   'right': [ [ 'lineinfo' ],
-	\              [ 'percent' ],
-	\              [ 'gitbranch', 'filetype' ] ]
-	\ },
-	\ 'component_function': {
-	\   'gitbranch': 'gitbranch#name'
-	\ },
-	\ }
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_enable_bold = 1
-let g:gruvbox_material_current_word = 'bold'
-let g:gruvbox_material_diagnostic_line_highlight = 1
-colorscheme gruvbox-material
+  \ 'colorscheme': 'gruvbox_material',
+  \ 'active': {
+  \   'left': [ ['mode'], ['readonly', 'relativepath', 'modified'] ],
+  \   'right': [ ['lineinfo'], ['percent'], ['filetype'] ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'gitbranch#name'
+  \ },
+  \ }
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
