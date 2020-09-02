@@ -71,12 +71,16 @@ let g:lightline = {
   \ 'colorscheme': 'gruvbox_material',
   \ 'active': {
   \   'left': [ ['mode'], ['readonly', 'relativepath', 'modified'] ],
-  \   'right': [ ['lineinfo'], ['percent'], ['filetype'] ]
+  \   'right': [ ['lineinfo'], ['percent'], ['filetype'], ['cocstatus'] ]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'gitbranch#name'
+  \   'gitbranch': 'gitbranch#name',
+  \   'cocstatus': 'coc#status',
   \ },
   \ }
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =

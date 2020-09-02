@@ -4,10 +4,7 @@ set rtp+=/usr/local/opt/fzf
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_preview_window = 'right:60%'
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden --follow --glob '!.git/**'"
-
-let g:my_fzf_default_opts = ['--layout=reverse', '--inline-info', '--preview "bat --style=numbers --color=always --theme=TwoDark {}"']
+let g:my_fzf_default_opts = ['--layout=reverse', '--inline-info']
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -27,7 +24,7 @@ let g:fzf_colors =
 
 " Get Files
 command! -bang -nargs=? -complete=dir Files
-			\ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': g:my_fzf_default_opts }), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': g:my_fzf_default_opts }), <bang>0)
 
 " Make Ripgrep ONLY search file contents and not filenames
 command! -bang -nargs=* Rg
@@ -41,7 +38,7 @@ command! -bang -nargs=* Rg
 command! -bang -nargs=* GGrep
   \ call fzf#vim#grep(
   \   'git grep --line-number '.shellescape(<q-args>), 0,
-	\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0], 'options': g:my_fzf_default_opts }), <bang>0)
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
 
 " }}}
 " Mapping {{{

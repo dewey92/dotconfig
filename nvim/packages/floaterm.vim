@@ -1,5 +1,5 @@
 let g:floaterm_keymap_new    = '<Leader>ot'
-let g:floaterm_keymap_prev   = '<Leader>tb'
+let g:floaterm_keymap_prev   = '<Leader>tp'
 let g:floaterm_keymap_next   = '<Leader>tn'
 let g:floaterm_keymap_toggle = '<Leader>tt'
 
