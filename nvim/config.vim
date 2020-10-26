@@ -50,25 +50,31 @@ endif
 
 let g:rainbow_active = 1
 
-let g:current_theme = 'gruvbox-material'
+let s:current_theme = 'material'
 function! LoadTheme()
-  if (g:current_theme == 'gruvbox_material')
+  if s:current_theme == 'gruvbox_material'
     let g:gruvbox_material_background = 'hard'
     let g:gruvbox_material_enable_italic = 1
     let g:gruvbox_material_enable_bold = 1
     let g:gruvbox_material_current_word = 'bold'
     let g:gruvbox_material_diagnostic_line_highlight = 1
-  elseif (g:current_theme == 'miramare')
+    let s:lightline_theme = 'gruvbox_material'
+  elseif s:current_theme == 'miramare'
     let g:miramare_enable_italic = 1
     let g:miramare_current_word = 'bold'
+    let s:lightline_theme = 'miramare'
+  elseif s:current_theme == 'material'
+    let g:material_theme_style = 'darker-community'
+    let g:material_terminal_italics = 1
+    let s:lightline_theme = 'material_vim'
   endif
   
-  execute 'colorscheme ' . g:current_theme
+  execute 'colorscheme ' . s:current_theme
 endfunction
 call LoadTheme()
 
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox_material',
+  \ 'colorscheme': s:lightline_theme,
   \ 'active': {
   \   'left': [ ['mode'], ['readonly', 'relativepath', 'modified'] ],
   \   'right': [ ['lineinfo'], ['percent'], ['filetype'], ['cocstatus'] ]

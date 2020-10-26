@@ -41,6 +41,9 @@ nnoremap P P`[v`]=
 " Copy-paste seamlessly between normal buffer & terminal buffer
 tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
+" Copy filepath to clipboard
+nnoremap <Leader>yp :let @+=@% <CR>
+
 nnoremap <silent> <Esc><Esc> :noh<CR>
 
 " Source config automatically

@@ -22,6 +22,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'franbach/miramare'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'itchyny/vim-gitbranch'
@@ -35,7 +36,6 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'purescript-contrib/purescript-vim'
-Plug 'sriharshachilakapati/vimmer-ps'
 
 " etc
 Plug 'wakatime/vim-wakatime'
