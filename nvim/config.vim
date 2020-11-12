@@ -85,8 +85,17 @@ let g:lightline = {
   \ },
   \ }
 
+" Purescript
+let g:purescript_indent_do = 2
+let g:purescript_indent_where = 2
+let g:purescript_indent_case = 2
+let g:purescript_indent_in = 0
+
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
+
+" Use space for these filetypes
+autocmd FileType purescript set expandtab shiftwidth=2 softtabstop=2 tabstop=2
