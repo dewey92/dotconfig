@@ -2,6 +2,7 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 $HOME/.config/polybar/launch.sh &
+picom --experimental-backends &
 
 # Monitor
 bspc monitor eDP -d I
