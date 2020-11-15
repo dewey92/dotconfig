@@ -18,7 +18,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222
+background = #1a1a1a
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
@@ -26,6 +26,16 @@ foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
+
+material-fg = #d4be98
+material-fg-alt = #ddc7a1
+material-red = #ea6962
+material-orange = #e78a42
+material-yellow = #d8a657
+material-green = #a9b665
+material-aqua = #89b482
+material-blue = #7daea3
+material-purple = #d3869b
 
 [bar/example]
 monitor = ${env:MONITOR}
@@ -76,6 +86,8 @@ tray-padding = 2
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+separator = %{F#555}|%{F-}
 
 [module/xwindow]
 type = internal/xwindow
@@ -128,7 +140,7 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
-label-monitor = %name%
+label-monitor = %{B#7daea3}%{F#333} %name%%{F-}
 
 format = <label-monitor> <label-state> <label-mode>
 
@@ -218,21 +230,21 @@ inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 
-[module/cpu]
-type = internal/cpu
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage:2%%
-
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format-prefix-foreground = ${colors.material-aqua}
+;format-underline = #4bffdc
 label = %percentage_used%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = ${colors.material-orange}
+;format-underline = #f90000
+label = %percentage:2%%
 
 [module/wlan]
 type = internal/network
@@ -240,7 +252,7 @@ interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+;format-connected-underline = #9f78e1
 label-connected = %essid%
 
 format-disconnected =
@@ -254,7 +266,7 @@ ramp-signal-1 = 
 ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+ramp-signal-foreground = ${colors.material-purple}
 
 [module/eth]
 type = internal/network
@@ -283,8 +295,8 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+format-prefix-foreground = ${colors.material-blue}
+;format-underline = #0a6cf5
 
 label = %date% %time%
 
@@ -292,7 +304,7 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume = Vol %percentage%%
 label-volume-foreground = ${root.foreground}
 
 label-muted = 🔇 muted
@@ -347,27 +359,27 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = ADP1
-full-at = 99
+full-at = 97
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
 format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+;format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+format-full-prefix-foreground = ${self.format-charging-underline}
+;format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
-ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-foreground = ${self.format-charging-underline}
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
-animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-foreground = ${self.format-charging-underline}
 animation-charging-framerate = 750
 
 animation-discharging-0 = 
@@ -382,9 +394,9 @@ thermal-zone = 0
 warn-temperature = 60
 
 format = <ramp> <label>
-format-underline = #f50a4d
+; format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+format-warn-underline = ${colors.material-red}
 
 label = %temperature-c%
 label-warn = %temperature-c%
@@ -393,7 +405,7 @@ label-warn-foreground = ${colors.secondary}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-foreground = #f50a4d
 
 [module/powermenu]
 type = custom/menu
@@ -430,7 +442,7 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
-;pseudo-transparency = false
+pseudo-transparency = true
 
 [global/wm]
 margin-top = 5
