@@ -84,7 +84,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,alt + }{1-9}
-	bspc {desktop -f,node -d} '^{1-9}'
+	bspc {desktop -f,node -d} '^{1-9}' --follow
 
 # focus on the external monitor
 super + n
@@ -125,3 +125,18 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#
+# Volume keys
+# Somehow KDE doesn't detect Volume keys unless you have
+# the volume widget in the bar
+#
+
+XF86AudioLowerVolume
+	amixer set Master 5%-
+
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+
+XF86AudioMute
+	amixer set Master toggle
