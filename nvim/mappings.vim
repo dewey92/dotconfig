@@ -52,6 +52,9 @@ nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PlugInstall<CR>
 " Source what's in selection
 vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
 
+" Easy save
+nnoremap ;w :w
+
 " Quitting & Load
 nnoremap <Leader>qq :mks! $HOME/.config/nvim/sessions/last.vim\|qa<CR>
 nnoremap <Leader>ql :source $HOME/.config/nvim/sessions/last.vim<CR>
