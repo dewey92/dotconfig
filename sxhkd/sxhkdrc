@@ -12,6 +12,10 @@ super + Return
 super + @space
 	rofi -show drun
 
+# emoji selector
+super + ctrl + space
+	rofi -show emoji -modi emoji -matching normal
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
