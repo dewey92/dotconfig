@@ -22,6 +22,10 @@ nnoremap <Leader>wh <C-w>h
 nnoremap <Leader>wj <C-w>j
 nnoremap <Leader>wk <C-w>k
 nnoremap <Leader>wl <C-w>l
+nnoremap <Leader>wH <C-w>H
+nnoremap <Leader>wJ <C-w>J
+nnoremap <Leader>wK <C-w>K
+nnoremap <Leader>wL <C-w>L
 nnoremap <Leader>wv <C-w>v
 nnoremap <Leader>ws <C-w>s
 nnoremap <Leader>wc <C-w>c
@@ -44,8 +48,6 @@ tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 " Copy filepath to clipboard
 nnoremap <Leader>yp :let @+=@% <CR>
 
-nnoremap <silent> <Esc><Esc> :noh<CR>
-
 " Source config automatically
 nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PlugInstall<CR>
 
@@ -58,3 +60,5 @@ nnoremap ;w :w
 " Quitting & Load
 nnoremap <Leader>qq :mks! $HOME/.config/nvim/sessions/last.vim\|qa<CR>
 nnoremap <Leader>ql :source $HOME/.config/nvim/sessions/last.vim<CR>
+
+nnoremap <silent> <Esc><Esc> :noh<CR>

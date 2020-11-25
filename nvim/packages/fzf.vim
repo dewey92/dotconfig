@@ -4,7 +4,7 @@ set rtp+=/usr/local/opt/fzf
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 let g:fzf_preview_window = 'right:60%'
 
-let g:my_fzf_default_opts = ['--layout=reverse', '--inline-info']
+let g:my_fzf_default_opts = ['--reverse', '--info=inline']
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
