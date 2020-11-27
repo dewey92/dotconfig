@@ -237,7 +237,7 @@ interval = 3
 format-prefix = " "
 format-prefix-foreground = ${colors.material-aqua}
 ;format-underline = #4bffdc
-label = %percentage_used%% - %gb_used%
+label = %gb_used%
 
 [module/cpu]
 type = internal/cpu
