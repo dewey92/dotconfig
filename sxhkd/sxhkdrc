@@ -20,6 +20,10 @@ super + ctrl + space
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# screenshot with Flameshot
+super + shift + 4
+	flameshot gui
+
 #
 # bspwm hotkeys
 #
