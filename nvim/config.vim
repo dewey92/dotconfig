@@ -91,6 +91,9 @@ let g:purescript_indent_where = 2
 let g:purescript_indent_case = 2
 let g:purescript_indent_in = 0
 
+" Vim Wiki
+let g:vimwiki_map_prefix = '<Leader>n'
+
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 

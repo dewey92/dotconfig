@@ -41,5 +41,6 @@ Plug 'purescript-contrib/purescript-vim'
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-rooter'
 Plug 'voldikss/vim-floaterm'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
