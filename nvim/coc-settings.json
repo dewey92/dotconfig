@@ -3,16 +3,16 @@
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
 	"languageserver": {
-		"purescript": {                                
-			"command": "purescript-language-server", 
-			"args": ["--stdio", "--config {}"], 
-			"filetypes": ["purescript"], 
+		"purescript": {
+			"command": "purescript-language-server",
+			"args": ["--stdio", "--config {}"],
+			"filetypes": ["purescript"],
 			"rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"],
 			"settings": {
 				"purescript": {
 					"addSpagoSources": true
 				}
 			}
-		} 
+		}
 	}
 }

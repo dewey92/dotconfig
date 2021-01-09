@@ -48,6 +48,14 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+" Create whitespace group before color scheme as it might get overriden
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
 let g:rainbow_active = 1
 
 let s:current_theme = 'material'
@@ -93,6 +101,9 @@ let g:purescript_indent_in = 0
 
 " Vim Wiki
 let g:vimwiki_map_prefix = '<Leader>n'
+
+" Markdown
+let g:markdown_fenced_languages = ['html', 'typescript=ts', 'bash=sh', 'haskell=hs', 'purescript']
 
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
