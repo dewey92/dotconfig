@@ -67,7 +67,7 @@ font-2 = Siji:pixelsize=10;1
 
 modules-left = bspwm xwindow
 ;modules-center = mpd
-modules-right = filesystem pulseaudio cpu memory wlan battery temperature date powermenu
+modules-right = filesystem pulseaudio cpu memory wlan battery temperature date ;powermenu
 
 tray-position = none
 tray-padding = 2
@@ -289,7 +289,7 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "%d %b"
+date = "%a, %d %b"
 date-alt = " %Y-%m-%d"
 
 time = %H:%M
