@@ -58,9 +58,9 @@ autocmd BufWinLeave * call clearmatches()
 
 let g:rainbow_active = 1
 
-let s:current_theme = 'material'
+let s:current_theme = 'gruvbox-material'
 function! LoadTheme()
-  if s:current_theme == 'gruvbox_material'
+  if s:current_theme == 'gruvbox-material'
     let g:gruvbox_material_background = 'hard'
     let g:gruvbox_material_enable_italic = 1
     let g:gruvbox_material_enable_bold = 1
@@ -76,7 +76,7 @@ function! LoadTheme()
     let g:material_terminal_italics = 1
     let s:lightline_theme = 'material_vim'
   endif
-  
+
   execute 'colorscheme ' . s:current_theme
 endfunction
 call LoadTheme()
