@@ -8,7 +8,6 @@ set nowrap                              " Display long lines as just one line
 set encoding=utf-8                      " The encoding displayed
 set pumheight=10                        " Makes popup menu smaller
 set fileencoding=utf-8                  " The encoding written to file
-set number                              " Line numbers
 " set ruler                               " Show the cursor position all the time
 set cmdheight=1                         " More space for displaying messages
 set mouse=a                             " Enable your mouse
@@ -33,7 +32,12 @@ set shiftwidth=2                        " Change the number of space characters 
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 " set expandtab                           " Converts tabs to spaces
 set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮ 
+set listchars=tab:▸\ ,extends:❯,precedes:❮ " Diaplay whitespace chars; Extra whitespace required
+
+" Use space for these filetypes
+autocmd FileType purescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 
 " }}}
 " Themes & Appearances {{{
@@ -47,14 +51,6 @@ set noshowmode                          " We don't need to see things like -- IN
 if (has("termguicolors"))
   set termguicolors
 endif
-
-" Create whitespace group before color scheme as it might get overriden
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
 
 let g:rainbow_active = 1
 
@@ -93,6 +89,32 @@ let g:lightline = {
   \ },
   \ }
 
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" Enable hybrid line numbering, only fro the focused buffer
+set number relativenumber
+augroup numbertoggle
+	autocmd!
+	autocmd BufEnter,FocusGained,WinEnter * if &nu | set rnu   | endif
+	autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
+augroup END
+
+" Create whitespace group
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" }}}
+" Languages {{{
+" ____________________
+
 " Purescript
 let g:purescript_indent_do = 2
 let g:purescript_indent_where = 2
@@ -104,12 +126,3 @@ let g:vimwiki_map_prefix = '<Leader>n'
 
 " Markdown
 let g:markdown_fenced_languages = ['html', 'typescript=ts', 'bash=sh', 'haskell=hs', 'purescript']
-
-" Use auocmd to force lightline update.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-" Automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
-
-" Use space for these filetypes
-autocmd FileType purescript set expandtab shiftwidth=2 softtabstop=2 tabstop=2

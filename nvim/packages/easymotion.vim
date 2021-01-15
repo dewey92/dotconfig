@@ -2,6 +2,6 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase = 1
 
 " Easy motion default
-nmap gss <Plug>(easymotion-overwin-f2)
-nmap gsj <Plug>(easymotion-overwin-w)
-nmap gs<space> <Plug>(easymotion-sn)
+nmap <Leader>ss <Plug>(easymotion-overwin-f2)
+nmap <Leader>sj <Plug>(easymotion-overwin-w)
+nmap <Leader>s<space> <Plug>(easymotion-sn)
