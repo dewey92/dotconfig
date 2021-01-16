@@ -1,7 +1,6 @@
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  "autocmd VimEnter * PlugInstall
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
@@ -31,12 +30,7 @@ Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-gitgutter'
 
 " Languages
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'purescript-contrib/purescript-vim'
-Plug 'plasticboy/vim-markdown'
+Plug 'sheerun/vim-polyglot'
 
 " etc
 Plug 'wakatime/vim-wakatime'
