@@ -57,7 +57,8 @@ vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
 " Quick search and replace
 nnoremap <Leader>r :%s///g<Left><Left>
 xnoremap <Leader>r :s///g<Left><Left>
-autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update
+autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
+
 
 " Easy save
 nnoremap ;w :w
