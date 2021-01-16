@@ -35,9 +35,11 @@ set list
 set listchars=tab:▸\ ,extends:❯,precedes:❮ " Diaplay whitespace chars; Extra whitespace required
 
 " Use space for these filetypes
+filetype plugin indent on
+autocmd FileType vim setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType purescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2 wrap linebreak
 
 " }}}
 " Themes & Appearances {{{
@@ -122,7 +124,23 @@ let g:purescript_indent_case = 2
 let g:purescript_indent_in = 0
 
 " Vim Wiki
-let g:vimwiki_map_prefix = '<Leader>n'
+" let g:vimwiki_map_prefix = '<Leader>n'
+" let g:vimwiki_list = [{
+"   \ 'path': '~/vimwiki/',
+"   \ 'syntax': 'markdown',
+"   \ 'ext' : '.md'
+"   \ }]
+" let g:vimwiki_ext2syntax = { '.wiki': 'markdown' }
 
 " Markdown
-let g:markdown_fenced_languages = ['html', 'typescript=ts', 'bash=sh', 'haskell=hs', 'purescript']
+let g:vim_markdown_fenced_languages = [
+  \ 'html',
+  \ 'javascript',
+  \ 'javascriptreact',
+  \ 'typescript',
+  \ 'ts=typescript',
+  \ 'tsx=typescript',
+  \ 'bash=sh',
+  \ 'haskell',
+  \ 'hs=haskell',
+  \ ]

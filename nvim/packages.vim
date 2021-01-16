@@ -36,11 +36,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'purescript-contrib/purescript-vim'
+Plug 'plasticboy/vim-markdown'
 
 " etc
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-rooter'
 Plug 'voldikss/vim-floaterm'
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 call plug#end()
