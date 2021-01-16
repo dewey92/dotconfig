@@ -54,6 +54,11 @@ nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PlugInstall<CR>
 " Source what's in selection
 vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
 
+" Quick search and replace
+nnoremap <Leader>r :%s///g<Left><Left>
+xnoremap <Leader>r :s///g<Left><Left>
+autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update
+
 " Easy save
 nnoremap ;w :w
 
