@@ -14,5 +14,6 @@
 				}
 			}
 		}
-	}
+	},
+	"list.maxPreviewHeight": 18,
 }
