@@ -3,13 +3,14 @@ set nobackup
 set nowritebackup
 
 let g:coc_global_extensions = [
-	\ 'coc-snippets',
-	\ 'coc-pairs',
-	\ 'coc-tsserver',
-	\ 'coc-eslint',
-	\ 'coc-json',
-	\ 'coc-phpls',
-	\ ]
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint',
+  \ 'coc-eslint',
+  \ 'coc-json',
+  \ 'coc-phpls',
+  \ ]
 
 " Use <c-space> to trigger completion
 if has('nvim')
