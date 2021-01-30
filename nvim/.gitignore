@@ -2,3 +2,4 @@ autoload/plugged/*
 sessions
 
 .DS_Store
+.netrwhist
