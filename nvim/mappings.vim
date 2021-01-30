@@ -12,10 +12,10 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Move lines
-nnoremap <C-k> :<C-u>move-2<CR>==
-nnoremap <C-j> :<C-u>move+<CR>==
-xnoremap <C-k> :move-2<CR>='[gv
-xnoremap <C-j> :move'>+<CR>='[gv
+nnoremap <C-k> :m .-2<CR>==
+nnoremap <C-j> :m .+1<CR>==
+xnoremap <C-k> :m '<-2<CR>gv=gv
+xnoremap <C-j> :m '>+1<CR>gv=gv
 
 " Better window navigation
 nnoremap <Leader>wh <C-w>h
