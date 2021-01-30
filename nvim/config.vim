@@ -33,7 +33,7 @@ set shiftwidth=2                        " Change the number of space characters 
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 " set expandtab                           " Converts tabs to spaces
 set list
-set listchars=tab:▸\ ,extends:❯,precedes:❮ " Diaplay whitespace chars; Extra whitespace required
+set listchars=extends: ❯,precedes:❮ " Diaplay whitespace chars;
 
 " Use space for these filetypes
 filetype plugin indent on
@@ -41,6 +41,10 @@ autocmd FileType vim setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType purescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2 wrap linebreak
+
+" Guide indentations
+let g:indentguides_spacechar = '|'
+let g:indentguides_tabchar = '▸'
 
 " }}}
 " Themes & Appearances {{{
@@ -92,7 +96,7 @@ let g:lightline = {
   \ },
   \ }
 
-" Use auocmd to force lightline update.
+" Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Enable hybrid line numbering, only fro the focused buffer

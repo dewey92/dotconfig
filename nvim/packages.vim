@@ -28,6 +28,7 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'TaDaa/vimade'
 Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-gitgutter'
+Plug 'thaerkh/vim-indentguides'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
