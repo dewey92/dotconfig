@@ -21,7 +21,7 @@ set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set formatoptions-=cro                  " Stop newline continution of comments
 set clipboard=unnamedplus               " Copy paste between vim and everything else
 " set autochdir                           " Your working directory will always be the same as your working directory
-set so=5                                " Scroll offset to get a code peak
+set so=10                               " Scroll offset to get a code peak
 set signcolumn=yes                      " Always show to prevent junky visual when a sign pops up (git gutters, errors, etc)
 
 " }}}
@@ -33,7 +33,7 @@ set shiftwidth=2                        " Change the number of space characters 
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 " set expandtab                           " Converts tabs to spaces
 set list
-set listchars=extends: ❯,precedes:❮ " Diaplay whitespace chars;
+set listchars=extends:❯,precedes:❮ " Diaplay whitespace chars;
 
 " Use space for these filetypes
 filetype plugin indent on
