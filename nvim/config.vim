@@ -118,6 +118,11 @@ autocmd BufWinLeave * call clearmatches()
 " Automatically rebalance windows on vim resize
 autocmd VimResized * :wincmd =
 
+" Git blame
+let g:blamer_enabled = 1
+let g:blamer_template = '<committer>, <committer-time> • <summary> • <commit-short>'
+let g:blamer_date_format = '%d/%m/%y'
+
 " }}}
 " Languages {{{
 " ____________________

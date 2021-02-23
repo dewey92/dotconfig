@@ -37,6 +37,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'wakatime/vim-wakatime'
 Plug 'airblade/vim-rooter'
 Plug 'voldikss/vim-floaterm'
+Plug 'APZelos/blamer.nvim'
 " Plug 'vimwiki/vimwiki'
 
 call plug#end()
