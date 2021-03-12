@@ -12,7 +12,7 @@ Plug 'junegunn/fzf.vim'
 
 " Editors
 Plug 'tpope/vim-surround'
-Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
