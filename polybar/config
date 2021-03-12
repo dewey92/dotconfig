@@ -67,7 +67,7 @@ font-2 = Siji:pixelsize=10;1
 
 modules-left = bspwm xwindow
 ;modules-center = mpd
-modules-right = filesystem pulseaudio cpu memory wlan battery temperature date ;powermenu
+modules-right = filesystem pulseaudio cpu memory wlan battery date
 
 tray-position = none
 tray-padding = 2
@@ -125,7 +125,7 @@ type = internal/bspwm
 
 pin-workspaces = true
 
-label-focused = %name%
+label-focused = %icon%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
@@ -289,15 +289,18 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "%a, %d %b"
+date = "  %a, %d %b"
 date-alt = " %Y-%m-%d"
 
-time = %H:%M
+time = "%H:%M  "
 time-alt = %H:%M:%S
 
-format-prefix =  %{F-}
-format-prefix-foreground = ${colors.material-blue}
+; format-prefix = "   %{F-}"
+; format-prefix-foreground = #333
 ;format-underline = #0a6cf5
+
+format-foreground = #333
+format-background = ${colors.material-blue}
 
 label = %date% %time%
 
