@@ -9,3 +9,5 @@ source $HOME/.config/nvim/packages/hop.vim
 source $HOME/.config/nvim/packages/floaterm.vim
 source $HOME/.config/nvim/packages/gitgutter.vim
 
+" Lua files
+lua require('plugins/treesitter')

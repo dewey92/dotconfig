@@ -15,6 +15,7 @@ Plug 'tpope/vim-surround'
 Plug 'phaazon/hop.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Themes & Apperances
 Plug 'drewtempelmeyer/palenight.vim'
@@ -31,7 +32,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'thaerkh/vim-indentguides'
 
 " Languages
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " etc
 Plug 'wakatime/vim-wakatime'
