@@ -1,5 +1,6 @@
-" General {{{
-" _______
+" ==============================================================================
+" General
+" ==============================================================================
 let g:mapleader = "\<Space>"
 
 syntax enable                           " Enables syntax highlighing
@@ -24,9 +25,9 @@ set clipboard=unnamedplus               " Copy paste between vim and everything 
 set so=10                               " Scroll offset to get a code peak
 set signcolumn=yes                      " Always show to prevent junky visual when a sign pops up (git gutters, errors, etc)
 
-" }}}
+" ==============================================================================
 " Tabs & Spaces
-" _____________ {{{
+" ==============================================================================
 set showtabline=0                       " Don't show tab line! We have filename already yielded below
 set tabstop=2                           " Insert 2 spaces for a tab
 set shiftwidth=2                        " Change the number of space characters inserted for indentation
@@ -46,9 +47,9 @@ autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=
 let g:indentguides_spacechar = '|'
 let g:indentguides_tabchar = '▸'
 
-" }}}
-" Themes & Appearances {{{
-" ____________________
+" ==============================================================================
+" Themes & Appearances
+" ==============================================================================
 set cursorline                          " Enable highlighting of the current line
 set background=dark                     " tell vim what the background color looks like
 set t_Co=256                            " Support 256 colors
@@ -59,7 +60,8 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-let g:rainbow_active = 1
+lua require('nvim-web-devicons').setup { default = true }
+lua require('colorizer').setup()
 
 let s:current_theme = 'gruvbox-material'
 function! LoadTheme()
@@ -123,9 +125,9 @@ let g:blamer_enabled = 1
 let g:blamer_template = '<committer>, <committer-time> • <summary> • <commit-short>'
 let g:blamer_date_format = '%d/%m/%y'
 
-" }}}
-" Languages {{{
-" ____________________
+" ==============================================================================
+" Languages
+" ==============================================================================
 
 " Purescript
 let g:purescript_indent_do = 2
