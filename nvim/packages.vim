@@ -32,7 +32,6 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'itchyny/lightline.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mhinz/vim-startify'
-Plug 'itchyny/vim-gitbranch'
 Plug 'TaDaa/vimade'
 Plug 'airblade/vim-gitgutter'
 Plug 'thaerkh/vim-indentguides'

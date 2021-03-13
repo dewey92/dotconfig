@@ -93,7 +93,6 @@ let g:lightline = {
   \   'right': [ ['lineinfo'], ['percent'], ['filetype'], ['cocstatus'] ]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'gitbranch#name',
   \   'cocstatus': 'coc#status',
   \ },
   \ }
