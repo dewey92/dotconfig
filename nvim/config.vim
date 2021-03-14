@@ -34,7 +34,7 @@ set shiftwidth=2                        " Change the number of space characters 
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 " set expandtab                           " Converts tabs to spaces
 set list
-set listchars=extends:❯,precedes:❮ " Diaplay whitespace chars;
+set listchars=tab:▸\ ,extends:❯,precedes:❮ " Diaplay whitespace chars;
 
 " Use space for these filetypes
 filetype plugin indent on
@@ -46,6 +46,9 @@ autocmd FileType markdown setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=
 " Guide indentations
 let g:indentguides_spacechar = '|'
 let g:indentguides_tabchar = '▸'
+
+" let g:indent_blankline_space_char = '|'
+" let g:indent_blankline_char_highlight_list = true
 
 " ==============================================================================
 " Themes & Appearances
@@ -77,7 +80,7 @@ function! LoadTheme()
     let g:miramare_current_word = 'bold'
     let s:lightline_theme = 'miramare'
   elseif s:current_theme == 'material'
-    let g:material_theme_style = 'darker-community'
+    let g:material_theme_style = 'lighter'
     let g:material_terminal_italics = 1
     let s:lightline_theme = 'material_vim'
   endif
@@ -89,13 +92,23 @@ call LoadTheme()
 let g:lightline = {
   \ 'colorscheme': s:lightline_theme,
   \ 'active': {
-  \   'left': [ ['mode'], ['readonly', 'relativepath', 'modified'] ],
+  \   'left': [ ['mode'], ['readonly', 'relPathWithIcon', 'modified'] ],
   \   'right': [ ['lineinfo'], ['percent'], ['filetype'], ['cocstatus'] ]
+  \ },
+  \ 'inactive': {
+  \   'left': [['relPathWithIcon']],
+  \   'right': [['lineinfo'], ['percent']]
   \ },
   \ 'component_function': {
   \   'cocstatus': 'coc#status',
+  \   'relPathWithIcon': 'RelativePathWithIcon',
   \ },
   \ }
+
+function! RelativePathWithIcon()
+  lua icon = require'nvim-web-devicons'.get_icon(vim.fn.expand('%:t'), vim.fn.expand('%:e'))
+  return luaeval('icon') . ' ' . expand('%:f')
+endfunction
 
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
