@@ -63,9 +63,6 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-lua require('nvim-web-devicons').setup { default = true }
-lua require('colorizer').setup()
-
 let s:current_theme = 'gruvbox-material'
 function! LoadTheme()
   if s:current_theme == 'gruvbox-material'
@@ -92,23 +89,27 @@ call LoadTheme()
 let g:lightline = {
   \ 'colorscheme': s:lightline_theme,
   \ 'active': {
-  \   'left': [ ['mode'], ['readonly', 'relPathWithIcon', 'modified'] ],
+  \   'left': [ ['mode'], ['readonly', 'getIcon', 'relativepath', 'modified'] ],
   \   'right': [ ['lineinfo'], ['percent'], ['filetype'], ['cocstatus'] ]
   \ },
   \ 'inactive': {
-  \   'left': [['relPathWithIcon']],
+  \   'left': [['getIcon', 'filename']],
   \   'right': [['lineinfo'], ['percent']]
   \ },
   \ 'component_function': {
   \   'cocstatus': 'coc#status',
-  \   'relPathWithIcon': 'RelativePathWithIcon',
+  \   'getIcon': 'GetIcon',
   \ },
   \ }
 
-function! RelativePathWithIcon()
+function! GetIcon()
   lua icon = require'nvim-web-devicons'.get_icon(vim.fn.expand('%:t'), vim.fn.expand('%:e'))
-  return luaeval('icon') . ' ' . expand('%:f')
+  return luaeval('icon')
 endfunction
+
+autocmd ColorScheme * lua require('nvim-web-devicons').setup { default = true }
+
+lua require('colorizer').setup()
 
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
