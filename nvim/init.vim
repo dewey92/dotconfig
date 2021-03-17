@@ -1,4 +1,4 @@
-source $HOME/.config/nvim/packages.vim
+lua require('plugins')
 source $HOME/.config/nvim/config.vim
 source $HOME/.config/nvim/mappings.vim
 
