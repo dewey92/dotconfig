@@ -49,7 +49,7 @@ tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 nnoremap <Leader>yp :let @+=@% <CR>
 
 " Source config automatically
-nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PlugInstall<CR>
+nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PackerSync<CR>
 
 " Source what's in selection
 vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
@@ -59,9 +59,14 @@ nnoremap <Leader>r :%s///g<Left><Left>
 xnoremap <Leader>r :s///g<Left><Left>
 autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
+" Make a new line after a space
+nnoremap <Leader>nl f<Space>xi<CR><Esc>
 
 " Easy save
 nnoremap ;w :w
+
+" Save and reload buffer
+nnoremap <Leader>e :w\|:e<CR>
 
 " Quitting & Load
 nnoremap <Leader>qq :mks! $HOME/.config/nvim/sessions/last.vim\|qa<CR>
