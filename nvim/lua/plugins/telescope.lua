@@ -108,9 +108,9 @@ nnoremap { '<Leader>.', M.find_sibling_files, opts }
 nnoremap { '<Leader>bb', builtin.buffers, opts }
 nnoremap { '<Leader>fp', M.nvim_config, opts }
 
-nnoremap { '<Leader>sp', M.search_string, opts }
-xnoremap { '<Leader>sp', M.visual_search_string, opts }
-nnoremap { '<Leader>sP', builtin.live_grep, opts }
+nnoremap { '<Leader>sp', builtin.live_grep, opts }
+nnoremap { '<Leader>sP', M.search_string, opts } -- very slow for large project
+xnoremap { '<Leader>sP', M.visual_search_string, opts }
 nnoremap { '<Leader>sb', builtin.current_buffer_fuzzy_find, opts }
 
 nnoremap { '<Leader>ht', builtin.colorscheme, opts }

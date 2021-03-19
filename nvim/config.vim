@@ -63,7 +63,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-let s:current_theme = 'gruvbox-material'
+let s:current_theme = 'gruvbox8_hard'
 function! LoadTheme()
   if s:current_theme == 'gruvbox-material'
     let g:gruvbox_material_background = 'hard'
@@ -72,6 +72,15 @@ function! LoadTheme()
     let g:gruvbox_material_current_word = 'bold'
     let g:gruvbox_material_diagnostic_line_highlight = 1
     let s:lightline_theme = 'gruvbox_material'
+  elseif s:current_theme == 'gruvbox8_hard'
+    let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_bold = 1
+    let g:gruvbox_underline = 1
+    let g:gruvbox_undercurl = 1
+    let s:lightline_theme = 'gruvbox8'
+  elseif s:current_theme == 'embark'
+    let g:embark_terminal_italics = 1
+    let s:lightline_theme = 'embark'
   elseif s:current_theme == 'miramare'
     let g:miramare_enable_italic = 1
     let g:miramare_current_word = 'bold'
@@ -106,10 +115,6 @@ function! GetIcon()
   lua icon = require'nvim-web-devicons'.get_icon(vim.fn.expand('%:t'), vim.fn.expand('%:e'))
   return luaeval('icon')
 endfunction
-
-autocmd ColorScheme * lua require('nvim-web-devicons').setup { default = true }
-
-lua require('colorizer').setup()
 
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

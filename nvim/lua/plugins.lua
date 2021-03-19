@@ -51,10 +51,12 @@ require('packer').startup {
 				vim.api.nvim_command[[ autocmd ColorScheme * lua require('nvim-web-devicons').setup { default = true } ]]
 			end
 		}
-		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' } }
+		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disabled = true }
+		use 'lifepillar/vim-gruvbox8'
 		use 'drewtempelmeyer/palenight.vim'
 		use 'sainnhe/gruvbox-material'
 		use 'franbach/miramare'
+		use { 'embark-theme/vim', as = 'embark' }
 		use { 'kaicataldo/material.vim', branch = 'main' }
 		use { 'challenger-deep-theme/vim', as = 'challenger-deep' }
 
@@ -78,6 +80,5 @@ require('packer').startup {
 		use 'voldikss/vim-floaterm'
 		use 'APZelos/blamer.nvim'
 		use 'tweekmonster/startuptime.vim'
-		-- use 'vimwiki/vimwiki'
 	end
 }
