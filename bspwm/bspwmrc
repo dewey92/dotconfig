@@ -6,6 +6,9 @@ do
 	sleep 1
 done
 
+# Flush monitors when before restarting
+bspc config remove_unplugged_monitors true
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 $HOME/.config/polybar/launch.sh &
 bspwm &
