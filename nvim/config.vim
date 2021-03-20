@@ -64,36 +64,38 @@ if (has("termguicolors"))
 endif
 
 let s:current_theme = 'gruvbox8_hard'
-function! LoadTheme()
-  if s:current_theme == 'gruvbox-material'
+function! LoadTheme(theme)
+  if a:theme == 'gruvbox-material'
     let g:gruvbox_material_background = 'hard'
     let g:gruvbox_material_enable_italic = 1
     let g:gruvbox_material_enable_bold = 1
     let g:gruvbox_material_current_word = 'bold'
     let g:gruvbox_material_diagnostic_line_highlight = 1
     let s:lightline_theme = 'gruvbox_material'
-  elseif s:current_theme == 'gruvbox8_hard'
+  elseif a:theme == 'gruvbox8_hard'
     let g:gruvbox_contrast_dark = 'hard'
     let g:gruvbox_bold = 1
     let g:gruvbox_underline = 1
     let g:gruvbox_undercurl = 1
     let s:lightline_theme = 'gruvbox8'
-  elseif s:current_theme == 'embark'
+
+    autocmd ColorScheme * hi Normal guibg=#10151a
+  elseif a:theme == 'embark'
     let g:embark_terminal_italics = 1
     let s:lightline_theme = 'embark'
-  elseif s:current_theme == 'miramare'
+  elseif a:theme == 'miramare'
     let g:miramare_enable_italic = 1
     let g:miramare_current_word = 'bold'
     let s:lightline_theme = 'miramare'
-  elseif s:current_theme == 'material'
+  elseif a:theme == 'material'
     let g:material_theme_style = 'lighter'
     let g:material_terminal_italics = 1
     let s:lightline_theme = 'material_vim'
   endif
 
-  execute 'colorscheme ' . s:current_theme
+  execute 'colorscheme ' . a:theme
 endfunction
-call LoadTheme()
+call LoadTheme(s:current_theme)
 
 let g:lightline = {
   \ 'colorscheme': s:lightline_theme,
