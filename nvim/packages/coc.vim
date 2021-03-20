@@ -7,7 +7,7 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-eslint',
-  \ 'coc-eslint',
+  \ 'coc-stylelintplus',
   \ 'coc-json',
   \ 'coc-phpls',
   \ ]

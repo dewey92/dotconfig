@@ -2,6 +2,8 @@
 	"suggest.noselect": false,
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
 	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+	"stylelintplus.cssInJs": true,
+	"stylelintplus.autoFixOnSave": true,
 	"languageserver": {
 		"purescript": {
 			"command": "purescript-language-server",
