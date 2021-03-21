@@ -50,11 +50,11 @@ load_theme('gruvbox8_hard')
 g.lightline = {
 	colorscheme = lightline_theme,
 	active = {
-		left = { {'mode'}, {'readonly', 'getIcon', 'relativepath', 'modified'} },
+		left = { {'mode'}, {'getIcon'}, {'readonly', 'relativepath', 'modified'} },
 		right = { {'lineinfo'}, {'percent'}, {'filetype'}, {'cocstatus'} },
 	},
 	inactive = {
-		left = { {'getIcon', 'filename'} },
+		left = { {'getIcon'}, {'filename'} },
 		right = { {'lineinfo'}, {'percent'} }
 	},
 	component_function = {
@@ -64,10 +64,17 @@ g.lightline = {
 }
 
 _G.get_icon = function()
-	local icon = require'nvim-web-devicons'.get_icon(
+	local icon, hlgroup = require'nvim-web-devicons'.get_icon(
 		vim.fn.expand('%:t'),
 		vim.fn.expand('%:e')
 	)
+	local bg = vim.fn.synIDattr(vim.fn.hlID('LightlineLeft_normal_1'), 'bg')
+	local fg = vim.fn.synIDattr(vim.fn.hlID(hlgroup), 'fg')
+
+	vim.cmd(string.format('hi! DeweyLLIcon guibg=%s guifg=%s', bg, fg))
+
+	vim.cmd('hi! link LightlineLeft_normal_1 DeweyLLIcon')
+	vim.cmd('hi! link LightlineLeft_active_1 DeweyLLIcon')
 	return icon
 end
 
