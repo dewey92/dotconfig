@@ -103,6 +103,5 @@ vim.api.nvim_exec([[
 
 
 -- Git blame
-g.blamer_enabled = 1
-g.blamer_template = '<committer>, <committer-time> • <summary> • <commit-short>'
-g.blamer_date_format = '%d/%m/%y'
+g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
+g.gitblame_date_format = '%d/%m/%Y'

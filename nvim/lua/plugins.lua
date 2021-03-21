@@ -8,8 +8,10 @@ if not packer_exists then
 		'https://github.com/wbthomason/packer.nvim',
 		directory .. '/packer.nvim'
 	}
-	vim.cmd[[packadd packer.nvim]]
+	vim.cmd [[packadd packer.nvim]]
 end
+
+vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]] -- Auto compile!
 
 require('packer').startup {
 	function()
@@ -79,7 +81,7 @@ require('packer').startup {
 		use 'wakatime/vim-wakatime'
 		use 'airblade/vim-rooter'
 		use 'voldikss/vim-floaterm'
-		use 'APZelos/blamer.nvim'
+		use 'f-person/git-blame.nvim'
 		use 'tweekmonster/startuptime.vim'
 	end
 }
