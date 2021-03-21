@@ -40,9 +40,25 @@ require('packer').startup {
 
 		-- Editors
 		use 'tpope/vim-surround'
-		use 'phaazon/hop.nvim'
+		use {
+			'phaazon/hop.nvim',
+			config = function()
+				vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]]
+			end,
+		}
 		use 'tpope/vim-commentary'
-		use { 'neoclide/coc.nvim', branch = 'release' }
+		use {
+			'neoclide/coc.nvim',
+			branch = 'release',
+			ft = {
+				'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css',
+				'json', 'php',
+				'purescript', 'haskell',
+			},
+			config = function()
+				vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]]
+			end
+		}
 
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 		use 'p00f/nvim-ts-rainbow'
@@ -70,7 +86,12 @@ require('packer').startup {
 		}
 		use 'mhinz/vim-startify'
 		use 'TaDaa/vimade'
-		use 'airblade/vim-gitgutter'
+		use {
+			'airblade/vim-gitgutter',
+			config = function()
+				vim.cmd[[ source $HOME/.config/nvim/packages/gitgutter.vim ]]
+			end,
+		}
 		use 'thaerkh/vim-indentguides'
 		-- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
 
@@ -78,9 +99,14 @@ require('packer').startup {
 		-- use 'sheerun/vim-polyglot'
 
 		-- etc
-		use 'wakatime/vim-wakatime'
+		use { 'wakatime/vim-wakatime', event = {'BufReadPost'} }
 		use 'airblade/vim-rooter'
-		use 'voldikss/vim-floaterm'
+		use {
+			'voldikss/vim-floaterm',
+			config = function()
+				vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]]
+			end,
+		}
 		use 'f-person/git-blame.nvim'
 		use 'tweekmonster/startuptime.vim'
 	end
