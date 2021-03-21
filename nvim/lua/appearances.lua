@@ -68,8 +68,8 @@ _G.get_icon = function()
 		vim.fn.expand('%:t'),
 		vim.fn.expand('%:e')
 	)
-	local bg = vim.fn.synIDattr(vim.fn.hlID('LightlineLeft_normal_1'), 'bg')
-	local fg = vim.fn.synIDattr(vim.fn.hlID(hlgroup), 'fg')
+	local bg = utils.get_hl('LightlineLeft_normal_1', 'bg')
+	local fg = utils.get_hl(hlgroup, 'fg')
 
 	vim.cmd(string.format('hi! DeweyLLIcon guibg=%s guifg=%s', bg, fg))
 
@@ -88,7 +88,7 @@ vim.api.nvim_exec([[
 	" Use autocmd to force lightline update.
 	autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-	" Enable hybrid line numbering, only fro the focused buffer
+	" Enable hybrid line numbering, only for the focused buffer
 	set number relativenumber
 	augroup numbertoggle
 		autocmd!
@@ -111,4 +111,4 @@ vim.api.nvim_exec([[
 
 -- Git blame
 g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
-g.gitblame_date_format = '%d/%m/%Y'
+g.gitblame_date_format = '%d %b %Y'

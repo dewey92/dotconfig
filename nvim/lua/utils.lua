@@ -6,4 +6,8 @@ M.apply_options = function(opts)
 	end
 end
 
+M.get_hl = function(group, attr)
+	return vim.fn.synIDattr(vim.fn.hlID(group), attr)
+end
+
 return M
