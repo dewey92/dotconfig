@@ -34,6 +34,7 @@ require('packer').startup {
 			}
 		}
 		use 'nvim-telescope/telescope-fzy-native.nvim'
+		use 'kevinhwang91/nvim-bqf'
 
 		-- Editors
 		use 'tpope/vim-surround'
@@ -48,10 +49,10 @@ require('packer').startup {
 		use {
 			'kyazdani42/nvim-web-devicons',
 			config = function()
-				vim.api.nvim_command[[ autocmd ColorScheme * lua require('nvim-web-devicons').setup { default = true } ]]
+				require('nvim-web-devicons').setup { default = true }
 			end
 		}
-		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disabled = true }
+		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true }
 		use 'lifepillar/vim-gruvbox8'
 		use 'drewtempelmeyer/palenight.vim'
 		use 'sainnhe/gruvbox-material'
