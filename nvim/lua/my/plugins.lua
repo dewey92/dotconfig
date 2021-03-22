@@ -11,7 +11,7 @@ if not packer_exists then
 	vim.cmd [[packadd packer.nvim]]
 end
 
-vim.cmd [[autocmd BufWritePost plugins.lua execute "luafile $HOME/.config/nvim/init.lua" | PackerCompile]] -- Auto compile!
+vim.cmd [[autocmd BufWritePost plugins.lua execute "luafile $HOME/.config/nvim/lua/my/plugins.lua" | PackerCompile]] -- Auto compile!
 
 require('packer').startup {
 	function()
@@ -70,9 +70,6 @@ require('packer').startup {
 			end
 		}
 
-		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-		use 'p00f/nvim-ts-rainbow'
-
 		------------------------------------------------------------------------------
 		-- THEMES & APPEARANCES
 		------------------------------------------------------------------------------
@@ -110,6 +107,8 @@ require('packer').startup {
 		------------------------------------------------------------------------------
 		-- LANGUAGES
 		------------------------------------------------------------------------------
+		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+		use 'p00f/nvim-ts-rainbow'
 		-- use {
 		-- 	'sheerun/vim-polyglot',
 		-- 	ft = {'purescript'},
