@@ -3,8 +3,6 @@ set nobackup
 set nowritebackup
 
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-stylelintplus',

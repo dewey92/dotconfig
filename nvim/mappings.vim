@@ -51,7 +51,7 @@ tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 nnoremap <Leader>yp :let @+=@% <CR>
 
 " Source config automatically
-nnoremap <Leader>hrr :source $HOME/.config/nvim/init.vim \| :PackerSync<CR>
+nnoremap <Leader>hrr :execute 'luafile $HOME/.config/nvim/init.lua' \| PackerCompile \| PackerSync<CR>
 
 " Source what's in selection
 vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>

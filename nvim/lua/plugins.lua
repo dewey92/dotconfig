@@ -11,16 +11,19 @@ if not packer_exists then
 	vim.cmd [[packadd packer.nvim]]
 end
 
-vim.cmd [[autocmd BufWritePost plugins.lua PackerCompile]] -- Auto compile!
+vim.cmd [[autocmd BufWritePost plugins.lua execute "luafile $HOME/.config/nvim/init.lua" | PackerCompile]] -- Auto compile!
 
 require('packer').startup {
 	function()
+		------------------------------------------------------------------------------
+		-- LUA ESSENTIALS
+		------------------------------------------------------------------------------
 		use 'wbthomason/packer.nvim'
-
-		-- Lua essentials
 		use 'tjdevries/astronauta.nvim'
 
-		-- Finders
+		------------------------------------------------------------------------------
+		-- FINDERS
+		------------------------------------------------------------------------------
 		use {
 			'junegunn/fzf.vim',
 			requires = {
@@ -37,9 +40,16 @@ require('packer').startup {
 		}
 		use 'nvim-telescope/telescope-fzy-native.nvim'
 		use 'kevinhwang91/nvim-bqf'
-
-		-- Editors
+		
+		------------------------------------------------------------------------------
+		-- EDITORS
+		------------------------------------------------------------------------------
 		use 'tpope/vim-surround'
+		use {
+			'windwp/nvim-autopairs',
+			event = {'BufReadPost'},
+			config = function() require('nvim-autopairs').setup() end,
+		}
 		use {
 			'phaazon/hop.nvim',
 			config = function()
@@ -63,7 +73,9 @@ require('packer').startup {
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 		use 'p00f/nvim-ts-rainbow'
 
-		-- Themes & Apperances
+		------------------------------------------------------------------------------
+		-- THEMES & APPEARANCES
+		------------------------------------------------------------------------------
 		use {
 			'kyazdani42/nvim-web-devicons',
 			config = function()
@@ -72,8 +84,8 @@ require('packer').startup {
 		}
 		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true }
 		use 'lifepillar/vim-gruvbox8'
-		use 'drewtempelmeyer/palenight.vim'
 		use 'sainnhe/gruvbox-material'
+		use 'drewtempelmeyer/palenight.vim'
 		use 'franbach/miramare'
 		use { 'embark-theme/vim', as = 'embark' }
 		use { 'kaicataldo/material.vim', branch = 'main' }
@@ -95,10 +107,20 @@ require('packer').startup {
 		use 'thaerkh/vim-indentguides'
 		-- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
 
-		-- Languages
-		-- use 'sheerun/vim-polyglot'
+		------------------------------------------------------------------------------
+		-- LANGUAGES
+		------------------------------------------------------------------------------
+		-- use {
+		-- 	'sheerun/vim-polyglot',
+		-- 	ft = {'purescript'},
+		-- 	setup = function()
+		-- 		vim.g.polyglot_disabled = {'ftdetect'}
+		-- 	end
+		-- }
 
-		-- etc
+		------------------------------------------------------------------------------
+		-- ETC
+		------------------------------------------------------------------------------
 		use { 'wakatime/vim-wakatime', event = {'BufReadPost'} }
 		use 'airblade/vim-rooter'
 		use {
