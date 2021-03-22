@@ -69,6 +69,7 @@ require('packer').startup {
 				vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]]
 			end
 		}
+		use 'psliwka/vim-smoothie'
 
 		------------------------------------------------------------------------------
 		-- THEMES & APPEARANCES
