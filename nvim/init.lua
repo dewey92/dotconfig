@@ -1,12 +1,12 @@
-require('plugins')
-require('config')
-require('appearances')
-require('languages')
+require('my.plugins')
+require('my.config')
+require('my.appearances')
+require('my.languages')
 
 vim.api.nvim_exec([[
 	source $HOME/.config/nvim/mappings.vim
 ]], false)
 
 -- Packages configs
-require('plugins/telescope')
-require('plugins/treesitter')
+require('plugins.telescope')
+require('plugins.treesitter')
