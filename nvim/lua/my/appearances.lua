@@ -68,13 +68,10 @@ _G.get_icon = function()
 		vim.fn.expand('%:t'),
 		vim.fn.expand('%:e')
 	)
-	local bg = utils.get_hl('LightlineLeft_normal_1', 'bg')
-	local fg = utils.get_hl(hlgroup, 'fg')
+	local bg = utils.get_hlgroup_attr('LightlineLeft_normal_1', 'bg')
+	local fg = utils.get_hlgroup_attr(hlgroup, 'fg')
 
-	vim.cmd(string.format('hi! DeweyLLIcon guibg=%s guifg=%s', bg, fg))
-
-	vim.cmd('hi! link LightlineLeft_normal_1 DeweyLLIcon')
-	vim.cmd('hi! link LightlineLeft_active_1 DeweyLLIcon')
+	vim.cmd(string.format('hi! LightlineLeft_normal_1 guibg=%s guifg=%s', bg, fg))
 	return icon
 end
 
