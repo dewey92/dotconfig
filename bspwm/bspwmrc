@@ -6,8 +6,7 @@ do
 	sleep 1
 done
 
-# Flush monitors when before restarting
-bspc config remove_unplugged_monitors true
+xmodmap ~/.config/X11/.Xmodmap
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 $HOME/.config/polybar/launch.sh &
@@ -16,6 +15,9 @@ bspwm &
 # Monitors
 monitors=( $(xrandr | awk '$2 == "connected"{print $1}') )
 num_monitors=${#monitors[@]}
+
+# Flush monitors when before restarting
+bspc config remove_unplugged_monitors true
 
 if [ $num_monitors -eq 1 ]
 then
