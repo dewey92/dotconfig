@@ -7,4 +7,4 @@ let g:floaterm_autoclose = 1
 
 nnoremap <silent> <Leader>gg :FloatermNew lazygit<CR>
 nnoremap <silent> <Leader>oe :FloatermNew ranger<CR>
-nnoremap <silent> <Leader>tj :FloatermNew --wintype=popup --height=6<CR>
+nnoremap <silent> <Leader>tj :FloatermNew --wintype=split --height=6<CR>

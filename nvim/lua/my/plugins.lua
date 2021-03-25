@@ -52,9 +52,7 @@ require('packer').startup {
 		}
 		use {
 			'phaazon/hop.nvim',
-			config = function()
-				vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]]
-			end,
+			config = function() vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]] end,
 		}
 		use 'tpope/vim-commentary'
 		use {
@@ -65,9 +63,7 @@ require('packer').startup {
 				'json', 'php',
 				'purescript', 'haskell',
 			},
-			config = function()
-				vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]]
-			end
+			config = function() vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]] end,
 		}
 		use 'psliwka/vim-smoothie'
 
@@ -76,9 +72,7 @@ require('packer').startup {
 		------------------------------------------------------------------------------
 		use {
 			'kyazdani42/nvim-web-devicons',
-			config = function()
-				require('nvim-web-devicons').setup { default = true }
-			end
+			config = function() require('nvim-web-devicons').setup { default = true } end,
 		}
 		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true }
 		use 'lifepillar/vim-gruvbox8'
@@ -92,31 +86,32 @@ require('packer').startup {
 		use 'itchyny/lightline.vim'
 		use {
 			'norcalli/nvim-colorizer.lua',
-			config = function() require('colorizer').setup() end
+			config = function() require('colorizer').setup() end,
 		}
 		use 'mhinz/vim-startify'
 		use 'TaDaa/vimade'
 		use {
-			'airblade/vim-gitgutter',
-			config = function()
-				vim.cmd[[ source $HOME/.config/nvim/packages/gitgutter.vim ]]
-			end,
+			'lewis6991/gitsigns.nvim',
+			requires = { 'nvim-lua/plenary.nvim' },
+			config = function() require('plugins.gitsigns') end,
 		}
 		use 'thaerkh/vim-indentguides'
 		-- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+		use {
+			'camspiers/lens.vim',
+			requires = { 'camspiers/animate.vim' },
+		}
 
 		------------------------------------------------------------------------------
 		-- LANGUAGES
 		------------------------------------------------------------------------------
 		use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+		use 'nvim-treesitter/playground'
 		use 'p00f/nvim-ts-rainbow'
-		-- use {
-		-- 	'sheerun/vim-polyglot',
-		-- 	ft = {'purescript'},
-		-- 	setup = function()
-		-- 		vim.g.polyglot_disabled = {'ftdetect'}
-		-- 	end
-		-- }
+		use 'windwp/nvim-ts-autotag'
+		use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+		-- use 'sheerun/vim-polyglot'
 
 		------------------------------------------------------------------------------
 		-- ETC
@@ -125,9 +120,7 @@ require('packer').startup {
 		use 'airblade/vim-rooter'
 		use {
 			'voldikss/vim-floaterm',
-			config = function()
-				vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]]
-			end,
+			config = function() vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
 		}
 		use 'f-person/git-blame.nvim'
 		use 'tweekmonster/startuptime.vim'

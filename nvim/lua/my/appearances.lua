@@ -68,10 +68,15 @@ _G.get_icon = function()
 		vim.fn.expand('%:t'),
 		vim.fn.expand('%:e')
 	)
-	local bg = utils.get_hlgroup_attr('LightlineLeft_normal_1', 'bg')
 	local fg = utils.get_hlgroup_attr(hlgroup, 'fg')
+	local function apply_icon_hi(modes)
+		for _, mode in ipairs(modes) do
+			local bg = utils.get_hlgroup_attr('LightlineLeft_'..mode..'_1', 'bg')
+			vim.cmd(string.format('hi! LightlineLeft_%s_1 guibg=%s guifg=%s', mode, bg, fg))
+		end
+	end
 
-	vim.cmd(string.format('hi! LightlineLeft_normal_1 guibg=%s guifg=%s', bg, fg))
+	apply_icon_hi({'normal', 'insert', 'visual', 'replace'})
 	return icon
 end
 
@@ -105,7 +110,9 @@ vim.api.nvim_exec([[
 	autocmd VimResized * :wincmd =
 ]], false)
 
-
 -- Git blame
 g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
 g.gitblame_date_format = '%d %b %Y'
+
+-- Lens
+g['lens#width_resize_max'] = 120
