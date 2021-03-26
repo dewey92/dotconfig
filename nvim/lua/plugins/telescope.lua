@@ -130,7 +130,8 @@ M.run_command = function(opts)
 
 			return true
 		end,
-		height = 0.5,
+		layout_strategy = 'center',
+		results_height = 0.4,
 		width = 0.4,
 	}):find()
 end

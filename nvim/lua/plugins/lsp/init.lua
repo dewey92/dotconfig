@@ -47,6 +47,7 @@ local function setup_ts_code_actions(bufnr)
 				{ text = 'Fix current', command = 'LspFixCurrent' },
 				{ text = 'Rename file', command = 'LspRenameFile' },
 				{ text = 'Import all', command = 'LspImportAll' },
+				{ text = 'Eslint fix', command = '! eslint --fix %' },
 			}
 		})
 	end
