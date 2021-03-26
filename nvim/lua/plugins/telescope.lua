@@ -1,6 +1,11 @@
 local M = {}
 
 local actions = require('telescope.actions')
+local builtin = require('telescope.builtin')
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local sorters = require('telescope.sorters')
+local action_state = require('telescope.actions.state')
 
 require('telescope').setup {
 	defaults = {
@@ -9,6 +14,7 @@ require('telescope').setup {
 			'--color=never',
 			'--no-heading',
 			'--with-filename',
+			'--hidden',
 			'--line-number',
 			'--column',
 			'--smart-case'
@@ -33,9 +39,9 @@ require('telescope').setup {
 				preview_height = 0.5,
 			},
 		},
-		file_sorter = require'telescope.sorters'.get_fzy_sorter,
+		file_sorter = sorters.get_fzy_sorter,
 		file_ignore_patterns = { 'node_modules' },
-		generic_sorter = require'telescope.sorters'.get_generic_fuzzy_sorter,
+		generic_sorter = sorters.get_generic_fuzzy_sorter,
 		shorten_path = true,
 		winblend = 10,
 		preview_cutoff = 200,
@@ -62,8 +68,6 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzy_native')
 
-local builtin = require('telescope.builtin')
-
 M.nvim_config = function()
 	builtin.find_files {
 		cwd = '~/.config/nvim',
@@ -89,15 +93,52 @@ end
 
 -- FIXME: putting selected text into register doesn't work
 M.visual_search_string = function()
-	vim.cmd [[noau normal! gv"sy]] -- Put into register s
-	local text = vim.fn.getreg('s')
-	M.search_string(text)
+	-- vim.cmd [[noau normal! gv"sy]] -- Put into register s
+	-- local text = vim.fn.getreg('s')
+	-- M.search_string(text)
+
+	builtin.live_grep {
+		default_text = 'blabla'
+	}
+end
+
+M.run_command = function(opts)
+	local commands = opts.commands or {}
+	local texts = {}
+	for _, pair in pairs(commands) do
+		table.insert(texts, pair.text)
+	end
+
+	local function run_command(prompt_bufnr)
+		local entry = action_state.get_selected_entry(prompt_bufnr)
+		actions.close(prompt_bufnr)
+
+		for _, pair in pairs(commands) do
+			if (pair.text == entry.value) then
+				vim.cmd(pair.command)
+				return
+			end
+		end
+	end
+
+	pickers.new(opts, {
+		prompt_title = 'Actions',
+		finder = finders.new_table({ results = texts }),
+		sorter = sorters.get_generic_fuzzy_sorter(opts),
+		attach_mappings = function(_, map)
+			map('i', '<CR>', run_command)
+
+			return true
+		end,
+		height = 0.5,
+		width = 0.4,
+	}):find()
 end
 
 -- -----------------------------------------------------------------------------
 -- Mappings
 -- -----------------------------------------------------------------------------
-local k = require'astronauta.keymap'
+local k = require('astronauta.keymap')
 local nnoremap = k.nnoremap
 local xnoremap = k.xnoremap
 local opts = { silent = true }

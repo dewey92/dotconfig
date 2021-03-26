@@ -21,6 +21,8 @@ _G.load_theme = function(theme)
 		g.gruvbox_material_current_word = 'bold'
 		g.gruvbox_material_diagnostic_line_highlight = 1
 		lightline_theme = 'gruvbox_material'
+
+		vim.cmd [[ packadd gruvbox-material ]]
 	elseif theme == 'gruvbox8_hard' then
 		g.gruvbox_contrast_dark = 'hard'
 		g.gruvbox_bold = 1
@@ -32,14 +34,20 @@ _G.load_theme = function(theme)
 	elseif theme == 'embark' then
 		g.embark_terminal_italics = 1
 		lightline_theme = 'embark'
+
+		vim.cmd [[ packadd embark ]]
 	elseif theme == 'miramare' then
 		g.miramare_enable_italic = 1
 		g.miramare_current_word = 'bold'
 		lightline_theme = 'miramare'
+
+		vim.cmd [[ packadd miramare ]]
 	elseif theme == 'material' then
 		g.material_theme_style = 'lighter'
 		g.material_terminal_italics = 1
 		lightline_theme = 'material_vim'
+
+		vim.cmd [[ packadd material ]]
 	end
 
 	vim.cmd('colorscheme ' .. theme)

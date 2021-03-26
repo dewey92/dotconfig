@@ -14,7 +14,7 @@ end
 vim.cmd [[autocmd BufWritePost plugins.lua execute "luafile $HOME/.config/nvim/lua/my/plugins.lua" | PackerCompile]] -- Auto compile!
 
 require('packer').startup {
-	function()
+	function(use)
 		------------------------------------------------------------------------------
 		-- LUA ESSENTIALS
 		------------------------------------------------------------------------------
@@ -29,7 +29,8 @@ require('packer').startup {
 			requires = {
 				'junegunn/fzf',
 				run = function() vim.fn['fzf#install'](0) end
-			}
+			},
+			disable = true
 		}
 		use {
 			'nvim-telescope/telescope.nvim',
@@ -39,12 +40,12 @@ require('packer').startup {
 			}
 		}
 		use 'nvim-telescope/telescope-fzy-native.nvim'
-		use 'kevinhwang91/nvim-bqf'
-		
+		use { 'kevinhwang91/nvim-bqf' }
+
 		------------------------------------------------------------------------------
 		-- EDITORS
 		------------------------------------------------------------------------------
-		use 'tpope/vim-surround'
+		use { 'tpope/vim-surround', event = {'BufReadPost'} }
 		use {
 			'windwp/nvim-autopairs',
 			event = {'BufReadPost'},
@@ -64,8 +65,14 @@ require('packer').startup {
 				'purescript', 'haskell',
 			},
 			config = function() vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]] end,
+			disable = true,
 		}
-		use 'psliwka/vim-smoothie'
+		use {
+			'hrsh7th/nvim-compe',
+			requires = { 'hrsh7th/vim-vsnip' },
+			event = {'BufReadPost'},
+			config = function() require('plugins.compe') end,
+		}
 
 		------------------------------------------------------------------------------
 		-- THEMES & APPEARANCES
@@ -75,13 +82,13 @@ require('packer').startup {
 			config = function() require('nvim-web-devicons').setup { default = true } end,
 		}
 		use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true }
-		use 'lifepillar/vim-gruvbox8'
-		use 'sainnhe/gruvbox-material'
-		use 'drewtempelmeyer/palenight.vim'
-		use 'franbach/miramare'
-		use { 'embark-theme/vim', as = 'embark' }
-		use { 'kaicataldo/material.vim', branch = 'main' }
-		use { 'challenger-deep-theme/vim', as = 'challenger-deep' }
+		use { 'lifepillar/vim-gruvbox8', opt = false }
+		use { 'sainnhe/gruvbox-material', opt = true }
+		use { 'drewtempelmeyer/palenight.vim', opt = true }
+		use { 'franbach/miramare', opt = true }
+		use { 'embark-theme/vim', as = 'embark', opt = true }
+		use { 'kaicataldo/material.vim', branch = 'main', opt = true }
+		use { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true }
 
 		use 'itchyny/lightline.vim'
 		use {
@@ -100,7 +107,9 @@ require('packer').startup {
 		use {
 			'camspiers/lens.vim',
 			requires = { 'camspiers/animate.vim' },
+			disable = true, -- It's cool, but messing up with quickfix list. Revisit later
 		}
+		use 'psliwka/vim-smoothie'
 
 		------------------------------------------------------------------------------
 		-- LANGUAGES
@@ -110,6 +119,13 @@ require('packer').startup {
 		use 'p00f/nvim-ts-rainbow'
 		use 'windwp/nvim-ts-autotag'
 		use 'JoosepAlviste/nvim-ts-context-commentstring'
+		use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
+		use {
+			'neovim/nvim-lspconfig',
+			config = function () require('plugins.lsp') end,
+		}
+		use 'glepnir/lspsaga.nvim'
 
 		-- use 'sheerun/vim-polyglot'
 
