@@ -20,7 +20,7 @@ require('telescope').setup {
 			'--smart-case'
 		},
 		prompt_position = 'top',
-		prompt_prefix = 'λ ',
+		prompt_prefix = '  λ ',
 		selection_caret = '» ',
 		entry_prefix = '  ',
 		initial_mode = 'insert',
@@ -172,6 +172,7 @@ xnoremap { '<Leader>sP', M.visual_search_string, opts }
 nnoremap { '<Leader>sb', builtin.current_buffer_fuzzy_find, opts }
 
 nnoremap { '<Leader>ht', builtin.colorscheme, opts }
+nnoremap { '<Leader>hh', builtin.help_tags, opts }
 nnoremap { '<Leader>:', builtin.commands, opts }
 nnoremap { '<Leader>;', builtin.commands, opts }
 

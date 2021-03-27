@@ -70,8 +70,8 @@ nvim_lsp.tsserver.setup {
 }
 
 local filetypes = {
-	typescript = 'eslint',
-	typescriptreact = 'eslint',
+	typescript = {'eslint', 'stylelint'},
+	typescriptreact = {'eslint', 'stylelint'},
 }
 local linters = {
 	eslint = {
@@ -90,7 +90,28 @@ local linters = {
 			security = 'severity'
 		},
 		securities = {[2] = 'error', [1] = 'warning'}
-	}
+	},
+	-- Better use https://github.com/bmatcuk/stylelint-lsp, but can't config it just yet
+	stylelint = {
+		sourceName = 'stylelint',
+		command = 'stylelint',
+		args = {'%filepath'},
+		rootPatterns = {'.stylelintrc'},
+		debounce = 100,
+		formatPattern = {
+			[[(\d+):(\d)\s\s(.)\s\s(.+?)\s+([a-zA-Z\/\-]+)$]],
+			{
+				line = 1,
+				column = 2,
+				security = 3,
+				message = {4, ' [', 5, ']'},
+			},
+		},
+		securities = {
+			['⚠'] = 'warning',
+			['✖'] = 'error',
+		},
+	},
 }
 local formatters = {
 	eslint = {
