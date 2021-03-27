@@ -20,8 +20,8 @@ require('telescope').setup {
 			'--smart-case'
 		},
 		prompt_position = 'top',
-		prompt_prefix = '> ',
-		selection_caret = '> ',
+		prompt_prefix = 'λ ',
+		selection_caret = '» ',
 		entry_prefix = '  ',
 		initial_mode = 'insert',
 		selection_strategy = 'reset',
@@ -29,8 +29,8 @@ require('telescope').setup {
 		layout_strategy = 'flex',
 		layout_defaults = {
 			horizontal = {
-				width_padding  = 0.1,
-				height_padding = 0.1,
+				width_padding  = 0.18,
+				height_padding = 0.18,
 				preview_width  = 0.6,
 			},
 			vertical = {
@@ -136,9 +136,25 @@ M.run_command = function(opts)
 	}):find()
 end
 
--- -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Highlighting
+--------------------------------------------------------------------------------
+_G.set_telescope_custom_highlight = function ()
+	vim.api.nvim_exec([[
+		hi! TelescopeBorder         guifg=#596580
+		hi! TelescopePromptBorder   guifg=#596580
+		hi! TelescopeResultsBorder  guifg=#596580
+		hi! TelescopePreviewBorder  guifg=#8292b5
+
+		hi! TelescopePromptPrefix   guifg=#fcba03 gui=bold
+	]], false)
+end
+
+vim.cmd [[ autocmd ColorScheme * call v:lua.set_telescope_custom_highlight() ]]
+
+--------------------------------------------------------------------------------
 -- Mappings
--- -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 local k = require('astronauta.keymap')
 local nnoremap = k.nnoremap
 local xnoremap = k.xnoremap
