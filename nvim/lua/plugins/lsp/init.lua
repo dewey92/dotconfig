@@ -30,7 +30,6 @@ local on_attach = function(client, bufnr)
 	end
 end
 
-
 --------------------------------------------------------------------------------
 -- LANGUAGE SERVERS
 --------------------------------------------------------------------------------
@@ -47,7 +46,7 @@ local function setup_ts_code_actions(bufnr)
 				{ text = 'Fix current', command = 'LspFixCurrent' },
 				{ text = 'Rename file', command = 'LspRenameFile' },
 				{ text = 'Import all', command = 'LspImportAll' },
-				{ text = 'Eslint fix', command = '! eslint --fix %' },
+				{ text = 'Format file', command = 'lua vim.lsp.buf.formatting()' },
 			}
 		})
 	end
@@ -56,12 +55,13 @@ local function setup_ts_code_actions(bufnr)
 end
 
 nvim_lsp.tsserver.setup {
+	init_options = {
+		documentFormatting = true, -- FIXME: Set to false to delegate formatting fully to eslint or prettier
+	},
 	on_attach = function(client, bufnr)
 		if client.config.flags then
 			client.config.flags.allow_incremental_sync = true
 		end
-		-- Delegate formatting to eslint or prettier
-		client.resolved_capabilities.document_formatting = false
 
 		setup_ts_code_actions(bufnr)
 
@@ -92,12 +92,23 @@ local linters = {
 		securities = {[2] = 'error', [1] = 'warning'}
 	}
 }
+local formatters = {
+	eslint = {
+		command = 'eslint',
+		args = {'--fix', '%filepath'},
+	}
+}
+local formatFiletypes = {
+	typescript = 'eslint',
+	typescriptreact = 'eslint',
+}
 nvim_lsp.diagnosticls.setup {
-	-- on_attach = on_attach,
 	filetypes = vim.tbl_keys(filetypes),
 	init_options = {
 		filetypes = filetypes,
 		linters = linters,
+		formatters = formatters,
+		formatFiletypes = formatFiletypes,
 	}
 }
 
@@ -154,6 +165,11 @@ nvim_lsp.sumneko_lua.setup {
 		},
 	},
 }
+
+--------------------------------------------------------------------------------
+-- ICONS yeaaah~~
+--------------------------------------------------------------------------------
+require('lspkind').init {}
 
 --------------------------------------------------------------------------------
 -- LSP SAGA

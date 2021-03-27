@@ -126,6 +126,7 @@ require('packer').startup {
 			config = function () require('plugins.lsp') end,
 		}
 		use 'glepnir/lspsaga.nvim'
+		use 'onsails/lspkind-nvim'
 
 		-- use 'sheerun/vim-polyglot'
 
