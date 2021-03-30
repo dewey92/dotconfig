@@ -8,13 +8,13 @@ g.purescript_indent_in = 0
 
 -- Markdown
 g.vim_markdown_fenced_languages = {
-	'html',
-	'javascript',
-	'javascriptreact',
-	'typescript',
-	'ts=typescript',
-	'tsx=typescript',
-	'bash=sh',
-	'haskell',
-	'hs=haskell',
+  'html',
+  'javascript',
+  'javascriptreact',
+  'typescript',
+  'ts=typescript',
+  'tsx=typescript',
+  'bash=sh',
+  'haskell',
+  'hs=haskell',
 }

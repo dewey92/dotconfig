@@ -61,6 +61,9 @@ nnoremap <Leader>r :%s///g<Left><Left>
 xnoremap <Leader>r :s///g<Left><Left>
 autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
 
+" Tab to space
+nnoremap <Leader>cts :%s/\t/<space><space>/g<CR>
+
 " Make a new line after a space
 nnoremap <Leader>nl f<Space>xi<CR><Esc>
 
