@@ -1,9 +1,11 @@
+local utils = require('my.utils')
+
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    add          = {hl = 'MyGitSignsAdd'   , text = '│+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'MyGitSignsChange', text = '│~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'MyGitSignsDelete', text = '│_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'MyGitSignsDelete', text = '│—', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     -- changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   keymaps = {
@@ -29,3 +31,13 @@ require('gitsigns').setup {
   sign_priority = 6,
   update_debounce = 100,
 }
+
+local modes = {'Add', 'Change', 'Delete'}
+
+for _, mode in pairs(modes) do
+  local fg = utils.get_hlgroup_attr('Diff'..mode, 'foreground')
+  local bg = utils.get_hlgroup_attr('SignColumn', 'background')
+
+  vim.cmd(string.format('hi MyGitSigns%s guifg=%s guibg=%s', mode, fg, bg))
+end
+

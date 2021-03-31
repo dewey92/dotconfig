@@ -97,11 +97,6 @@ require('packer').startup {
     }
     use 'mhinz/vim-startify'
     use 'TaDaa/vimade'
-    use {
-      'lewis6991/gitsigns.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
-      config = function() require('plugins.gitsigns') end,
-    }
     use 'thaerkh/vim-indentguides'
     -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use {
@@ -132,6 +127,16 @@ require('packer').startup {
     -- use 'sheerun/vim-polyglot'
 
     ------------------------------------------------------------------------------
+    -- Git
+    ------------------------------------------------------------------------------
+    use {
+      'lewis6991/gitsigns.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function() require('plugins.gitsigns') end,
+    }
+    use 'f-person/git-blame.nvim'
+
+    ------------------------------------------------------------------------------
     -- ETC
     ------------------------------------------------------------------------------
     use { 'wakatime/vim-wakatime', event = {'BufReadPost'} }
@@ -140,7 +145,6 @@ require('packer').startup {
       'voldikss/vim-floaterm',
       config = function() vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
     }
-    use 'f-person/git-blame.nvim'
     use 'tweekmonster/startuptime.vim'
   end
 }
