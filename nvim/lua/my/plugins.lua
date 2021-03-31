@@ -109,7 +109,7 @@ require('packer').startup {
       requires = { 'camspiers/animate.vim' },
       disable = true, -- It's cool, but messing up with quickfix list. Revisit later
     }
-    use 'psliwka/vim-smoothie'
+    use 'karb94/neoscroll.nvim'
 
     ------------------------------------------------------------------------------
     -- LANGUAGES
