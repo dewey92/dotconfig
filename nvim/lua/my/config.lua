@@ -39,6 +39,7 @@ local tabs_options = {
   tabstop = 2,
 }
 utils.apply_options(tabs_options)
+vim.cmd [[set listchars=tab:▸\ ,extends:❯,precedes:❮]]
 
 vim.api.nvim_exec([[
   filetype plugin indent on
@@ -50,5 +51,9 @@ vim.api.nvim_exec([[
 ]], false)
 
 -- Guide indentations
-g.indentguides_spacechar = '|'
+g.indentguides_spacechar = '│'
 g.indentguides_tabchar = '▸'
+-- g.indent_blankline_char = '│'
+-- g.indent_blankline_show_first_indent_level = false
+-- g.indent_blankline_use_treesitter = true
+-- g.indent_blankline_show_current_context = false -- Set to false when too slow

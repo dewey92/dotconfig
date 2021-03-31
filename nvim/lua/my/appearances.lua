@@ -55,10 +55,14 @@ end
 
 load_theme('gruvbox8_hard')
 
+--------------------------------------------------------------------------------
+-- Lightline
+--------------------------------------------------------------------------------
+
 g.lightline = {
   colorscheme = lightline_theme,
   active = {
-    left = { {'mode'}, {'getIcon'}, {'readonly', 'relativepath', 'modified'} },
+    left = { {'mode'}, {'getIconLightline'}, {'readonly', 'relativepath', 'modified'} },
     right = { {'lineinfo'}, {'percent'}, {'filetype'}, {'cocstatus'} },
   },
   inactive = {
@@ -67,20 +71,24 @@ g.lightline = {
   },
   component_function = {
     cocstatus = 'coc#status',
-    getIcon = 'Get_icon'
+    getIconLightline = 'GetIconLightline'
   }
 }
 
-_G.get_icon = function()
+_G.get_icon_lightline = function()
   local icon, hlgroup = require'nvim-web-devicons'.get_icon(
     vim.fn.expand('%:t'),
     vim.fn.expand('%:e')
   )
-  local fg = utils.get_hlgroup_attr(hlgroup, 'fg')
+  local fg = utils.get_hlgroup_attr(hlgroup, 'foreground')
+
   local function apply_icon_hi(modes)
     for _, mode in ipairs(modes) do
-      local bg = utils.get_hlgroup_attr('LightlineLeft_'..mode..'_1', 'bg')
-      vim.cmd(string.format('hi! LightlineLeft_%s_1 guibg=%s guifg=%s', mode, bg, fg))
+      local bg_exists, bg = pcall(utils.get_hlgroup_attr, 'LightlineLeft_'..mode..'_1', 'background')
+
+      if bg_exists then
+        vim.cmd(string.format('hi! LightlineLeft_%s_1 guibg=%s guifg=%s', mode, bg, fg))
+      end
     end
   end
 
@@ -89,14 +97,38 @@ _G.get_icon = function()
 end
 
 vim.api.nvim_exec([[
-function! Get_icon()
-  return v:lua.get_icon()
+function! GetIconLightline()
+  return v:lua.get_icon_lightline()
 endfunction
 ]], false)
 
+--------------------------------------------------------------------------------
+-- Startify
+--------------------------------------------------------------------------------
+
+_G.get_icon_startify = function(path)
+  return utils.get_icon(path)
+end
+
+vim.api.nvim_exec([[
+function! StartifyEntryFormat() abort
+  return 'v:lua.get_icon_startify(absolute_path) . " " . entry_path'
+endfunction
+]], false)
+
+--------------------------------------------------------------------------------
+-- Git blame
+--------------------------------------------------------------------------------
+g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
+g.gitblame_date_format = '%d %b %Y'
+
+--------------------------------------------------------------------------------
+-- etc
+--------------------------------------------------------------------------------
+
 vim.api.nvim_exec([[
   " Use autocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
   " Enable hybrid line numbering, only for the focused buffer
   set number relativenumber
@@ -117,10 +149,3 @@ vim.api.nvim_exec([[
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 ]], false)
-
--- Git blame
-g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
-g.gitblame_date_format = '%d %b %Y'
-
--- Lens
-g['lens#width_resize_max'] = 120
