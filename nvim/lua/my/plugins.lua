@@ -57,17 +57,6 @@ require('packer').startup {
     }
     use 'tpope/vim-commentary'
     use {
-      'neoclide/coc.nvim',
-      branch = 'release',
-      ft = {
-        'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css',
-        'json', 'php',
-        'purescript', 'haskell',
-      },
-      config = function() vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]] end,
-      disable = true,
-    }
-    use {
       'hrsh7th/nvim-compe',
       requires = { 'hrsh7th/vim-vsnip' },
       event = {'BufReadPost'},
@@ -81,14 +70,16 @@ require('packer').startup {
       'kyazdani42/nvim-web-devicons',
       config = function() require('nvim-web-devicons').setup { default = true } end,
     }
-    use { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true }
-    use { 'lifepillar/vim-gruvbox8', opt = false }
-    use { 'sainnhe/gruvbox-material', opt = true }
-    use { 'drewtempelmeyer/palenight.vim', opt = true }
-    use { 'franbach/miramare', opt = true }
-    use { 'embark-theme/vim', as = 'embark', opt = true }
-    use { 'kaicataldo/material.vim', branch = 'main', opt = true }
-    use { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true }
+    use {
+      { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true },
+      { 'lifepillar/vim-gruvbox8', opt = false },
+      { 'sainnhe/gruvbox-material', opt = true },
+      { 'drewtempelmeyer/palenight.vim', opt = true },
+      { 'franbach/miramare', opt = true },
+      { 'embark-theme/vim', as = 'embark', opt = true },
+      { 'kaicataldo/material.vim', branch = 'main', opt = true },
+      { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true },
+    }
 
     use 'itchyny/lightline.vim'
     use {
@@ -123,6 +114,18 @@ require('packer').startup {
     }
     use 'glepnir/lspsaga.nvim'
     use 'onsails/lspkind-nvim'
+
+    use {
+      'neoclide/coc.nvim',
+      branch = 'release',
+      ft = {
+        'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css',
+        'json', 'php',
+        'purescript', 'haskell',
+      },
+      config = function() vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]] end,
+      disable = true,
+    }
 
     -- use 'sheerun/vim-polyglot'
 

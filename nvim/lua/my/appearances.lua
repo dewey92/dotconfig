@@ -126,7 +126,7 @@ g.gitblame_date_format = '%d %b %Y'
 -- etc
 --------------------------------------------------------------------------------
 g.neoscroll_cursor_scrolls_alone = true
-g.neoscroll_stop_eof = false
+g.neoscroll_stop_eof = true
 
 vim.api.nvim_exec([[
   " Use autocmd to force lightline update.
