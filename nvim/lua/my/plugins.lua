@@ -95,7 +95,10 @@ require('packer').startup {
       requires = { 'camspiers/animate.vim' },
       disable = true, -- It's cool, but messing up with quickfix list. Revisit later
     }
-    use 'karb94/neoscroll.nvim'
+    use {
+      'karb94/neoscroll.nvim',
+      config = function () require('neoscroll').setup() end,
+    }
 
     ------------------------------------------------------------------------------
     -- LANGUAGES
