@@ -1,7 +1,7 @@
 require'nvim-treesitter.configs'.setup {
   ensure_installed = 'all',
   highlight = {
-    enable = false, -- FIXME: Highlighting still segfault sometimes
+    enable = true,
   },
   indent = {
     enable = true,
