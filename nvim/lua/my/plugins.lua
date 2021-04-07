@@ -97,26 +97,30 @@ require('packer').startup {
     }
     use {
       'karb94/neoscroll.nvim',
-      config = function () require('neoscroll').setup() end,
+      config = function() require('neoscroll').setup() end,
     }
 
     ------------------------------------------------------------------------------
     -- LANGUAGES
     ------------------------------------------------------------------------------
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/playground'
-    use 'p00f/nvim-ts-rainbow'
-    use 'windwp/nvim-ts-autotag'
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-    use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+    use {
+      { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
+      'nvim-treesitter/playground',
+      'p00f/nvim-ts-rainbow',
+      'windwp/nvim-ts-autotag',
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'jose-elias-alvarez/nvim-lsp-ts-utils',
+    }
 
     use {
-      -- 'neovim/nvim-lspconfig',
-      '~/Projects/nvim-lspconfig',
-      config = function () require('plugins.lsp') end,
+      {
+        -- 'neovim/nvim-lspconfig',
+        '~/Projects/nvim-lspconfig',
+        config = function() require('plugins.lsp') end,
+      },
+      'glepnir/lspsaga.nvim',
+      'onsails/lspkind-nvim',
     }
-    use 'glepnir/lspsaga.nvim'
-    use 'onsails/lspkind-nvim'
 
     use {
       'neoclide/coc.nvim',
