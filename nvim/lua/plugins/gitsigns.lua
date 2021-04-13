@@ -2,11 +2,11 @@ local utils = require('my.utils')
 
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'MyGitSignsAdd'   , text = '│+', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'MyGitSignsChange', text = '│~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'MyGitSignsDelete', text = '│_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'MyGitSignsDelete', text = '│—', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'MyGitSignsChange', text = '│~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add          = {hl = 'MyGitSignsAdd'   , text = '│' },
+    change       = {hl = 'MyGitSignsChange', text = '│' },
+    delete       = {hl = 'MyGitSignsDelete', text = '│' },
+    topdelete    = {hl = 'MyGitSignsDelete', text = '│' },
+    changedelete = {hl = 'MyGitSignsChange', text = '│' },
   },
   keymaps = {
     noremap = true,
@@ -32,12 +32,19 @@ require('gitsigns').setup {
   update_debounce = 100,
 }
 
-local modes = {'Add', 'Change', 'Delete'}
+local modes = {
+  Add = '#b8bb26',
+  Change = '#fabd2f',
+  Delete = '#fb4934',
+}
 
-for _, mode in pairs(modes) do
-  local fg = utils.get_hlgroup_attr('Diff'..mode, 'foreground')
-  local bg = utils.get_hlgroup_attr('SignColumn', 'background')
+local function git_signs_color ()
+  for mode, color in pairs(modes) do
+    local fg = color
+    local bg = utils.get_hlgroup_attr('SignColumn', 'background')
 
-  vim.cmd(string.format('hi MyGitSigns%s guifg=%s guibg=%s', mode, fg, bg))
+    vim.cmd(string.format('hi MyGitSigns%s guifg=%s guibg=%s', mode, fg, bg))
+  end
 end
 
+git_signs_color()

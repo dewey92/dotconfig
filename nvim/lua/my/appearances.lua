@@ -31,7 +31,7 @@ _G.load_theme = function(theme)
     lightline_theme = 'gruvbox8'
 
     vim.api.nvim_exec([[ autocmd ColorScheme * hi Normal guibg=#10151a ]], false)
-  elseif theme == 'embark' then
+  elseif theme == 'embark' then -- It's nice but colors in lazygit are broken
     g.embark_terminal_italics = 1
     lightline_theme = 'embark'
 
@@ -43,11 +43,17 @@ _G.load_theme = function(theme)
 
     vim.cmd [[ packadd miramare ]]
   elseif theme == 'material' then
-    g.material_theme_style = 'lighter'
-    g.material_terminal_italics = 1
-    lightline_theme = 'material_vim'
+    g.material_style = 'deep ocean'
+    g.material_italic_comments = 1
+    g.material_italic_keywords = 1
+    g.material_italic_functions = 1
 
-    vim.cmd [[ packadd material ]]
+    lightline_theme = 'material'
+
+    vim.cmd [[ packadd colorbuddy.nvim ]]
+    vim.cmd [[ packadd material.nvim ]]
+  elseif theme == 'moonfly' then
+    lightline_theme = 'moonfly'
   end
 
   vim.cmd('colorscheme ' .. theme)

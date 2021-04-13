@@ -55,7 +55,7 @@ require('packer').startup {
       'phaazon/hop.nvim',
       config = function() vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]] end,
     }
-    use 'tpope/vim-commentary'
+    use 'b3nj5m1n/kommentary'
     use {
       'hrsh7th/nvim-compe',
       requires = { 'hrsh7th/vim-vsnip' },
@@ -77,8 +77,9 @@ require('packer').startup {
       { 'drewtempelmeyer/palenight.vim', opt = true },
       { 'franbach/miramare', opt = true },
       { 'embark-theme/vim', as = 'embark', opt = true },
-      { 'kaicataldo/material.vim', branch = 'main', opt = true },
+      { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' }, opt = true },
       { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true },
+      { 'bluz71/vim-moonfly-colors', opt = true },
     }
 
     use 'itchyny/lightline.vim'
@@ -114,8 +115,7 @@ require('packer').startup {
 
     use {
       {
-        -- 'neovim/nvim-lspconfig',
-        '~/Projects/nvim-lspconfig',
+        'neovim/nvim-lspconfig',
         config = function() require('plugins.lsp') end,
       },
       'glepnir/lspsaga.nvim',

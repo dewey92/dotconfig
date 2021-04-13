@@ -8,8 +8,15 @@ end
 
 -- Equivalent to `synIDattr(hlID(group), attr)`, but stricter since
 -- `vim.api.nvim_get_hl_by_name` will throw if the hl group is not found
-M.get_hlgroup_attr = function(group, attr)
-  return ('#%06x'):format(vim.api.nvim_get_hl_by_name(group, true)[attr])
+M.get_hlgroup_attr = function(group, attr, fallback)
+  fallback = fallback or "NONE"
+  local hl_exists, hl = pcall(vim.api.nvim_get_hl_by_name, group, true)
+
+  if hl_exists then
+    return ('#%06x'):format(hl[attr])
+  end
+
+  return fallback
 end
 
 M.get_icon = function (path)
