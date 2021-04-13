@@ -1,195 +1,79 @@
-local nvim_lsp = require('lspconfig')
+local k = require('astronauta.keymap')
+local nnoremap, vnoremap = k.nnoremap, k.vnoremap
+local opts = { silent = true }
 
 local on_attach = function(client, bufnr)
-  local function buf_map(mode, key, value)
-    vim.api.nvim_buf_set_keymap(bufnr, mode, key, value, { noremap = true, silent = true })
-  end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  local buf_opts = { silent = true, buffer = bufnr }
 
   -- Mappings
-  -- buf_map('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>')
-  buf_map('n', 'gd', ':lua vim.lsp.buf.definition()<CR>')
-  buf_map('n', 'gt', ':lua vim.lsp.buf.type_definition()<CR>')
-  buf_map('n', 'gD', ':lua vim.lsp.buf.references()<CR>')
-  buf_map('n', 'K', ':lua vim.lsp.buf.hover()<CR>')
-  -- buf_map('n', 'gi', ':lua vim.lsp.buf.implementation()<CR>')
-  -- buf_map('n', '<C-k>', ':lua vim.lsp.buf.signature_help()<CR>')
-  -- buf_map('n', '<space>cr', ':lua vim.lsp.buf.rename()<CR>')
-  -- buf_map('n', '<space>ce', ':lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  -- buf_map('n', '[e', ':lua vim.lsp.diagnostic.goto_prev()<CR>')
-  -- buf_map('n', ']e', ':lua vim.lsp.diagnostic.goto_next()<CR>')
-  buf_map('n', '<Leader>ce', ':lua vim.lsp.diagnostic.set_loclist()<CR>')
+  nnoremap { 'gd', vim.lsp.buf.definition, buf_opts }
+  nnoremap { 'gt', vim.lsp.buf.type_definition, buf_opts }
+  nnoremap { 'gD', vim.lsp.buf.references, buf_opts }
+  nnoremap { 'K', vim.lsp.buf.hover, buf_opts }
+  -- nnoremap { 'gi', vim.lsp.buf.implementation, buf_opts }
+  -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
+  nnoremap { '<Leader>cr', vim.lsp.buf.rename, buf_opts }
+  -- nnoremap { '<space>ce', vim.lsp.diagnostic.show_line_diagnostics, buf_opts }
+  -- nnoremap { '[e', vim.lsp.diagnostic.goto_prev, buf_opts }
+  -- nnoremap { ']e', vim.lsp.diagnostic.goto_next, buf_opts }
+  nnoremap { '<Leader>ce', vim.lsp.diagnostic.set_loclist, buf_opts }
+  nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    buf_map('n', '<space>cf', ':lua vim.lsp.buf.formatting()<CR>')
+    nnoremap { '<Leader>cf', vim.lsp.buf.formatting, buf_opts }
   elseif client.resolved_capabilities.document_range_formatting then
-    buf_map('n', '<space>cf', ':lua vim.lsp.buf.range_formatting()<CR>')
+    nnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
   end
 end
+
+local borders = {
+  {'┌', 'NormalFloat'},
+  {'─', 'NormalFloat'},
+  {'┐', 'NormalFloat'},
+  {'│', 'NormalFloat'},
+  {'┘', 'NormalFloat'},
+  {'─', 'NormalFloat'},
+  {'└', 'NormalFloat'},
+  {'│', 'NormalFloat'}
+}
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = borders,
+  }
+)
+
+-- Refocus quickfix list immediately to conter `wincmd p` in the default impl
+local orig_handler_references = vim.lsp.handlers['textDocument/references']
+vim.lsp.handlers['textDocument/references'] = function (...)
+  orig_handler_references(...)
+  vim.cmd [[ copen ]]
+  vim.cmd [[ wincmd J ]]
+end
+
+-- Refocus quickfix list immediately to conter `wincmd p` in the default impl
+local orig_handler_definition = vim.lsp.handlers['textDocument/definition']
+vim.lsp.handlers['textDocument/definition'] = function (...)
+  orig_handler_definition(...)
+  vim.cmd [[ copen ]]
+  vim.cmd [[ wincmd J ]]
+end
+
+-- @see: https://github.com/neovim/nvim-lspconfig/issues/516
+vim.cmd [[ autocmd BufEnter * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights() ]]
 
 --------------------------------------------------------------------------------
 -- LANGUAGE SERVERS
 --------------------------------------------------------------------------------
-nvim_lsp.intelephense.setup { on_attach = on_attach }
+require('plugins.lsp.php').setup(on_attach)
+require('plugins.lsp.web').setup(on_attach)
+require('plugins.lsp.lua').setup(on_attach)
 
-local function setup_ts_code_actions(bufnr)
-  require('nvim-lsp-ts-utils').setup {}
-
-  _G.tsserver_actions = function()
-    require('plugins.telescope').run_command({
-      prompt_title = 'TsServer Actions',
-      commands = {
-        { text = 'Organize imports', command = 'LspOrganize' },
-        { text = 'Fix current', command = 'LspFixCurrent' },
-        { text = 'Rename file', command = 'LspRenameFile' },
-        { text = 'Import all', command = 'LspImportAll' },
-        { text = 'Format file', command = 'lua vim.lsp.buf.formatting()' },
-      }
-    })
-  end
-
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>cc', ':call v:lua.tsserver_actions()<CR>', { noremap = true, silent = true })
-end
-
-nvim_lsp.tsserver.setup {
-  init_options = {
-    documentFormatting = true, -- FIXME: Set to false to delegate formatting fully to eslint or prettier
-  },
-  on_attach = function(client, bufnr)
-    if client.config.flags then
-      client.config.flags.allow_incremental_sync = true
-    end
-
-    setup_ts_code_actions(bufnr)
-
-    on_attach(client)
-  end
-}
-
-nvim_lsp.stylelint_lsp.setup {
-  cmd = { os.getenv('HOME')..'/Projects/stylelint-lsp-clone/run-stylelint.sh' },
-}
-
-local filetypes = {
-  typescript = {'eslint'},
-  typescriptreact = {'eslint'},
-}
-local linters = {
-  eslint = {
-    sourceName = 'eslint',
-    command = 'eslint_d',
-    args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json'},
-    rootPatterns = {'.eslintrc.*', 'package.json'},
-    debounce = 100,
-    parseJson = {
-      errorsRoot = '[0].messages',
-      line = 'line',
-      column = 'column',
-      endLine = 'endLine',
-      endColumn = 'endColumn',
-      message = '${message} [${ruleId}]',
-      security = 'severity'
-    },
-    securities = {[2] = 'error', [1] = 'warning'}
-  },
-  -- Better use https://github.com/bmatcuk/stylelint-lsp, but can't config it just yet
-  stylelint = {
-    sourceName = 'stylelint',
-    command = 'stylelint',
-    args = {'%filepath'},
-    rootPatterns = {'.stylelintrc'},
-    debounce = 100,
-    formatPattern = {
-      [[(\d+):(\d)\s\s(.)\s\s(.+?)\s+([a-zA-Z\/\-]+)$]],
-      {
-        line = 1,
-        column = 2,
-        security = 3,
-        message = {4, ' [', 5, ']'},
-      },
-    },
-    securities = {
-      ['⚠'] = 'warning',
-      ['✖'] = 'error',
-    },
-  },
-}
-local formatters = {
-  eslint = {
-    command = 'eslint',
-    args = {'--fix', '%filepath'},
-  }
-}
-local formatFiletypes = {
-  typescript = 'eslint',
-  typescriptreact = 'eslint',
-}
-nvim_lsp.diagnosticls.setup {
-  filetypes = vim.tbl_keys(filetypes),
-  init_options = {
-    filetypes = filetypes,
-    linters = linters,
-    formatters = formatters,
-    formatFiletypes = formatFiletypes,
-  }
-}
-
---[[
-local eslint = {
-  lintCommand = 'eslint_d -f unix --stdin --stdin-filename ${INPUT}',
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = { '%f:%l:%c: %m' },
-  formatCommand = 'eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
-  formatStdin = true,
-}
-nvim_lsp.efm.setup {
-  cmd = { 'efm-langserver' },
-  on_attach = function(client)
-    client.resolved_capabilities.rename = false
-    client.resolved_capabilities.hover = false
-    client.resolved_capabilities.document_formatting = true
-    client.resolved_capabilities.completion = false
-  end,
-  filetypes = { 'typescript', 'typescriptreact' },
-  settings = {
-    rootMarkers = { '.git', 'package.json' },
-    languages = {
-      typescript = { eslint },
-      typescriptreact = { eslint },
-    },
-  },
-}
-]]
-
-local sumneko_root = os.getenv('HOME')..'/Projects/lua-language-server'
-nvim_lsp.sumneko_lua.setup {
-  cmd = {
-    sumneko_root .. '/bin/Linux/lua-language-server',
-    '-E',
-    sumneko_root .. '/main.lua',
-  },
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
-      diagnostics = {
-        enable = true,
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        },
-      },
-    },
-  },
-}
+local web_diagnostic = require('plugins.lsp.web').get_diagnostic()
+require('plugins.lsp.diagnostic').setup(web_diagnostic)
 
 --------------------------------------------------------------------------------
 -- ICONS yeaaah~~
@@ -205,16 +89,12 @@ local rename = require('lspsaga.rename')
 local provider = require('lspsaga.provider')
 local diagnostic = require('lspsaga.diagnostic')
 
-local k = require('astronauta.keymap')
-local nnoremap = k.nnoremap
-local vnoremap = k.vnoremap
-local opts = { silent = true }
+nnoremap { '<Leader>ca', codeaction.code_action, opts }
+vnoremap { '<Leader>ca', codeaction.range_code_action, opts }
+-- nnoremap {'<Leader>cr', rename.rename, opts }
+nnoremap { '<Leader>cd', provider.preview_definition, opts }
+nnoremap { '<Leader>cj', provider.lsp_finder, opts }
 
-nnoremap {'<Leader>ca', codeaction.code_action, opts }
-vnoremap {'<Leader>ca', codeaction.range_code_action, opts }
-nnoremap {'<Leader>cr', rename.rename, opts }
-nnoremap {'<Leader>cd', provider.preview_definition, opts }
-
-nnoremap {'[e', diagnostic.lsp_jump_diagnostic_prev, opts }
-nnoremap {']e', diagnostic.lsp_jump_diagnostic_next, opts }
+nnoremap { '[e', diagnostic.lsp_jump_diagnostic_prev, opts }
+nnoremap { ']e', diagnostic.lsp_jump_diagnostic_next, opts }
 -- nnoremap {'K', [[ :lua require('lspsaga.hover').render_hover_doc()<CR> ]], opts }
