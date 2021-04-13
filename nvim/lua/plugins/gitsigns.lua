@@ -6,7 +6,7 @@ require('gitsigns').setup {
     change       = {hl = 'MyGitSignsChange', text = '│' },
     delete       = {hl = 'MyGitSignsDelete', text = '│' },
     topdelete    = {hl = 'MyGitSignsDelete', text = '│' },
-    changedelete = {hl = 'MyGitSignsChange', text = '│' },
+    changedelete = {hl = 'MyGitSignsDelete', text = '│' },
   },
   keymaps = {
     noremap = true,
