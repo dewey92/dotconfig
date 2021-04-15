@@ -122,20 +122,6 @@ require('packer').startup {
       'onsails/lspkind-nvim',
     }
 
-    use {
-      'neoclide/coc.nvim',
-      branch = 'release',
-      ft = {
-        'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css',
-        'json', 'php',
-        'purescript', 'haskell',
-      },
-      config = function() vim.cmd[[ source $HOME/.config/nvim/packages/coc.vim ]] end,
-      disable = true,
-    }
-
-    -- use 'sheerun/vim-polyglot'
-
     ------------------------------------------------------------------------------
     -- Git
     ------------------------------------------------------------------------------
