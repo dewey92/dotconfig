@@ -24,6 +24,10 @@ nnoremap <Leader>wh <C-w>h
 nnoremap <Leader>wj <C-w>j
 nnoremap <Leader>wk <C-w>k
 nnoremap <Leader>wl <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 nnoremap <Leader>wH <C-w>H
 nnoremap <Leader>wJ <C-w>J
 nnoremap <Leader>wK <C-w>K

@@ -13,7 +13,7 @@ local options = {
 utils.apply_options(options)
 
 local lightline_theme = ''
-_G.load_theme = function(theme)
+_G.load_theme = function (theme)
   if theme == 'gruvbox-material' then
     g.gruvbox_material_background = 'hard'
     g.gruvbox_material_enable_italic = 1
@@ -59,7 +59,7 @@ _G.load_theme = function(theme)
   vim.cmd('colorscheme ' .. theme)
 end
 
-load_theme('gruvbox8_hard')
+load_theme('embark')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -81,20 +81,18 @@ g.lightline = {
   }
 }
 
-_G.get_icon_lightline = function()
-  local icon, hlgroup = require'nvim-web-devicons'.get_icon(
-    vim.fn.expand('%:t'),
-    vim.fn.expand('%:e')
+_G.get_icon_lightline = function ()
+  local icon, hlgroup = utils.get_icon(
+    vim.fn.expand('%'),
+    vim.fn.expand('%')
   )
   local fg = utils.get_hlgroup_attr(hlgroup, 'foreground')
 
   local function apply_icon_hi(modes)
     for _, mode in ipairs(modes) do
-      local bg_exists, bg = pcall(utils.get_hlgroup_attr, 'LightlineLeft_'..mode..'_1', 'background')
+      local bg = utils.get_hlgroup_attr('LightlineLeft_'..mode..'_1', 'background')
 
-      if bg_exists then
-        vim.cmd(string.format('hi! LightlineLeft_%s_1 guibg=%s guifg=%s', mode, bg, fg))
-      end
+      vim.cmd(string.format('hi! LightlineLeft_%s_1 guibg=%s guifg=%s', mode, bg, fg))
     end
   end
 
@@ -112,7 +110,7 @@ endfunction
 -- Startify
 --------------------------------------------------------------------------------
 
-_G.get_icon_startify = function(path)
+_G.get_icon_startify = function (path)
   return utils.get_icon(path)
 end
 

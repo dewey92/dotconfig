@@ -14,7 +14,7 @@ end
 vim.cmd [[autocmd BufWritePost plugins.lua execute "luafile $HOME/.config/nvim/lua/my/plugins.lua" | PackerCompile]] -- Auto compile!
 
 require('packer').startup {
-  function(use)
+  function (use)
     ------------------------------------------------------------------------------
     -- LUA ESSENTIALS
     ------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ require('packer').startup {
       'junegunn/fzf.vim',
       requires = {
         'junegunn/fzf',
-        run = function() vim.fn['fzf#install'](0) end
+        run = function () vim.fn['fzf#install'](0) end
       },
       disable = true
     }
@@ -49,18 +49,18 @@ require('packer').startup {
     use {
       'windwp/nvim-autopairs',
       event = {'BufReadPost'},
-      config = function() require('nvim-autopairs').setup() end,
+      config = function () require('nvim-autopairs').setup() end,
     }
     use {
       'phaazon/hop.nvim',
-      config = function() vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]] end,
+      config = function () vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]] end,
     }
     use 'b3nj5m1n/kommentary'
     use {
       'hrsh7th/nvim-compe',
       requires = { 'hrsh7th/vim-vsnip' },
       event = {'BufReadPost'},
-      config = function() require('plugins.compe') end,
+      config = function () require('plugins.compe') end,
     }
 
     ------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ require('packer').startup {
     ------------------------------------------------------------------------------
     use {
       'kyazdani42/nvim-web-devicons',
-      config = function() require('nvim-web-devicons').setup { default = true } end,
+      config = function () require('nvim-web-devicons').setup { default = true } end,
     }
     use {
       { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true },
@@ -85,7 +85,7 @@ require('packer').startup {
     use 'itchyny/lightline.vim'
     use {
       'norcalli/nvim-colorizer.lua',
-      config = function() require('colorizer').setup() end,
+      config = function () require('colorizer').setup() end,
     }
     use 'mhinz/vim-startify'
     use 'TaDaa/vimade'
@@ -98,7 +98,7 @@ require('packer').startup {
     }
     use {
       'karb94/neoscroll.nvim',
-      config = function() require('neoscroll').setup() end,
+      config = function () require('neoscroll').setup() end,
     }
 
     ------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ require('packer').startup {
     use {
       {
         'neovim/nvim-lspconfig',
-        config = function() require('plugins.lsp') end,
+        config = function () require('plugins.lsp') end,
       },
       'glepnir/lspsaga.nvim',
       'onsails/lspkind-nvim',
@@ -128,7 +128,7 @@ require('packer').startup {
     use {
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
-      config = function() require('plugins.gitsigns') end,
+      config = function () require('plugins.gitsigns') end,
     }
     use 'f-person/git-blame.nvim'
 
@@ -139,7 +139,7 @@ require('packer').startup {
     use 'airblade/vim-rooter'
     use {
       'voldikss/vim-floaterm',
-      config = function() vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
+      config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
   end
