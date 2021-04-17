@@ -1,11 +1,5 @@
 #! /bin/sh
 
-# Wait until XFCE settings daemon is initialized
-until p=$(pidof xfsettingsd)
-do
-	sleep 1
-done
-
 xmodmap ~/.config/X11/.Xmodmap
 
 pgrep -x sxhkd > /dev/null || sxhkd &
@@ -19,18 +13,33 @@ num_monitors=${#monitors[@]}
 # Flush monitors when before restarting
 bspc config remove_unplugged_monitors true
 
+internal_monitor=eDP
+external_monitor=HDMI-A-0
+
+bspc monitor -d I II III IV V VI VII VIII IX
+
 if [ $num_monitors -eq 1 ]
 then
-	bspc monitor eDP -d I II III IV V VI VII VIII IX
+	bspc monitor $internal_monitor -d I II III IV V VI VII VIII IX
 else
-	bspc monitor eDP -d I II
-	bspc monitor HDMI-A-0 -d III IV V VI VII VIII IX
+	# Move 3-9 desktops to external monitor
+	for desktop in $(bspc query -D -m $internal_monitor | sed -n '3,9p')
+	do
+		bspc desktop $desktop --to-monitor $external_monitor
 
-	# TEMPORARY BUG FX: Reset monitor padding after sleep
-	bspc config -m HDMI-A-0 right_padding 0
-	bspc config -m HDMI-A-0 bottom_padding 0
+		# Not sure why BSPWM adds +1 index when sending a desktop to a different monitor.
+		# So shift it to the previous desktop to maintain index from previous monitor
+		bspc desktop $desktop -b prev
+	done
 
-	bspc wm -O eDP HDMI-A-0
+	bspc monitor $internal_monitor -d I II
+	bspc monitor $external_monitor -d III IV V VI VII VIII IX
+
+	# FIXME: Reset monitor padding after sleep
+	bspc config -m $external_monitor right_padding 0
+	bspc config -m $external_monitor bottom_padding 0
+
+	bspc wm -O $internal_monitor $external_monitor
 fi
 
 # Border
