@@ -46,21 +46,33 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
   }
 )
 
--- Refocus quickfix list immediately to conter `wincmd p` in the default impl
+-- Refocus quickfix list immediately to counter `wincmd p` in the default impl
 local orig_handler_references = vim.lsp.handlers['textDocument/references']
-vim.lsp.handlers['textDocument/references'] = function (...)
-  orig_handler_references(...)
-  vim.cmd [[ copen ]]
-  vim.cmd [[ wincmd J ]]
+vim.lsp.handlers['textDocument/references'] = function (err, method, result)
+  orig_handler_references(err, method, result)
+
+  if result ~= nil then
+    vim.cmd [[ copen ]]
+    vim.cmd [[ wincmd J ]]
+  end
 end
 
--- Refocus quickfix list immediately to conter `wincmd p` in the default impl
-local orig_handler_definition = vim.lsp.handlers['textDocument/definition']
-vim.lsp.handlers['textDocument/definition'] = function (...)
-  orig_handler_definition(...)
-  vim.cmd [[ copen ]]
-  vim.cmd [[ wincmd J ]]
+-- Refocus quickfix list immediately to counter `wincmd p` in the default impl
+local function location_handler_focus_qf (handler)
+  return function (err, method, result)
+    handler(err, method, result)
+
+    if vim.tbl_islist(result) and #result > 1 then
+      vim.cmd [[ copen ]]
+      vim.cmd [[ wincmd J ]]
+    end
+  end
 end
+
+local orig_handler_definition = vim.lsp.handlers['textDocument/definition']
+local orig_handler_type_definition = vim.lsp.handlers['textDocument/typeDefinition']
+vim.lsp.handlers['textDocument/definition'] = location_handler_focus_qf(orig_handler_definition)
+vim.lsp.handlers['textDocument/typeDefinition'] = location_handler_focus_qf(orig_handler_type_definition)
 
 -- @see: https://github.com/neovim/nvim-lspconfig/issues/516
 vim.cmd [[ autocmd BufEnter * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights() ]]
