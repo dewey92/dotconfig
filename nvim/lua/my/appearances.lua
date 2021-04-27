@@ -28,14 +28,28 @@ _G.load_theme = function (theme)
     g.gruvbox_bold = 1
     g.gruvbox_underline = 1
     g.gruvbox_undercurl = 1
+    g.gruvbox_plugin_hi_groups = 0
+    g.gruvbox_transp_bg = 0
     lightline_theme = 'gruvbox8'
 
     vim.api.nvim_exec([[ autocmd ColorScheme * hi Normal guibg=#10151a ]], false)
+
+    vim.cmd [[ packadd vim-gruvbox8 ]]
   elseif theme == 'embark' then -- It's nice but colors in lazygit are broken
     g.embark_terminal_italics = 1
     lightline_theme = 'embark'
 
     vim.cmd [[ packadd embark ]]
+  elseif theme == 'tokyonight' then -- It's nice but colors in lazygit are broken
+    g.tokyonight_style = 'day'
+    g.tokyonight_italic_functions = true
+    lightline_theme = 'material'
+    g.material_style = 'lighter'
+
+    vim.o.background = 'light'
+
+    vim.cmd [[ packadd tokyonight.nvim ]]
+    vim.cmd [[ packadd material.nvim ]]
   elseif theme == 'miramare' then
     g.miramare_enable_italic = 1
     g.miramare_current_word = 'bold'
@@ -43,12 +57,14 @@ _G.load_theme = function (theme)
 
     vim.cmd [[ packadd miramare ]]
   elseif theme == 'material' then
-    g.material_style = 'deep ocean'
+    g.material_style = 'lighter'
     g.material_italic_comments = 1
     g.material_italic_keywords = 1
     g.material_italic_functions = 1
 
     lightline_theme = 'material'
+
+    vim.o.background = 'light'
 
     vim.cmd [[ packadd colorbuddy.nvim ]]
     vim.cmd [[ packadd material.nvim ]]
@@ -59,12 +75,11 @@ _G.load_theme = function (theme)
   vim.cmd('colorscheme ' .. theme)
 end
 
-load_theme('embark')
+load_theme('gruvbox8_hard')
 
 --------------------------------------------------------------------------------
 -- Lightline
 --------------------------------------------------------------------------------
-
 g.lightline = {
   colorscheme = lightline_theme,
   active = {
@@ -109,7 +124,6 @@ endfunction
 --------------------------------------------------------------------------------
 -- Startify
 --------------------------------------------------------------------------------
-
 _G.get_icon_startify = function (path)
   return utils.get_icon(path)
 end
@@ -129,7 +143,6 @@ g.gitblame_date_format = '%d %b %Y'
 --------------------------------------------------------------------------------
 -- etc
 --------------------------------------------------------------------------------
-
 vim.api.nvim_exec([[
   " Use autocmd to force lightline update.
   " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

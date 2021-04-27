@@ -62,6 +62,13 @@ require('packer').startup {
       event = {'BufReadPost'},
       config = function () require('plugins.compe') end,
     }
+    use 'tversteeg/registers.nvim'
+    -- use 'beauwilliams/focus.nvim'
+    use {
+      'camspiers/lens.vim',
+      requires = { 'camspiers/animate.vim' },
+      disable = true, -- It's cool, but messing up with quickfix list. Revisit later
+    }
 
     ------------------------------------------------------------------------------
     -- THEMES & APPEARANCES
@@ -72,7 +79,7 @@ require('packer').startup {
     }
     use {
       { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true },
-      { 'lifepillar/vim-gruvbox8', opt = false },
+      { 'lifepillar/vim-gruvbox8', opt = true },
       { 'sainnhe/gruvbox-material', opt = true },
       { 'drewtempelmeyer/palenight.vim', opt = true },
       { 'franbach/miramare', opt = true },
@@ -80,6 +87,7 @@ require('packer').startup {
       { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' }, opt = true },
       { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true },
       { 'bluz71/vim-moonfly-colors', opt = true },
+      { 'folke/tokyonight.nvim', opt = true },
     }
 
     use 'itchyny/lightline.vim'
@@ -91,11 +99,6 @@ require('packer').startup {
     use 'TaDaa/vimade'
     use 'thaerkh/vim-indentguides'
     -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
-    use {
-      'camspiers/lens.vim',
-      requires = { 'camspiers/animate.vim' },
-      disable = true, -- It's cool, but messing up with quickfix list. Revisit later
-    }
     use {
       'karb94/neoscroll.nvim',
       config = function () require('neoscroll').setup() end,
@@ -142,5 +145,10 @@ require('packer').startup {
       config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
-  end
+  end,
+  config = {
+    display = {
+      open_fn = require('packer.util').float
+    }
+  }
 }
