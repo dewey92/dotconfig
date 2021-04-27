@@ -11,7 +11,7 @@ local on_attach = function(client, bufnr)
   nnoremap { 'gd', vim.lsp.buf.definition, buf_opts }
   nnoremap { 'gt', vim.lsp.buf.type_definition, buf_opts }
   nnoremap { 'gD', vim.lsp.buf.references, buf_opts }
-  nnoremap { 'K', vim.lsp.buf.hover, buf_opts }
+  -- nnoremap { 'K', vim.lsp.buf.hover, buf_opts }
   -- nnoremap { 'gi', vim.lsp.buf.implementation, buf_opts }
   -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
   nnoremap { '<Leader>cr', vim.lsp.buf.rename, buf_opts }
@@ -28,23 +28,6 @@ local on_attach = function(client, bufnr)
     nnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
   end
 end
-
-local borders = {
-  {'┌', 'NormalFloat'},
-  {'─', 'NormalFloat'},
-  {'┐', 'NormalFloat'},
-  {'│', 'NormalFloat'},
-  {'┘', 'NormalFloat'},
-  {'─', 'NormalFloat'},
-  {'└', 'NormalFloat'},
-  {'│', 'NormalFloat'}
-}
-
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    border = borders,
-  }
-)
 
 -- Refocus quickfix list immediately to counter `wincmd p` in the default impl
 local orig_handler_references = vim.lsp.handlers['textDocument/references']
@@ -97,9 +80,10 @@ require('lspkind').init {}
 --------------------------------------------------------------------------------
 require('lspsaga').init_lsp_saga {}
 local codeaction = require('lspsaga.codeaction')
-local rename = require('lspsaga.rename')
+-- local rename = require('lspsaga.rename') -- @see https://github.com/glepnir/lspsaga.nvim/issues/186
 local provider = require('lspsaga.provider')
 local diagnostic = require('lspsaga.diagnostic')
+local hover = require('lspsaga.hover')
 
 nnoremap { '<Leader>ca', codeaction.code_action, opts }
 vnoremap { '<Leader>ca', codeaction.range_code_action, opts }
@@ -109,4 +93,4 @@ nnoremap { '<Leader>cj', provider.lsp_finder, opts }
 
 nnoremap { '[e', diagnostic.lsp_jump_diagnostic_prev, opts }
 nnoremap { ']e', diagnostic.lsp_jump_diagnostic_next, opts }
--- nnoremap {'K', [[ :lua require('lspsaga.hover').render_hover_doc()<CR> ]], opts }
+nnoremap { 'K', hover.render_hover_doc, opts }

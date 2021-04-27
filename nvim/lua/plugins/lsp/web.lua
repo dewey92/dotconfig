@@ -35,7 +35,7 @@ M.setup = function (on_attach)
 
       setup_ts_code_actions(bufnr)
 
-      on_attach(client)
+      on_attach(client, bufnr)
     end
   }
 
@@ -43,10 +43,11 @@ M.setup = function (on_attach)
     init_options = {
       documentFormatting = true,
     },
-    -- FIXME: Not sure why these are not working
     settings = {
-      autoFixOnSave = true,
-      autoFixOnFormat = true,
+      stylelintplus = {
+        autoFixOnSave = true,
+        autoFixOnFormat = true,
+      }
     },
   }
 end
@@ -54,11 +55,16 @@ end
 M.get_diagnostic = function ()
   local D = {}
 
+  -- Options used at work
+  local workOpts = {
+    '--parser-options', 'project:./**/tsconfig.json',
+  }
+
   D.linters = {
     eslint = {
       sourceName = 'eslint',
       command = 'eslint_d',
-      args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json'},
+      args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json', unpack(workOpts)},
       rootPatterns = {'.git', '.eslintrc.*', 'package.json'},
       debounce = 100,
       parseJson = {
@@ -82,14 +88,10 @@ M.get_diagnostic = function ()
       command = 'eslint',
       args = {'--fix', '%filepath'},
     },
-    stylelint = {
-      command = 'stylelint',
-      args = {'--fix', '--stdin', '--stdin-filename', '%filepath'},
-    }
   }
   D.formatFiletypes = {
-    typescript = {'eslint', 'stylelint'},
-    typescriptreact = {'eslint', 'stylelint'},
+    typescript = {'eslint'},
+    typescriptreact = {'eslint'},
   }
   D.filetypes = vim.tbl_keys(D.lintFiletypes)
 
