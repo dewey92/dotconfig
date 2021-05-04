@@ -13,6 +13,8 @@ local general_options = {
   conceallevel = 0,
   encoding = 'utf-8',
   fileencoding = 'utf-8',
+  grepprg = 'rg --vimgrep --no-heading --smart-case',
+  grepformat = '%f:%l:%c:%m,%f:%l:%m',
   hidden = true,
   mouse = 'a',
   pumheight = 10,
@@ -57,3 +59,16 @@ g.indentguides_tabchar = '▸'
 -- g.indent_blankline_show_first_indent_level = false
 -- g.indent_blankline_use_treesitter = true
 -- g.indent_blankline_show_current_context = false -- Set to false when too slow
+
+
+--------------------------------------------------------------------------------
+-- ETC
+--------------------------------------------------------------------------------
+-- @see https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
+vim.api.nvim_exec([[
+  augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* botright cwindow
+    autocmd QuickFixCmdPost l* lwindow
+  augroup END
+]], false)
