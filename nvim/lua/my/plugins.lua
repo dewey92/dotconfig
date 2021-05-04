@@ -33,13 +33,16 @@ require('packer').startup {
       disable = true
     }
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-      }
+      {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+          'nvim-lua/popup.nvim',
+          'nvim-lua/plenary.nvim',
+        },
+        config = function () require('plugins.telescope') end,
+      },
+      'nvim-telescope/telescope-fzy-native.nvim'
     }
-    use 'nvim-telescope/telescope-fzy-native.nvim'
     use { 'kevinhwang91/nvim-bqf' }
 
     ------------------------------------------------------------------------------
@@ -108,7 +111,11 @@ require('packer').startup {
     -- LANGUAGES
     ------------------------------------------------------------------------------
     use {
-      { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' },
+      {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        config = function () require('plugins.treesitter') end,
+      },
       'nvim-treesitter/playground',
       'p00f/nvim-ts-rainbow',
       'windwp/nvim-ts-autotag',
