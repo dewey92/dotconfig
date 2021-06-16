@@ -123,6 +123,8 @@ require('packer').startup {
       'jose-elias-alvarez/nvim-lsp-ts-utils',
     }
 
+    use 'purescript-contrib/purescript-vim'
+
     use {
       {
         'neovim/nvim-lspconfig',

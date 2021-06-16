@@ -66,6 +66,8 @@ vim.cmd [[ autocmd BufEnter * :lua require('vim.lsp.diagnostic')._define_default
 require('plugins.lsp.php').setup(on_attach)
 require('plugins.lsp.web').setup(on_attach)
 require('plugins.lsp.lua').setup(on_attach)
+require('plugins.lsp.purescript').setup(on_attach)
+require('plugins.lsp.haskell').setup(on_attach)
 
 local web_diagnostic = require('plugins.lsp.web').get_diagnostic()
 require('plugins.lsp.diagnostic').setup(web_diagnostic)
