@@ -25,14 +25,6 @@ require('packer').startup {
     -- FINDERS
     ------------------------------------------------------------------------------
     use {
-      'junegunn/fzf.vim',
-      requires = {
-        'junegunn/fzf',
-        run = function () vim.fn['fzf#install'](0) end
-      },
-      disable = true
-    }
-    use {
       {
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -56,7 +48,10 @@ require('packer').startup {
     }
     use {
       'phaazon/hop.nvim',
-      config = function () vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]] end,
+      config = function ()
+        require('hop').setup()
+        vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]]
+      end,
     }
     use 'b3nj5m1n/kommentary'
     use {
@@ -67,11 +62,6 @@ require('packer').startup {
     }
     use 'tversteeg/registers.nvim'
     -- use 'beauwilliams/focus.nvim'
-    use {
-      'camspiers/lens.vim',
-      requires = { 'camspiers/animate.vim' },
-      disable = true, -- It's cool, but messing up with quickfix list. Revisit later
-    }
 
     ------------------------------------------------------------------------------
     -- THEMES & APPEARANCES
@@ -104,7 +94,12 @@ require('packer').startup {
     -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use {
       'karb94/neoscroll.nvim',
-      config = function () require('neoscroll').setup() end,
+      config = function ()
+        require('neoscroll').setup({
+          -- cursor_scrolls_alone = false,
+          use_local_scrolloff = true,
+        })
+      end,
     }
 
     ------------------------------------------------------------------------------
@@ -154,6 +149,16 @@ require('packer').startup {
       config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
+    use {
+      'NTBBloodbath/rest.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      ft = {'http'},
+      config = function ()
+        local k = require('astronauta.keymap')
+        local rest = require('rest-nvim')
+        k.nnoremap { '<Leader>rh', rest.run, { silent = true, buffer = true } }
+      end,
+    }
   end,
   config = {
     display = {

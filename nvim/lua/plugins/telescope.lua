@@ -19,7 +19,6 @@ require('telescope').setup {
       '--column',
       '--smart-case'
     },
-    prompt_position = 'top',
     prompt_prefix = '  λ ',
     selection_caret = '» ',
     entry_prefix = '  ',
@@ -27,24 +26,25 @@ require('telescope').setup {
     selection_strategy = 'reset',
     sorting_strategy = 'ascending',
     layout_strategy = 'flex',
-    layout_defaults = {
+    layout_config = {
       horizontal = {
-        width_padding  = 0.18,
-        height_padding = 0.18,
+        -- width_padding  = 0.18,
+        -- height_padding = 0.18,
         preview_width  = 0.6,
       },
       vertical = {
-        width_padding  = 0.05,
-        height_padding = 1,
+        -- width_padding  = 0.05,
+        -- height_padding = 1,
         preview_height = 0.5,
       },
+      prompt_position = 'top',
+      preview_cutoff = 200,
     },
     file_sorter = sorters.get_fzy_sorter,
     file_ignore_patterns = { 'node_modules' },
     generic_sorter = sorters.get_generic_fuzzy_sorter,
-    shorten_path = true,
+    -- path_display = true,
     winblend = 10,
-    preview_cutoff = 200,
     use_less = true,
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
     mappings = {
@@ -140,17 +140,22 @@ end
 -- Highlighting
 --------------------------------------------------------------------------------
 _G.set_telescope_custom_highlight = function ()
-  vim.api.nvim_exec([[
+  vim.cmd[[
     hi! TelescopeBorder         guifg=#596580
     hi! TelescopePromptBorder   guifg=#596580
     hi! TelescopeResultsBorder  guifg=#596580
     hi! TelescopePreviewBorder  guifg=#8292b5
 
     hi! TelescopePromptPrefix   guifg=#fcba03 gui=bold
-  ]], false)
+  ]]
 end
 
-vim.cmd [[ autocmd ColorScheme * call v:lua.set_telescope_custom_highlight() ]]
+vim.cmd[[
+  augroup MyTelescopeHi
+    autocmd!
+    autocmd ColorScheme * call v:lua.set_telescope_custom_highlight()
+  augroup END
+]]
 
 --------------------------------------------------------------------------------
 -- Mappings

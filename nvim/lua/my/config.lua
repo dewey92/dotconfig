@@ -50,6 +50,7 @@ vim.api.nvim_exec([[
     autocmd FileType vim        setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
     autocmd FileType purescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
     autocmd FileType haskell    setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+    autocmd FileType cabal      setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
     autocmd FileType lua        setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
     autocmd FileType markdown   setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2 wrap linebreak
   augroup END

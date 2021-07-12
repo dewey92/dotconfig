@@ -2,7 +2,7 @@ local M = {}
 
 M.apply_options = function (opts)
   for k, v in pairs(opts) do
-    vim.o[k] = v
+    vim.opt[k] = v
   end
 end
 

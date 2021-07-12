@@ -6,7 +6,6 @@ local options = {
   background = 'dark',
   laststatus = 2,
   showmode = false,    -- We don't need to see things like -- INSERT -- anymore
-  t_Co = '256',        -- Support 256 colors
   termguicolors = true,
 }
 
@@ -32,7 +31,7 @@ _G.load_theme = function (theme)
     g.gruvbox_transp_bg = 0
     lightline_theme = 'gruvbox8'
 
-    vim.api.nvim_exec([[ autocmd ColorScheme * hi Normal guibg=#10151a ]], false)
+    vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
 
     vim.cmd [[ packadd vim-gruvbox8 ]]
   elseif theme == 'embark' then -- It's nice but colors in lazygit are broken

@@ -58,7 +58,12 @@ vim.lsp.handlers['textDocument/definition'] = location_handler_focus_qf(orig_han
 vim.lsp.handlers['textDocument/typeDefinition'] = location_handler_focus_qf(orig_handler_type_definition)
 
 -- @see: https://github.com/neovim/nvim-lspconfig/issues/516
-vim.cmd [[ autocmd BufEnter * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights() ]]
+vim.cmd([[
+  augroup MyLspSignsHi
+    autocmd!
+    autocmd BufEnter * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights()
+  augroup END
+]])
 
 --------------------------------------------------------------------------------
 -- LANGUAGE SERVERS

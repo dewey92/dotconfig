@@ -60,11 +60,6 @@ nnoremap <Leader>hrr :execute 'luafile $HOME/.config/nvim/init.lua' \| PackerCom
 " Source what's in selection
 vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
 
-" Quick search and replace
-nnoremap <Leader>r :%s///g<Left><Left>
-xnoremap <Leader>r :s///g<Left><Left>
-autocmd BufReadPost quickfix nnoremap <buffer> <Leader>r :cfdo %s/<C-r>s//g \| update<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>
-
 " Tab to space
 nnoremap <Leader>cts :%s/\t/<space><space>/g<CR>
 
