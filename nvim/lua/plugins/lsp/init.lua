@@ -18,7 +18,7 @@ local on_attach = function(client, bufnr)
   -- nnoremap { '<space>ce', vim.lsp.diagnostic.show_line_diagnostics, buf_opts }
   -- nnoremap { '[e', vim.lsp.diagnostic.goto_prev, buf_opts }
   -- nnoremap { ']e', vim.lsp.diagnostic.goto_next, buf_opts }
-  nnoremap { '<Leader>ce', vim.lsp.diagnostic.set_loclist, buf_opts }
+  nnoremap { '<Leader>ce', function () vim.lsp.diagnostic.set_loclist({ workspace = true }) end, buf_opts }
   nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
 
   -- Set some keybinds conditional on server capabilities
