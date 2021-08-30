@@ -90,7 +90,6 @@ g.lightline = {
     right = { {'lineinfo'}, {'percent'} }
   },
   component_function = {
-    cocstatus = 'coc#status',
     getIconLightline = 'GetIconLightline'
   }
 }
@@ -132,12 +131,6 @@ function! StartifyEntryFormat() abort
   return 'v:lua.get_icon_startify(absolute_path) . " " . entry_path'
 endfunction
 ]], false)
-
---------------------------------------------------------------------------------
--- Git blame
---------------------------------------------------------------------------------
-g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
-g.gitblame_date_format = '%d %b %Y'
 
 --------------------------------------------------------------------------------
 -- etc

@@ -89,7 +89,14 @@ require('packer').startup {
       config = function () require('colorizer').setup() end,
     }
     use 'mhinz/vim-startify'
-    use 'TaDaa/vimade'
+    use {
+      'TaDaa/vimade',
+      config = function ()
+        vim.g.vimade = {
+          enabletreesitter = 1
+        }
+      end
+    }
     use 'thaerkh/vim-indentguides'
     -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use {
@@ -97,6 +104,19 @@ require('packer').startup {
       config = function ()
         require('neoscroll').setup()
       end,
+    }
+    use {
+      'folke/zen-mode.nvim',
+      config = function()
+        require('zen-mode').setup {
+          plugins = {
+            kitty = {
+              enabled = true,
+              font = '+3',
+            }
+          }
+        }
+      end
     }
 
     ------------------------------------------------------------------------------
@@ -126,6 +146,12 @@ require('packer').startup {
       'onsails/lspkind-nvim',
     }
 
+    use {
+      'folke/trouble.nvim',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function() require('trouble').setup() end,
+    }
+
     ------------------------------------------------------------------------------
     -- Git
     ------------------------------------------------------------------------------
@@ -134,7 +160,13 @@ require('packer').startup {
       requires = { 'nvim-lua/plenary.nvim' },
       config = function () require('plugins.gitsigns') end,
     }
-    use 'f-person/git-blame.nvim'
+    use {
+      'f-person/git-blame.nvim',
+      config = function ()
+        vim.g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
+        vim.g.gitblame_date_format = '%d %b %Y'
+      end
+    }
 
     ------------------------------------------------------------------------------
     -- ETC
