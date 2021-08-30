@@ -26,4 +26,21 @@ M.get_icon = function (path)
   )
 end
 
+M.get_visual_selection = function ()
+  -- must exit visual mode or program croaks
+  -- :visual leaves ex-mode back to normal mode
+  -- use 'gv' to reselect the text
+  vim.cmd[[visual]]
+  local _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+  local _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
+  local lines = vim.fn.getline(csrow, cerow)
+  -- local n = cerow-csrow+1
+  local n = vim.tbl_count(lines)
+  if n <= 0 then return '' end
+  lines[n] = string.sub(lines[n], 1, cecol)
+  lines[1] = string.sub(lines[1], cscol)
+  print(n, csrow, cscol, cerow, cecol, table.concat(lines, '\n'))
+  return table.concat(lines, '\n')
+end
+
 return M
