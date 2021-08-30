@@ -2,19 +2,19 @@ local utils = require('my.utils')
 
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'MyGitSignsAdd'   , text = '│' },
-    change       = {hl = 'MyGitSignsChange', text = '│' },
-    delete       = {hl = 'MyGitSignsDelete', text = '│' },
-    topdelete    = {hl = 'MyGitSignsDelete', text = '│' },
-    changedelete = {hl = 'MyGitSignsDelete', text = '│' },
+    add          = { hl = 'MyGitSignsAdd'   , text = '│' },
+    change       = { hl = 'MyGitSignsChange', text = '│' },
+    delete       = { hl = 'MyGitSignsDelete', text = '│' },
+    topdelete    = { hl = 'MyGitSignsDelete', text = '│' },
+    changedelete = { hl = 'MyGitSignsDelete', text = '│' },
   },
   keymaps = {
     noremap = true,
     buffer = true,
     silent = true,
 
-    ['n ]h'] = { expr = true, "&diff ? ']h' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-    ['n [h'] = { expr = true, "&diff ? '[h' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+    ['n ]h'] = { expr = true, "&diff ? ']h' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
+    ['n [h'] = { expr = true, "&diff ? '[h' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
 
     ['n <leader>gs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['n <leader>gS'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
