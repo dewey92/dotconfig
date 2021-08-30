@@ -21,13 +21,15 @@ local general_options = {
   smartindent = true,
   splitbelow = true,
   splitright = true,
-  so = 10,                   -- Scroll offset
   signcolumn = 'yes',
   timeoutlen = 500,          -- Defaults to 1000
   updatetime = 300,          -- Faster completion
   wrap = false,
 }
 utils.apply_options(general_options)
+
+-- vim.opt_local.scrolloff = 10
+vim.go.scrolloff = 10
 
 --------------------------------------------------------------------------------
 -- TABS, SPACE, INDENTATIONS
