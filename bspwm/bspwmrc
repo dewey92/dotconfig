@@ -7,6 +7,7 @@ $HOME/.config/polybar/launch.sh &
 bspwm &
 
 # Monitors
+# Either HDMI-A-0, DisplayPort-0, or DisplayPort-1
 monitors=( $(xrandr | awk '$2 == "connected"{print $1}') )
 num_monitors=${#monitors[@]}
 
@@ -14,7 +15,7 @@ num_monitors=${#monitors[@]}
 bspc config remove_unplugged_monitors true
 
 internal_monitor=eDP
-external_monitor=HDMI-A-0
+external_monitor=${monitors[-1]}
 
 bspc monitor -d I II III IV V VI VII VIII IX
 
