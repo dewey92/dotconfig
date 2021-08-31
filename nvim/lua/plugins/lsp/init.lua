@@ -65,6 +65,14 @@ vim.cmd([[
   augroup END
 ]])
 
+require'lsp_signature'.setup {
+  bind = true, -- This is mandatory, otherwise border config won't get registered.
+  handler_opts = {
+    border = 'single'
+  },
+  use_lspsaga = true,
+}
+
 --------------------------------------------------------------------------------
 -- LANGUAGE SERVERS
 --------------------------------------------------------------------------------

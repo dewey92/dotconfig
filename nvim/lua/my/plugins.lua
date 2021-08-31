@@ -55,10 +55,16 @@ require('packer').startup {
     }
     use 'b3nj5m1n/kommentary'
     use {
-      'hrsh7th/nvim-compe',
-      requires = { 'hrsh7th/vim-vsnip' },
-      event = {'BufReadPost'},
-      config = function () require('plugins.compe') end,
+      'hrsh7th/nvim-cmp',
+      requires = {
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-buffer',
+      },
+      config = function () require('plugins.cmp') end,
     }
     use 'tversteeg/registers.nvim'
     -- use 'beauwilliams/focus.nvim'
@@ -144,6 +150,7 @@ require('packer').startup {
       },
       'glepnir/lspsaga.nvim',
       'onsails/lspkind-nvim',
+      'ray-x/lsp_signature.nvim',
     }
 
     use {

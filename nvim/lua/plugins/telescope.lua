@@ -7,6 +7,8 @@ local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
 local action_state = require('telescope.actions.state')
 
+local utils = require('my.utils')
+
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {
@@ -84,7 +86,7 @@ end
 
 M.search_string = function(text)
   builtin.grep_string {
-    shorten_path = true,
+    path_display = true,
     word_match = "-w",
     only_sort_text = true,
     search = text or ''
@@ -93,13 +95,7 @@ end
 
 -- FIXME: putting selected text into register doesn't work
 M.visual_search_string = function()
-  -- vim.cmd [[noau normal! gv"sy]] -- Put into register s
-  -- local text = vim.fn.getreg('s')
-  -- M.search_string(text)
-
-  builtin.live_grep {
-    default_text = 'blabla'
-  }
+  M.search_string(utils.get_visual_selection())
 end
 
 M.run_command = function(opts)
@@ -131,30 +127,23 @@ M.run_command = function(opts)
       return true
     end,
     layout_strategy = 'center',
-    results_height = 0.4,
-    width = 0.4,
+    layout_config = {
+      height = 0.4,
+      width = 0.4,
+    },
   }):find()
 end
 
 --------------------------------------------------------------------------------
 -- Highlighting
 --------------------------------------------------------------------------------
-_G.set_telescope_custom_highlight = function ()
-  vim.cmd[[
-    hi! TelescopeBorder         guifg=#596580
-    hi! TelescopePromptBorder   guifg=#596580
-    hi! TelescopeResultsBorder  guifg=#596580
-    hi! TelescopePreviewBorder  guifg=#8292b5
-
-    hi! TelescopePromptPrefix   guifg=#fcba03 gui=bold
-  ]]
-end
-
 vim.cmd[[
-  augroup MyTelescopeHi
-    autocmd!
-    autocmd ColorScheme * call v:lua.set_telescope_custom_highlight()
-  augroup END
+  hi! TelescopeBorder         guifg=#596580
+  hi! TelescopePromptBorder   guifg=#596580
+  hi! TelescopeResultsBorder  guifg=#596580
+  hi! TelescopePreviewBorder  guifg=#8292b5
+
+  hi! TelescopePromptPrefix   guifg=#fcba03 gui=bold
 ]]
 
 --------------------------------------------------------------------------------
@@ -172,8 +161,8 @@ nnoremap { '<Leader>bb', builtin.buffers, opts }
 nnoremap { '<Leader>fp', M.nvim_config, opts }
 
 nnoremap { '<Leader>sp', builtin.live_grep, opts }
+xnoremap { '<Leader>sp', M.visual_search_string, opts }
 nnoremap { '<Leader>sP', M.search_string, opts } -- very slow for large project
-xnoremap { '<Leader>sP', M.visual_search_string, opts }
 nnoremap { '<Leader>sb', builtin.current_buffer_fuzzy_find, opts }
 
 nnoremap { '<Leader>ht', builtin.colorscheme, opts }
