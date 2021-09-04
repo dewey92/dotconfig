@@ -28,8 +28,9 @@ local general_options = {
 }
 utils.apply_options(general_options)
 
--- vim.opt_local.scrolloff = 10
 vim.go.scrolloff = 10
+
+vim.cmd [[ set fillchars+=diff:╱ ]]
 
 --------------------------------------------------------------------------------
 -- TABS, SPACE, INDENTATIONS

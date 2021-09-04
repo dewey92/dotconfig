@@ -32,8 +32,17 @@ require('packer').startup {
           'nvim-lua/plenary.nvim',
         },
         config = function () require('plugins.telescope') end,
+        disable = true,
       },
       'nvim-telescope/telescope-fzy-native.nvim'
+    }
+    use {
+      'ibhagwan/fzf-lua',
+      requires = {
+        'vijaymarupudi/nvim-fzf',
+        'kyazdani42/nvim-web-devicons'
+      },
+      config = function () require('plugins.fzf') end,
     }
     use { 'kevinhwang91/nvim-bqf' }
 
@@ -173,6 +182,11 @@ require('packer').startup {
         vim.g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
         vim.g.gitblame_date_format = '%d %b %Y'
       end
+    }
+    use {
+      'sindrets/diffview.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = function () require('diffview').setup {} end,
     }
 
     ------------------------------------------------------------------------------
