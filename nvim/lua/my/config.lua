@@ -73,9 +73,21 @@ g.indentguides_tabchar = '▸'
 --------------------------------------------------------------------------------
 -- @see https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 vim.api.nvim_exec([[
-  augroup quickfix
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* botright cwindow
-    autocmd QuickFixCmdPost l* lwindow
+  augroup AutoOpenQf
+    au!
+    au QuickFixCmdPost [^l]* botright cwindow
+    au QuickFixCmdPost l* lwindow
   augroup END
+]], false)
+
+vim.api.nvim_exec([[
+  augroup ExpandActiveWin
+    au!
+    au WinEnter * :call ResizeSplits()
+  augroup END
+
+  function! ResizeSplits()
+    set winwidth=125
+    wincmd =
+  endfunction
 ]], false)

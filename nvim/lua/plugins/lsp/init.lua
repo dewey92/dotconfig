@@ -35,8 +35,7 @@ vim.lsp.handlers['textDocument/references'] = function (err, method, result)
   orig_handler_references(err, method, result)
 
   if result ~= nil then
-    vim.cmd [[ copen ]]
-    vim.cmd [[ wincmd J ]]
+    vim.cmd [[ cwindow ]]
   end
 end
 
@@ -46,8 +45,7 @@ local function location_handler_focus_qf (handler)
     handler(err, method, result)
 
     if vim.tbl_islist(result) and #result > 1 then
-      vim.cmd [[ copen ]]
-      vim.cmd [[ wincmd J ]]
+      vim.cmd [[ cwindow ]]
     end
   end
 end

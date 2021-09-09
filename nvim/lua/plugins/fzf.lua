@@ -40,7 +40,6 @@ nnoremap { '<Leader>fP', find_config_files, opts }
 
 nnoremap { '<Leader>sp', fzf.live_grep, opts }
 xnoremap { '<Leader>sp', fzf.grep_visual, opts }
--- nnoremap { '<Leader>sP', fzf.live_grep, opts }
 nnoremap { '<Leader>sb', fzf.grep_curbuf, opts }
 
 nnoremap { '<Leader>ht', fzf.colorschemes, opts }
