@@ -75,8 +75,8 @@ g.indentguides_tabchar = '▸'
 vim.api.nvim_exec([[
   augroup AutoOpenQf
     au!
-    au QuickFixCmdPost [^l]* botright cwindow
-    au QuickFixCmdPost l* lwindow
+    au QuickFixCmdPost [^l]* ++nested botright cwindow
+    au QuickFixCmdPost l*    ++nested lwindow
   augroup END
 ]], false)
 
