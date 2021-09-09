@@ -103,7 +103,10 @@ require('packer').startup {
       'norcalli/nvim-colorizer.lua',
       config = function () require('colorizer').setup() end,
     }
-    use 'mhinz/vim-startify'
+    use {
+      'mhinz/vim-startify',
+      config = function() vim.g.startify_change_to_dir = 0 end,
+    }
     use {
       'TaDaa/vimade',
       config = function ()
@@ -116,9 +119,7 @@ require('packer').startup {
     -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
     use {
       'karb94/neoscroll.nvim',
-      config = function ()
-        require('neoscroll').setup()
-      end,
+      config = function () require('neoscroll').setup() end,
     }
     use {
       'folke/zen-mode.nvim',
@@ -193,7 +194,10 @@ require('packer').startup {
     -- ETC
     ------------------------------------------------------------------------------
     use { 'wakatime/vim-wakatime', event = {'BufReadPost'} }
-    use 'airblade/vim-rooter'
+    use {
+      'airblade/vim-rooter',
+      config = function () vim.g.rooter_patterns = {'.git'} end,
+    }
     use {
       'voldikss/vim-floaterm',
       config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
