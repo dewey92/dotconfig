@@ -54,6 +54,10 @@ tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 " Copy filepath to clipboard
 nnoremap <Leader>yp :let @+=@% <CR>
 
+" Center cursor after searching
+nnoremap n nzz
+nnoremap N Nzz
+
 " Source config automatically
 nnoremap <Leader>hrr :execute 'luafile $HOME/.config/nvim/init.lua' \| PackerCompile \| PackerSync<CR>
 
