@@ -144,6 +144,7 @@ require('packer').startup {
         run = ':TSUpdate',
         config = function () require('plugins.treesitter') end,
       },
+      'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/playground',
       'p00f/nvim-ts-rainbow',
       'windwp/nvim-ts-autotag',

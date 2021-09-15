@@ -135,7 +135,6 @@ endfunction
 --------------------------------------------------------------------------------
 -- Git diff
 --------------------------------------------------------------------------------
-
 vim.api.nvim_exec([[
   hi DiffAdd gui=NONE guifg=NONE guibg=#555714
   hi DiffChange gui=NONE guifg=NONE guibg=#6e5213
@@ -143,12 +142,30 @@ vim.api.nvim_exec([[
 ]], false)
 
 --------------------------------------------------------------------------------
+-- Windows
+--------------------------------------------------------------------------------
+vim.api.nvim_exec([[
+  augroup ExpandActiveWin
+    au!
+    au WinEnter * :call ResizeSplits()
+  augroup END
+
+  function! ResizeSplits()
+    " No resize for floating windows
+    if empty(nvim_win_get_config(0)['relative'])
+      set winwidth=125
+      wincmd =
+    endif
+  endfunction
+
+  " Automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
+]], false)
+
+--------------------------------------------------------------------------------
 -- etc
 --------------------------------------------------------------------------------
 vim.api.nvim_exec([[
-  " Use autocmd to force lightline update.
-  " autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
   " Enable hybrid line numbering, only for the focused buffer
   set number relativenumber
   augroup numbertoggle
@@ -164,7 +181,4 @@ vim.api.nvim_exec([[
   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
   autocmd BufWinLeave * call clearmatches()
-
-  " Automatically rebalance windows on vim resize
-  autocmd VimResized * :wincmd =
 ]], false)

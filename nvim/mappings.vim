@@ -1,3 +1,6 @@
+noremap <Up> gk
+noremap <Down> gj
+
 " Buffer
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bp :bprevious<CR>
@@ -48,6 +51,9 @@ xnoremap P "_dhP
 nnoremap p p`[v`]=
 nnoremap P P`[v`]=
 
+" Select last paste in visual mode
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " Copy-paste seamlessly between normal buffer & terminal buffer
 tnoremap <expr> <M-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 
@@ -81,3 +87,5 @@ nnoremap <Leader>qq :mks! $HOME/.config/nvim/sessions/last.vim\|qa<CR>
 nnoremap <Leader>ql :source $HOME/.config/nvim/sessions/last.vim<CR>
 
 nnoremap <silent> <Esc><Esc> :noh<CR>
+
+inoremap jj <Esc>

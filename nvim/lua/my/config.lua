@@ -16,8 +16,10 @@ local general_options = {
   grepprg = 'rg --vimgrep --no-heading --smart-case',
   grepformat = '%f:%l:%c:%m,%f:%l:%m',
   hidden = true,
+  ignorecase = true,
   mouse = 'a',
   pumheight = 10,
+  smartcase = true,
   smartindent = true,
   splitbelow = true,
   splitright = true,
@@ -78,16 +80,4 @@ vim.api.nvim_exec([[
     au QuickFixCmdPost [^l]* ++nested botright cwindow
     au QuickFixCmdPost l*    ++nested lwindow
   augroup END
-]], false)
-
-vim.api.nvim_exec([[
-  augroup ExpandActiveWin
-    au!
-    au WinEnter * :call ResizeSplits()
-  augroup END
-
-  function! ResizeSplits()
-    set winwidth=125
-    wincmd =
-  endfunction
 ]], false)

@@ -1,5 +1,5 @@
-nmap <silent> <Leader>ss <CMD>HopChar2<CR>
-xmap <silent> <Leader>ss <CMD>HopChar2<CR>
+nmap <silent> s <CMD>HopChar2<CR>
+xmap <silent> s <CMD>HopChar2<CR>
 
 nmap <silent> <Leader>sj <CMD>HopWord<CR>
 xmap <silent> <Leader>sj <CMD>HopWord<CR>
