@@ -159,7 +159,6 @@ require('packer').startup {
         'neovim/nvim-lspconfig',
         config = function () require('plugins.lsp') end,
       },
-      'glepnir/lspsaga.nvim',
       'onsails/lspkind-nvim',
       'ray-x/lsp_signature.nvim',
     }
