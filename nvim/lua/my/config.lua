@@ -46,7 +46,7 @@ local tabs_options = {
   tabstop = 2,
 }
 utils.apply_options(tabs_options)
-vim.cmd [[set listchars=tab:▸\ ,extends:❯,precedes:❮]]
+vim.cmd [[ set listchars=tab:▸\ ,extends:❯,precedes:❮ ]]
 
 vim.api.nvim_exec([[
   filetype plugin indent on
