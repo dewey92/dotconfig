@@ -8,6 +8,10 @@ cmp.setup {
   },
   mapping = {
     ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
   },
   sources = {
     { name = 'nvim_lsp' },

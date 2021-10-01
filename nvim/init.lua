@@ -3,6 +3,6 @@ require('my.config')
 require('my.appearances')
 require('my.languages')
 
-vim.api.nvim_exec([[
+vim.cmd [[
   source $HOME/.config/nvim/mappings.vim
-]], false)
+]]

@@ -38,28 +38,27 @@ vim.cmd [[ set fillchars+=diff:╱ ]]
 -- TABS, SPACE, INDENTATIONS
 --------------------------------------------------------------------------------
 local tabs_options = {
+  expandtab = true, -- use space instead of tab
   list = true,
-  -- listchars = [[extends:❯,precedes:❮]],
   shiftwidth = 2,
   showtabline = 0,
   smarttab = true,
+  softtabstop = 2,
   tabstop = 2,
 }
 utils.apply_options(tabs_options)
 vim.cmd [[ set listchars=tab:▸\ ,extends:❯,precedes:❮ ]]
 
-vim.api.nvim_exec([[
+vim.cmd [[
   filetype plugin indent on
   augroup fts
     au!
-    autocmd FileType vim        setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-    autocmd FileType purescript setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-    autocmd FileType haskell    setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-    autocmd FileType cabal      setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-    autocmd FileType lua        setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-    autocmd FileType markdown   setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2 wrap linebreak
+    au FileType php             setlocal noexpandtab
+    au FileType typescript      setlocal noexpandtab
+    au FileType typescriptreact setlocal noexpandtab
+    au FileType markdown        setlocal wrap linebreak
   augroup END
-]], false)
+]]
 
 -- Guide indentations
 g.indentguides_spacechar = '│'
@@ -74,10 +73,10 @@ g.indentguides_tabchar = '▸'
 -- ETC
 --------------------------------------------------------------------------------
 -- @see https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-vim.api.nvim_exec([[
+vim.cmd [[
   augroup AutoOpenQf
     au!
     au QuickFixCmdPost [^l]* ++nested botright cwindow
     au QuickFixCmdPost l*    ++nested lwindow
   augroup END
-]], false)
+]]

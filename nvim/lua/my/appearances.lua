@@ -31,7 +31,7 @@ _G.load_theme = function (theme)
     g.gruvbox_transp_bg = 0
     lightline_theme = 'gruvbox8'
 
-    vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
+    -- vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
 
     vim.cmd [[ packadd vim-gruvbox8 ]]
   elseif theme == 'embark' then -- It's nice but colors in lazygit are broken
@@ -40,12 +40,12 @@ _G.load_theme = function (theme)
 
     vim.cmd [[ packadd embark ]]
   elseif theme == 'tokyonight' then -- It's nice but colors in lazygit are broken
-    g.tokyonight_style = 'day'
+    g.tokyonight_style = 'night'
     g.tokyonight_italic_functions = true
-    lightline_theme = 'material'
-    g.material_style = 'lighter'
+    lightline_theme = 'tokyonight'
 
-    vim.o.background = 'light'
+    -- vim.o.background = 'light'
+    vim.o.background = 'dark'
 
     vim.cmd [[ packadd tokyonight.nvim ]]
     vim.cmd [[ packadd material.nvim ]]
@@ -74,7 +74,11 @@ _G.load_theme = function (theme)
   vim.cmd('colorscheme ' .. theme)
 end
 
-load_theme('gruvbox8_hard')
+-- Transparent
+vim.cmd [[ autocmd ColorScheme * hi Normal guibg=NONE ]]
+vim.cmd [[ autocmd ColorScheme * hi NormalNC guibg=NONE ]]
+vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
+load_theme('tokyonight')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -169,16 +173,19 @@ vim.api.nvim_exec([[
   " Enable hybrid line numbering, only for the focused buffer
   set number relativenumber
   augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,WinEnter * if &nu | set rnu   | endif
-    autocmd BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
+    au!
+    au BufEnter,FocusGained,WinEnter * if &nu | set rnu   | endif
+    au BufLeave,FocusLost,WinLeave   * if &nu | set nornu | endif
   augroup END
 
   " Create whitespace group
   highlight ExtraWhitespace ctermbg=red guibg=red
   match ExtraWhitespace /\s\+$/
-  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-  autocmd BufWinLeave * call clearmatches()
+  augroup HighlightTrailingSpace
+    au!
+    au BufWinEnter * match ExtraWhitespace /\s\+$/
+    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    au InsertLeave * match ExtraWhitespace /\s\+$/
+    au BufWinLeave * call clearmatches()
+  augroup END
 ]], false)

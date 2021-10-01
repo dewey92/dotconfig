@@ -1,5 +1,17 @@
-(call_expression
-  function: (member_expression
-              (identifier) @_styled
-              (#match? @_styled "^(linaria|styled)$"))
-  arguments: (template_string) @css)
+(
+  (call_expression
+    function: (member_expression
+                (identifier) @_styled)
+    arguments: (template_string) @css)
+
+  (#match? @_styled "^(linaria|styled)$")
+)
+
+(
+  (call_expression
+    function: (call_expression
+                (identifier) @_styled)
+    arguments: (template_string) @css)
+
+  (#match? @_styled "^(linaria|styled)$")
+)

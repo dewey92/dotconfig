@@ -16,7 +16,7 @@ xnoremap <Leader>sr :s///g<Left><Left>
 " https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 augroup SearchInQf
   au!
-  autocmd BufReadPost quickfix nnoremap <buffer> <Leader>sr :cfdo %s///g \| update<C-Left><C-Left><Left><Left><Left>
+  au BufReadPost quickfix nnoremap <buffer> <Leader>sr :cfdo %s///g \| update<C-Left><C-Left><Left><Left><Left>
 augroup END
 
 function! Grep(...)
