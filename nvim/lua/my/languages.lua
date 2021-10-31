@@ -1,10 +1,11 @@
 local g = vim.g
 
 -- Purescript
-g.purescript_indent_do = 2
+g.purescript_disable_indent = 1
+--[[ g.purescript_indent_do = 2
 g.purescript_indent_where = 2
 g.purescript_indent_case = 2
-g.purescript_indent_in = 0
+g.purescript_indent_in = 0 ]]
 
 -- Markdown
 g.vim_markdown_fenced_languages = {

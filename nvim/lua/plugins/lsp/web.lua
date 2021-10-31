@@ -36,7 +36,20 @@ M.setup = function (on_attach)
       setup_ts_code_actions(bufnr)
 
       on_attach(client, bufnr)
-    end
+    end,
+  }
+
+  nvim_lsp.eslint.setup {
+    on_attach = function (client)
+      client.resolved_capabilities.document_formatting = true
+    end,
+    settings = {
+      options = {
+        parserOptions = {
+          project = './**/tsconfig.json'
+        }
+      }
+    }
   }
 
   nvim_lsp.stylelint_lsp.setup {
@@ -50,52 +63,6 @@ M.setup = function (on_attach)
       }
     },
   }
-end
-
-M.get_diagnostic = function ()
-  local D = {}
-
-  -- Options used at work
-  local workOpts = {
-    '--parser-options', 'project:./**/tsconfig.json',
-  }
-
-  D.linters = {
-    eslint = {
-      sourceName = 'eslint',
-      command = 'eslint_d',
-      args = {'--stdin', '--stdin-filename', '%filepath', '--format', 'json', unpack(workOpts)},
-      rootPatterns = {'.git', '.eslintrc.*', 'package.json'},
-      debounce = 100,
-      parseJson = {
-        errorsRoot = '[0].messages',
-        line = 'line',
-        column = 'column',
-        endLine = 'endLine',
-        endColumn = 'endColumn',
-        message = '${message} [${ruleId}]',
-        security = 'severity'
-      },
-      securities = {[2] = 'error', [1] = 'warning'}
-    },
-  }
-  D.lintFiletypes = {
-    typescript = {'eslint'},
-    typescriptreact = {'eslint'},
-  }
-  D.formatters = {
-    eslint = {
-      command = 'eslint',
-      args = {'--fix', '%filepath'},
-    },
-  }
-  D.formatFiletypes = {
-    typescript = {'eslint'},
-    typescriptreact = {'eslint'},
-  }
-  D.filetypes = vim.tbl_keys(D.lintFiletypes)
-
-  return D
 end
 
 return M

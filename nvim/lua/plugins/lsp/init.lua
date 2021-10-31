@@ -87,7 +87,7 @@ local on_attach = function(client, bufnr)
   nnoremap { '\\e', function () vim.diagnostic.show_line_diagnostics({ border = border }) end, buf_opts }
   nnoremap { '[e', function () vim.diagnostic.goto_prev({ popup_opts = { border = border } }) end, buf_opts }
   nnoremap { ']e', function () vim.diagnostic.goto_next({ popup_opts = { border = border } }) end, buf_opts }
-  nnoremap { '<Leader>ce', function () vim.lsp.diagnostic.set_qflist({ workspace = true }) end, buf_opts }
+  nnoremap { '<Leader>ce', function () vim.diagnostic.setqflist({ namespace = nil }) end, buf_opts }
   nnoremap { '<Leader>cd', peek_definition, buf_opts }
   nnoremap { '<Leader>ca', vim.lsp.buf.code_action, buf_opts }
   nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
@@ -108,6 +108,3 @@ require('plugins.lsp.web').setup(on_attach)
 require('plugins.lsp.lua').setup(on_attach)
 require('plugins.lsp.purescript').setup(on_attach)
 require('plugins.lsp.haskell').setup(on_attach)
-
-local web_diagnostic = require('plugins.lsp.web').get_diagnostic()
-require('plugins.lsp.diagnostic').setup(web_diagnostic)
