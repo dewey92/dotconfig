@@ -61,8 +61,10 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=8.5;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+; font-0 = fixed:pixelsize=8.5;1
+font-0 = Iosevka:pixelsize=8.5;1
+; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-1 = Iosevka:pixelsize=8.5:weight=bold;1
 font-2 = Siji:pixelsize=10;1
 
 modules-left = bspwm xwindow
@@ -88,6 +90,8 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 separator = %{F#555}|%{F-}
+
+bottom = true
 
 [module/xwindow]
 type = internal/xwindow
@@ -125,8 +129,8 @@ type = internal/bspwm
 
 pin-workspaces = true
 
-label-focused = %icon%
-label-focused-background = ${colors.background-alt}
+label-focused = %{F#333}%{T2}%icon%%{T-}%{F-}
+label-focused-background = ${colors.material-green}
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
@@ -141,7 +145,7 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
-label-monitor = %{B#7daea3}%{F#333}  %name%  %{F-}%{B-}
+label-monitor = %{T2}%{B#7daea3}%{F#333}  %name%  %{F-}%{B-}%{T-}
 
 format = <label-monitor> <label-state> <label-mode>
 
@@ -302,7 +306,7 @@ time-alt = %H:%M:%S
 format-foreground = #333
 format-background = ${colors.material-blue}
 
-label = %date% %time%
+label = %{T2}%date% %time%%{T-}
 
 [module/pulseaudio]
 type = internal/pulseaudio
