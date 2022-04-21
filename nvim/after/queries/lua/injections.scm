@@ -1,7 +1,7 @@
 (
   (function_call
-    (field_expression
-      (property_identifier) @_nvim_exec_method)
+    (dot_index_expression
+      field: (identifier) @_nvim_exec_method)
     (arguments
       (string) @vim)
   )
@@ -11,9 +11,9 @@
 
 (
   (function_call
-    (field_expression
-      (identifier) @_vim_global
-      (property_identifier) @_cmd)
+    (dot_index_expression
+      table: (identifier) @_vim_global
+      field: (identifier) @_cmd)
     (arguments
       (string) @vim)
   )
