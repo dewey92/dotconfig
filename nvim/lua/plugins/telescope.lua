@@ -149,9 +149,8 @@ vim.cmd[[
 --------------------------------------------------------------------------------
 -- Mappings
 --------------------------------------------------------------------------------
-local k = require('astronauta.keymap')
-local nnoremap = k.nnoremap
-local xnoremap = k.xnoremap
+local nnoremap = utils.nnoremap
+local xnoremap = utils.xnoremap
 local opts = { silent = true }
 
 nnoremap { '<Leader><Leader>', builtin.git_files, opts }

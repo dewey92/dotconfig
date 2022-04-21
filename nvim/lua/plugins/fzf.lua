@@ -1,7 +1,5 @@
 local fzf = require('fzf-lua')
 
-require('fzf-lua').setup {}
-
 local function find_sibling_files ()
   fzf.files {
     cwd = vim.fn.expand('%:p:h'),
@@ -23,12 +21,14 @@ local function find_config_files ()
   }
 end
 
+require('fzf-lua').setup {}
+
 --------------------------------------------------------------------------------
 -- Mappings
 --------------------------------------------------------------------------------
-local k = require('astronauta.keymap')
-local nnoremap = k.nnoremap
-local xnoremap = k.xnoremap
+local utils = require('my.utils')
+local nnoremap = utils.nnoremap
+local xnoremap = utils.xnoremap
 local opts = { silent = true }
 
 nnoremap { '<Leader><Leader>', fzf.git_files, opts }

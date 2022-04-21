@@ -47,7 +47,12 @@ local tabs_options = {
   tabstop = 2,
 }
 utils.apply_options(tabs_options)
-vim.cmd [[ set listchars=tab:▸\ ,extends:❯,precedes:❮ ]]
+
+vim.opt.listchars:append('tab:▸ ')
+-- vim.opt.listchars:append('eol:↴')
+vim.opt.listchars:append('extends:❯')
+vim.opt.listchars:append('precedes:❮')
+vim.opt.listchars:append('lead:·')
 
 vim.cmd [[
   filetype plugin indent on
@@ -67,16 +72,3 @@ g.indentguides_tabchar = '▸'
 -- g.indent_blankline_show_first_indent_level = false
 -- g.indent_blankline_use_treesitter = true
 -- g.indent_blankline_show_current_context = false -- Set to false when too slow
-
-
---------------------------------------------------------------------------------
--- ETC
---------------------------------------------------------------------------------
--- @see https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-vim.cmd [[
-  augroup AutoOpenQf
-    au!
-    au QuickFixCmdPost [^l]* ++nested botright cwindow
-    au QuickFixCmdPost l*    ++nested lwindow
-  augroup END
-]]

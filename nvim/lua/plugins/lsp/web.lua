@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
-local k = require('astronauta.keymap')
-local nnoremap = k.nnoremap
+local utils = require('my.utils')
+local nnoremap = utils.nnoremap
 
 local M = {}
 
@@ -25,10 +25,11 @@ end
 
 M.setup = function (on_attach)
   nvim_lsp.tsserver.setup {
-    init_options = {
+    --[[ init_options = {
       documentFormatting = false,
-    },
-    on_attach = function(client, bufnr)
+    }, ]]
+    on_attach = function (client, bufnr)
+      client.resolved_capabilities.document_formatting = true
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
@@ -43,6 +44,9 @@ M.setup = function (on_attach)
     on_attach = function (client)
       client.resolved_capabilities.document_formatting = true
     end,
+    --[[ init_options = {
+      documentFormatting = true,
+    }, ]]
     settings = {
       options = {
         parserOptions = {
@@ -53,9 +57,12 @@ M.setup = function (on_attach)
   }
 
   nvim_lsp.stylelint_lsp.setup {
-    init_options = {
+    --[[ init_options = {
       documentFormatting = true,
-    },
+    }, ]]
+    on_attach = function (client)
+      client.resolved_capabilities.document_formatting = true
+    end,
     settings = {
       stylelintplus = {
         autoFixOnSave = true,

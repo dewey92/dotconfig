@@ -72,6 +72,8 @@ vnoremap <Leader>gr :<c-u>exec join(getline("'<","'>"),"\n")<CR>
 
 " Tab to space
 nnoremap <Leader>cts :%s/\t/<space><space>/g<CR>
+" Space to tab
+nnoremap <Leader>cts :%s/<space><space>/\t/g<CR>
 
 " Make a new line after a space
 nnoremap <Leader>nl f<Space>xi<CR><Esc>
@@ -89,3 +91,8 @@ nnoremap <Leader>ql :source $HOME/.config/nvim/sessions/last.vim<CR>
 nnoremap <silent> <Esc><Esc> :noh<CR>
 
 inoremap jj <Esc>
+
+augroup QuickFixMapping
+  au!
+  au FileType qf nnoremap <buffer> <C-c> :q<CR>
+augroup END

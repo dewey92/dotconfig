@@ -39,16 +39,14 @@ _G.load_theme = function (theme)
     lightline_theme = 'embark'
 
     vim.cmd [[ packadd embark ]]
-  elseif theme == 'tokyonight' then -- It's nice but colors in lazygit are broken
+  elseif theme == 'tokyonight' then
     g.tokyonight_style = 'night'
     g.tokyonight_italic_functions = true
     lightline_theme = 'tokyonight'
 
-    -- vim.o.background = 'light'
     vim.o.background = 'dark'
 
     vim.cmd [[ packadd tokyonight.nvim ]]
-    vim.cmd [[ packadd material.nvim ]]
   elseif theme == 'miramare' then
     g.miramare_enable_italic = 1
     g.miramare_current_word = 'bold'
@@ -69,6 +67,19 @@ _G.load_theme = function (theme)
     vim.cmd [[ packadd material.nvim ]]
   elseif theme == 'moonfly' then
     lightline_theme = 'moonfly'
+  elseif theme == 'dawnfox' then
+    lightline_theme = 'nightfox'
+
+    vim.cmd [[ packadd nightfox.nvim ]]
+
+    require('nightfox').init({
+      dim_inactive = true,
+    })
+  elseif theme == 'base16-tomorrow-night' then
+    lightline_theme = 'base16-tomorrow-night'
+    theme = 'base16-tomorrow-night-eighties'
+
+    vim.cmd [[ packadd nvim-base16 ]]
   end
 
   vim.cmd('colorscheme ' .. theme)
@@ -77,8 +88,10 @@ end
 -- Transparent
 vim.cmd [[ autocmd ColorScheme * hi Normal guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi NormalNC guibg=NONE ]]
+vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
+vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
-load_theme('tokyonight')
+load_theme('gruvbox-material')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -157,7 +170,7 @@ vim.api.nvim_exec([[
   function! ResizeSplits()
     " No resize for floating windows
     if empty(nvim_win_get_config(0)['relative'])
-      set winwidth=125
+      set winwidth=130
       wincmd =
     endif
   endfunction

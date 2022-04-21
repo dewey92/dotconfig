@@ -19,12 +19,11 @@ require('packer').startup {
     -- LUA ESSENTIALS
     ------------------------------------------------------------------------------
     use 'wbthomason/packer.nvim'
-    use 'tjdevries/astronauta.nvim'
 
     ------------------------------------------------------------------------------
     -- FINDERS
     ------------------------------------------------------------------------------
-    use {
+    --[[ use {
       {
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -35,7 +34,7 @@ require('packer').startup {
         disable = true,
       },
       'nvim-telescope/telescope-fzy-native.nvim'
-    }
+    } ]]
     use {
       'ibhagwan/fzf-lua',
       requires = {
@@ -44,12 +43,13 @@ require('packer').startup {
       },
       config = function () require('plugins.fzf') end,
     }
-    use { 'kevinhwang91/nvim-bqf' }
+    use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
     ------------------------------------------------------------------------------
     -- EDITORS
     ------------------------------------------------------------------------------
     use { 'tpope/vim-surround', event = {'BufReadPost'} }
+    use { 'tpope/vim-abolish' }
     use {
       'windwp/nvim-autopairs',
       event = {'BufReadPost'},
@@ -62,7 +62,10 @@ require('packer').startup {
         vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]]
       end,
     }
-    use 'b3nj5m1n/kommentary'
+    use {
+      'numToStr/Comment.nvim',
+      config = function () require('Comment').setup() end
+    }
     use {
       'hrsh7th/nvim-cmp',
       requires = {
@@ -76,7 +79,6 @@ require('packer').startup {
       config = function () require('plugins.cmp') end,
     }
     use 'tversteeg/registers.nvim'
-    -- use 'beauwilliams/focus.nvim'
 
     ------------------------------------------------------------------------------
     -- THEMES & APPEARANCES
@@ -92,10 +94,12 @@ require('packer').startup {
       { 'drewtempelmeyer/palenight.vim', opt = true },
       { 'franbach/miramare', opt = true },
       { 'embark-theme/vim', as = 'embark', opt = true },
-      { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' }, opt = true },
+      -- { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' }, opt = true },
       { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true },
       { 'bluz71/vim-moonfly-colors', opt = true },
       { 'folke/tokyonight.nvim', opt = true },
+      { 'EdenEast/nightfox.nvim', opt = true },
+      { 'RRethy/nvim-base16', opt = true },
     }
 
     use 'itchyny/lightline.vim'
@@ -115,8 +119,18 @@ require('packer').startup {
         }
       end
     }
-    use 'thaerkh/vim-indentguides'
-    -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+    -- use 'thaerkh/vim-indentguides'
+    use {
+      'lukas-reineke/indent-blankline.nvim',
+      config = function ()
+        require('indent_blankline').setup {
+          show_current_context = true,
+          show_current_context_start = true,
+          show_first_indent_level = false,
+          use_treesitter = true,
+        }
+      end,
+    }
     use {
       'karb94/neoscroll.nvim',
       config = function () require('neoscroll').setup() end,
@@ -153,6 +167,8 @@ require('packer').startup {
     }
 
     use 'purescript-contrib/purescript-vim'
+    use 'vmchale/dhall-vim'
+    use "b0o/schemastore.nvim"
 
     use {
       {
@@ -203,16 +219,6 @@ require('packer').startup {
       config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
-    use {
-      'NTBBloodbath/rest.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
-      ft = {'http'},
-      config = function ()
-        local k = require('astronauta.keymap')
-        local rest = require('rest-nvim')
-        k.nnoremap { '<Leader>rh', rest.run, { silent = true, buffer = true } }
-      end,
-    }
   end,
   config = {
     display = {

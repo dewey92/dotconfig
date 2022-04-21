@@ -1,5 +1,5 @@
-local k = require('astronauta.keymap')
-local nnoremap, vnoremap = k.nnoremap, k.vnoremap
+local utils = require('my.utils')
+local nnoremap = utils.nnoremap
 local opts = { silent = true }
 
 -- UI
@@ -32,7 +32,7 @@ vim.lsp.handlers['textDocument/references'] = function (err, method, result)
   orig_handler_references(err, method, result)
 
   if result ~= nil then
-    vim.cmd [[ cwindow ]]
+    vim.cmd [[ botright cwindow ]]
   end
 end
 
@@ -42,7 +42,7 @@ local function location_handler_focus_qf (handler)
     handler(err, method, result)
 
     if vim.tbl_islist(result) and #result > 1 then
-      vim.cmd [[ cwindow ]]
+      vim.cmd [[ botright cwindow ]]
     end
   end
 end
@@ -84,9 +84,9 @@ local on_attach = function(client, bufnr)
   nnoremap { '<Leader>ci', vim.lsp.buf.implementation, buf_opts }
   -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
   nnoremap { '<Leader>cr', vim.lsp.buf.rename, buf_opts }
-  nnoremap { '\\e', function () vim.diagnostic.show_line_diagnostics({ border = border }) end, buf_opts }
-  nnoremap { '[e', function () vim.diagnostic.goto_prev({ popup_opts = { border = border } }) end, buf_opts }
-  nnoremap { ']e', function () vim.diagnostic.goto_next({ popup_opts = { border = border } }) end, buf_opts }
+  nnoremap { '\\e', function () vim.diagnostic.open_float({ border = border }) end, buf_opts }
+  nnoremap { '[e', function () vim.diagnostic.goto_prev({ float = { border = border } }) end, buf_opts }
+  nnoremap { ']e', function () vim.diagnostic.goto_next({ float = { border = border } }) end, buf_opts }
   nnoremap { '<Leader>ce', function () vim.diagnostic.setqflist({ namespace = nil }) end, buf_opts }
   nnoremap { '<Leader>cd', peek_definition, buf_opts }
   nnoremap { '<Leader>ca', vim.lsp.buf.code_action, buf_opts }
@@ -108,3 +108,4 @@ require('plugins.lsp.web').setup(on_attach)
 require('plugins.lsp.lua').setup(on_attach)
 require('plugins.lsp.purescript').setup(on_attach)
 require('plugins.lsp.haskell').setup(on_attach)
+require('plugins.lsp.json').setup(on_attach)

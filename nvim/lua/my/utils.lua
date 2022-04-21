@@ -43,4 +43,15 @@ M.get_visual_selection = function ()
   return table.concat(lines, '\n')
 end
 
+-- KEEBS
+M.nnoremap = function (tbl)
+  vim.keymap.set('n', unpack(tbl))
+end
+M.vnoremap = function (tbl)
+  vim.keymap.set('v', unpack(tbl))
+end
+M.xnoremap = function (tbl)
+  vim.keymap.set('x', unpack(tbl))
+end
+
 return M

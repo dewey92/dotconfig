@@ -12,6 +12,7 @@ xmap <silent> <Leader>s<space> <CMD>HopPattern<CR>
 nnoremap <Leader>sg :silent Rg<Space>
 nnoremap <Leader>sr :%s///g<Left><Left>
 xnoremap <Leader>sr :s///g<Left><Left>
+xnoremap <Leader>sR "ry \|:%s/<C-r>r/<C-r>r/g<Left><Left>
 
 " https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 augroup SearchInQf
@@ -20,7 +21,17 @@ augroup SearchInQf
 augroup END
 
 function! Grep(...)
-  return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+  let s:command = join([&grepprg] + [expandcmd(join(a:000, ' '))], ' ')
+  return system(s:command)
 endfunction
+
+augroup QuickFixSearch
+  au!
+  au QuickFixCmdPost cgetexpr ++nested cwindow | wincmd J
+      \| call setqflist([], 'a', {'title': ':' . s:command})
+  au QuickFixCmdPost lgetexpr ++nested lwindow
+      \| call setloclist(0, [], 'a', {'title': ':' . s:command})
+augroup END
+
 command! -nargs=+ -complete=file_in_path -bar Rg  cgetexpr Grep(<f-args>)
 command! -nargs=+ -complete=file_in_path -bar LRg lgetexpr Grep(<f-args>)
