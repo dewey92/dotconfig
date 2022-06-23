@@ -6,7 +6,7 @@ cmp.setup {
       vim.fn['vsnip#anonymous'](args.body)
     end,
   },
-  mapping = {
+  mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm({
       -- behavior = cmp.ConfirmBehavior.Replace,
@@ -19,14 +19,22 @@ cmp.setup {
         fallback()
       end
     end,
-  },
-  sources = {
+    ['<Down>'] = cmp.mapping(
+      cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      {'i'}
+    ),
+    ['<Up>'] = cmp.mapping(
+      cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      {'i'}
+    ),
+  }),
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'vsnip' },
     { name = 'path' },
     { name = 'buffer' },
-  },
+  }),
   formatting = {
     format = function(_, vim_item)
       vim_item.kind = require('lspkind').presets.default[vim_item.kind] .. ' ' .. vim_item.kind

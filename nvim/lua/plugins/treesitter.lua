@@ -13,7 +13,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
   context_commentstring = {
-    enable = true
+    enable = true,
+    -- Following line is to make it work with Comment.nvim
+    enable_autocmd = false
   },
   textobjects = {
     select = {

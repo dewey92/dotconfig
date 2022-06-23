@@ -93,9 +93,9 @@ local on_attach = function(client, bufnr)
   nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
 
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     nnoremap { '<Leader>cf', vim.lsp.buf.formatting, buf_opts }
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif client.server_capabilities.document_range_formatting then
     nnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
   end
 end

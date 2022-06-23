@@ -168,6 +168,11 @@ vim.api.nvim_exec([[
   augroup END
 
   function! ResizeSplits()
+    " No resize for these filetypes
+    if &ft =~ 'DiffviewFiles'
+      return
+    endif
+
     " No resize for floating windows
     if empty(nvim_win_get_config(0)['relative'])
       set winwidth=130

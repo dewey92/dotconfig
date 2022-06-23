@@ -78,6 +78,9 @@ nnoremap <Leader>cts :%s/<space><space>/\t/g<CR>
 " Make a new line after a space
 nnoremap <Leader>nl f<Space>xi<CR><Esc>
 
+" Git related stuff
+nnoremap <Leader>gd :DiffviewOpen<CR>
+
 " Easy save
 nnoremap ;w :w
 

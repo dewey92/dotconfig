@@ -29,7 +29,7 @@ M.setup = function (on_attach)
       documentFormatting = false,
     }, ]]
     on_attach = function (client, bufnr)
-      client.resolved_capabilities.document_formatting = true
+      client.server_capabilities.document_formatting = true
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
@@ -41,16 +41,19 @@ M.setup = function (on_attach)
   }
 
   nvim_lsp.eslint.setup {
-    on_attach = function (client)
-      client.resolved_capabilities.document_formatting = true
+    on_attach = function (client, bufnr)
+      client.server_capabilities.document_formatting = true
+      on_attach(client, bufnr)
     end,
     --[[ init_options = {
       documentFormatting = true,
     }, ]]
     settings = {
       options = {
-        parserOptions = {
-          project = './**/tsconfig.json'
+        overrideConfig = {
+          parserOptions = {
+            project = { './**/tsconfig.json' }
+          }
         }
       }
     }
@@ -61,7 +64,7 @@ M.setup = function (on_attach)
       documentFormatting = true,
     }, ]]
     on_attach = function (client)
-      client.resolved_capabilities.document_formatting = true
+      client.server_capabilities.document_formatting = true
     end,
     settings = {
       stylelintplus = {
