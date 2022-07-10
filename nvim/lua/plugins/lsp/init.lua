@@ -1,6 +1,7 @@
 local utils = require('my.utils')
 local nnoremap = utils.nnoremap
-local opts = { silent = true }
+local vnoremap = utils.vnoremap
+local xnoremap = utils.xnoremap
 
 -- UI
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
@@ -78,8 +79,9 @@ local on_attach = function(client, bufnr)
 
   -- Mappings
   nnoremap { 'gd', vim.lsp.buf.definition, buf_opts }
+  nnoremap { 'gD', function () vim.cmd('vsplit'); vim.lsp.buf.definition() end, buf_opts }
   nnoremap { 'gt', vim.lsp.buf.type_definition, buf_opts }
-  nnoremap { 'gD', vim.lsp.buf.references, buf_opts }
+  nnoremap { 'gr', vim.lsp.buf.references, buf_opts }
   nnoremap { 'K', vim.lsp.buf.hover, buf_opts }
   nnoremap { '<Leader>ci', vim.lsp.buf.implementation, buf_opts }
   -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
@@ -87,16 +89,17 @@ local on_attach = function(client, bufnr)
   nnoremap { '\\e', function () vim.diagnostic.open_float({ border = border }) end, buf_opts }
   nnoremap { '[e', function () vim.diagnostic.goto_prev({ float = { border = border } }) end, buf_opts }
   nnoremap { ']e', function () vim.diagnostic.goto_next({ float = { border = border } }) end, buf_opts }
-  nnoremap { '<Leader>ce', function () vim.diagnostic.setqflist({ namespace = nil }) end, buf_opts }
+  nnoremap { '<Leader>ce', function () vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, buf_opts }
   nnoremap { '<Leader>cd', peek_definition, buf_opts }
   nnoremap { '<Leader>ca', vim.lsp.buf.code_action, buf_opts }
   nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
 
   -- Set some keybinds conditional on server capabilities
-  if client.server_capabilities.document_formatting then
-    nnoremap { '<Leader>cf', vim.lsp.buf.formatting, buf_opts }
-  elseif client.server_capabilities.document_range_formatting then
-    nnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
+  if client.server_capabilities.documentFormattingProvider then
+    nnoremap { '<Leader>cf', function () vim.lsp.buf.format({ async = true }) end, buf_opts }
+  elseif client.server_capabilities.documentRangeFormattingProvider then
+    vnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
+    xnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
   end
 end
 

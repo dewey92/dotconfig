@@ -17,6 +17,7 @@ local general_options = {
   grepformat = '%f:%l:%c:%m,%f:%l:%m',
   hidden = true,
   ignorecase = true,
+  laststatus = 3,
   mouse = 'a',
   pumheight = 10,
   smartcase = true,

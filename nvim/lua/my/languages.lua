@@ -19,3 +19,12 @@ g.vim_markdown_fenced_languages = {
   'haskell',
   'hs=haskell',
 }
+
+vim.cmd [[
+  augroup Markdown
+    au!
+    au FileType markdown
+      \  nnoremap <buffer> j gj
+      \| nnoremap <buffer> k gk
+  augroup END
+]]

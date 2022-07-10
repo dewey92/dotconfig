@@ -198,12 +198,6 @@ require('packer').startup {
       'ray-x/lsp_signature.nvim',
     }
 
-    use {
-      'folke/trouble.nvim',
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = function() require('trouble').setup() end,
-    }
-
     ------------------------------------------------------------------------------
     -- Git
     ------------------------------------------------------------------------------
@@ -222,7 +216,26 @@ require('packer').startup {
     use {
       'sindrets/diffview.nvim',
       requires = { 'kyazdani42/nvim-web-devicons' },
-      config = function () require('diffview').setup {} end,
+      config = function ()
+        local actions = require('diffview.actions')
+
+        require('diffview').setup {
+          keymaps = {
+            view = {
+              ['<Leader>gd'] = actions.close,
+            },
+            file_panel = {
+              ['<Leader>gd'] = actions.close,
+            },
+            file_history_panel = {
+              ['<Leader>gd'] = actions.close,
+            },
+            option_panel = {
+              ['<Leader>gd'] = actions.close,
+            },
+          }
+        }
+      end,
     }
 
     ------------------------------------------------------------------------------

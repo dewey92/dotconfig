@@ -5,6 +5,7 @@ noremap <Down> gj
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bp :bprevious<CR>
 nnoremap <Leader>bd :bp\|bd #<CR>
+nnoremap <Leader>bD :bp\|bd #<CR><C-w>c
 nnoremap <Leader>br :e<CR>
 
 " <TAB>: completion.

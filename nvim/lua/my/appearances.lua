@@ -91,7 +91,8 @@ vim.cmd [[ autocmd ColorScheme * hi NormalNC guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
-load_theme('gruvbox-material')
+vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
+load_theme('tokyonight')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -174,10 +175,12 @@ vim.api.nvim_exec([[
     endif
 
     " No resize for floating windows
-    if empty(nvim_win_get_config(0)['relative'])
-      set winwidth=130
-      wincmd =
+    if !empty(nvim_win_get_config(0)['relative'])
+      return
     endif
+
+    set winwidth=130
+    wincmd =
   endfunction
 
   " Automatically rebalance windows on vim resize
@@ -198,12 +201,11 @@ vim.api.nvim_exec([[
 
   " Create whitespace group
   highlight ExtraWhitespace ctermbg=red guibg=red
-  match ExtraWhitespace /\s\+$/
   augroup HighlightTrailingSpace
     au!
-    au BufWinEnter * match ExtraWhitespace /\s\+$/
-    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    au InsertLeave * match ExtraWhitespace /\s\+$/
+    au BufWinEnter * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif
+    au InsertEnter * if !empty(&ft) | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+    au InsertLeave * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif
     au BufWinLeave * call clearmatches()
   augroup END
 ]], false)
