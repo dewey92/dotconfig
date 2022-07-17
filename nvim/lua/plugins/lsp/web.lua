@@ -63,6 +63,9 @@ M.setup = function (on_attach)
   }
 
   nvim_lsp.stylelint_lsp.setup {
+    --[[ init_options = {
+      documentFormatting = true,
+    }, ]]
     on_attach = function (client)
       client.server_capabilities.documentFormattingProvider = true
     end,

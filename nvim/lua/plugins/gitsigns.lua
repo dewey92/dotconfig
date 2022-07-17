@@ -8,24 +8,43 @@ require('gitsigns').setup {
     topdelete    = { hl = 'MyGitSignsDelete', text = '│' },
     changedelete = { hl = 'MyGitSignsDelete', text = '│' },
   },
-  keymaps = {
-    noremap = true,
-    buffer = true,
-    silent = true,
+  current_line_blame = true,
+  current_line_blame_formatter = '<author>, <author_time:%d %b %Y> • <summary> • <abbrev_sha>',
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
 
-    ['n ]h'] = { expr = true, "&diff ? ']h' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
-    ['n [h'] = { expr = true, "&diff ? '[h' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
 
-    ['n <leader>gs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['n <leader>gS'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <leader>gu'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['n <leader>gp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    -- Navigation
+    map('n', ']h', function()
+      if vim.wo.diff then return ']h' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr = true})
 
-    -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>'
-  },
-  watch_index = {
+    map('n', '[h', function()
+      if vim.wo.diff then return '[h' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr = true})
+
+    -- Actions
+    map({'n', 'v'}, '<leader>gs', ':Gitsigns stage_hunk<CR>')
+    map({'n', 'v'}, '<leader>gu', ':Gitsigns reset_hunk<CR>')
+    -- map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>gS', gs.undo_stage_hunk)
+    -- map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>gp', gs.preview_hunk)
+    map('n', '<leader>gD', gs.diffthis)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end,
+  watch_gitdir = {
     interval = 1000
   },
   sign_priority = 6,

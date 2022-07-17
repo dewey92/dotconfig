@@ -1,5 +1,7 @@
 local M = {}
 
+M.border = {'┌', '─', '┐', '│', '┘', '─', '└', '│'}
+
 M.apply_options = function (opts)
   for k, v in pairs(opts) do
     vim.opt[k] = v

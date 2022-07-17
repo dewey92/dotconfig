@@ -168,6 +168,17 @@ require('packer').startup {
       end
     }
 
+    use {
+      'rcarriga/nvim-notify',
+      config = function ()
+        require('notify').setup {
+          background_colour = '#000000'
+        }
+
+        vim.notify = require('notify')
+      end
+    }
+
     ------------------------------------------------------------------------------
     -- LANGUAGES
     ------------------------------------------------------------------------------
@@ -205,13 +216,6 @@ require('packer').startup {
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function () require('plugins.gitsigns') end,
-    }
-    use {
-      'f-person/git-blame.nvim',
-      config = function ()
-        vim.g.gitblame_message_template = '<committer>, <committer-date> • <summary> • <sha>'
-        vim.g.gitblame_date_format = '%d %b %Y'
-      end
     }
     use {
       'sindrets/diffview.nvim',

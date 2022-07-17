@@ -21,7 +21,11 @@ local function find_config_files ()
   }
 end
 
-require('fzf-lua').setup {}
+require('fzf-lua').setup {
+  winopts = {
+    hl = { border = 'FloatBorder' }
+  }
+}
 
 --------------------------------------------------------------------------------
 -- Mappings
