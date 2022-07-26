@@ -75,6 +75,12 @@ _G.load_theme = function (theme)
     require('nightfox').init({
       dim_inactive = true,
     })
+  elseif theme == 'kanagawa' then
+    lightline_theme = 'kanagawa'
+
+    vim.cmd [[ packadd kanagawa.nvim ]]
+
+    require('kanagawa').setup {}
   elseif theme == 'base16-tomorrow-night' then
     lightline_theme = 'base16-tomorrow-night'
     theme = 'base16-tomorrow-night-eighties'
@@ -92,7 +98,7 @@ vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
-load_theme('tokyonight')
+load_theme('kanagawa')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -208,4 +214,9 @@ vim.api.nvim_exec([[
     au InsertLeave * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif
     au BufWinLeave * call clearmatches()
   augroup END
+]], false)
+
+vim.api.nvim_exec([[
+  " set foldmethod=expr
+  " set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
 ]], false)

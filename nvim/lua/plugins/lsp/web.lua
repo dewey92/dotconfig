@@ -1,6 +1,4 @@
 local nvim_lsp = require('lspconfig')
-local utils = require('my.utils')
-local nnoremap = utils.nnoremap
 
 local M = {}
 
@@ -28,7 +26,7 @@ local function setup_ts_code_actions(bufnr)
     end)
   end
 
-  nnoremap { '<Leader>cc', tsserver_actions, { silent = true, buffer = bufnr } }
+  vim.keymap.set('n', '<Leader>cc', tsserver_actions, { silent = true, buffer = bufnr })
 end
 
 M.setup = function (on_attach)

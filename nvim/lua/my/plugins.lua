@@ -48,7 +48,19 @@ require('packer').startup {
     ------------------------------------------------------------------------------
     -- EDITORS
     ------------------------------------------------------------------------------
-    use { 'tpope/vim-surround', event = {'BufReadPost'} }
+    use {
+      'kylechui/nvim-surround',
+      event = {'BufReadPost'},
+      config = function()
+        require('nvim-surround').setup {
+          delimiters = {
+            invalid_key_behavior = function(char)
+              return { char, char }
+            end,
+          },
+        }
+      end
+    }
     use { 'tpope/vim-abolish' }
     use {
       'windwp/nvim-autopairs',
@@ -119,6 +131,7 @@ require('packer').startup {
       { 'folke/tokyonight.nvim', opt = true },
       { 'EdenEast/nightfox.nvim', opt = true },
       { 'RRethy/nvim-base16', opt = true },
+      { 'rebelot/kanagawa.nvim', opt = true },
     }
 
     use 'itchyny/lightline.vim'
@@ -134,7 +147,8 @@ require('packer').startup {
       'TaDaa/vimade',
       config = function ()
         vim.g.vimade = {
-          enabletreesitter = 1
+          enabletreesitter = 1,
+          fadelevel = .6,
         }
       end
     }
@@ -178,6 +192,20 @@ require('packer').startup {
         vim.notify = require('notify')
       end
     }
+    use {
+      'folke/which-key.nvim',
+      config = function() require('which-key').setup {} end
+    }
+    --[[ use {
+      'anuvyklack/pretty-fold.nvim',
+      config = function()
+        require('pretty-fold').setup {
+          matchup_patterns = {
+            { '^import', '^$' }
+          }
+        }
+      end
+    } ]]
 
     ------------------------------------------------------------------------------
     -- LANGUAGES
@@ -256,6 +284,7 @@ require('packer').startup {
     }
     use 'tweekmonster/startuptime.vim'
   end,
+
   config = {
     display = {
       open_fn = require('packer.util').float

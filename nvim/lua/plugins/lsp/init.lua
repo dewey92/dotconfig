@@ -1,22 +1,8 @@
-local utils = require('my.utils')
-local nnoremap = utils.nnoremap
-local vnoremap = utils.vnoremap
-local xnoremap = utils.xnoremap
-
 -- UI
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
-local border = {
-  {'🭽', 'FloatBorder'},
-  {'▔', 'FloatBorder'},
-  {'🭾', 'FloatBorder'},
-  {'▕', 'FloatBorder'},
-  {'🭿', 'FloatBorder'},
-  {'▁', 'FloatBorder'},
-  {'🭼', 'FloatBorder'},
-  {'▏', 'FloatBorder'},
-}
+local border = 'rounded'
 
 require'lsp_signature'.setup {
   bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -75,31 +61,38 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local buf_opts = { silent = true, buffer = bufnr }
+  local function map(mode, l, r, opts)
+    opts = opts or {}
+    opts.buffer = bufnr
+    opts.silent = true
+    vim.keymap.set(mode, l, r, opts)
+  end
 
   -- Mappings
-  nnoremap { 'gd', vim.lsp.buf.definition, buf_opts }
-  nnoremap { 'gD', function () vim.cmd('vsplit'); vim.lsp.buf.definition() end, buf_opts }
-  nnoremap { 'gt', vim.lsp.buf.type_definition, buf_opts }
-  nnoremap { 'gr', vim.lsp.buf.references, buf_opts }
-  nnoremap { 'K', vim.lsp.buf.hover, buf_opts }
-  nnoremap { '<Leader>ci', vim.lsp.buf.implementation, buf_opts }
+  map('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
+  map('n', 'gD', function () vim.cmd('vsplit'); vim.lsp.buf.definition() end, { desc = 'Go to definition in vsplit' })
+  map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Go to type definition' })
+  map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
+  map('n', 'K', vim.lsp.buf.hover)
+  map('n', '<Leader>ci', vim.lsp.buf.implementation, { desc = 'See implementation' })
   -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
-  nnoremap { '<Leader>cr', vim.lsp.buf.rename, buf_opts }
-  nnoremap { '\\e', function () vim.diagnostic.open_float({ border = border }) end, buf_opts }
-  nnoremap { '[e', function () vim.diagnostic.goto_prev({ float = { border = border } }) end, buf_opts }
-  nnoremap { ']e', function () vim.diagnostic.goto_next({ float = { border = border } }) end, buf_opts }
-  nnoremap { '<Leader>ce', function () vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end, buf_opts }
-  nnoremap { '<Leader>cd', peek_definition, buf_opts }
-  nnoremap { '<Leader>ca', vim.lsp.buf.code_action, buf_opts }
-  nnoremap { '<Leader>si', vim.lsp.buf.workspace_symbol, buf_opts }
+  map('n', '<Leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
+  map('n', '\\e', function () vim.diagnostic.open_float({ border = border }) end, { desc = 'See error' })
+  map('n', '[e', function () vim.diagnostic.goto_prev({ float = { border = border } }) end, { desc = 'Prev error' })
+  map('n', ']e', function () vim.diagnostic.goto_next({ float = { border = border } }) end, { desc = 'Next error' })
+  map( 'n', '<Leader>ce',
+    function () vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end,
+    { desc = 'List errors' }
+  )
+  map('n', '<Leader>cd', peek_definition, { desc = 'Peek definition' })
+  map('n', '<Leader>ca', vim.lsp.buf.code_action, { desc = 'Code actions' })
+  map('n', '<Leader>si', vim.lsp.buf.workspace_symbol, { desc = 'Search symbol' })
 
   -- Set some keybinds conditional on server capabilities
   if client.server_capabilities.documentFormattingProvider then
-    nnoremap { '<Leader>cf', function () vim.lsp.buf.format({ async = true }) end, buf_opts }
+    map('n', '<Leader>cf', function () vim.lsp.buf.format({ async = true }) end, { desc = 'Format buffer' })
   elseif client.server_capabilities.documentRangeFormattingProvider then
-    vnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
-    xnoremap { '<Leader>cf', vim.lsp.buf.range_formatting, buf_opts }
+    map({ 'v', 'x' }, '<Leader>cf', vim.lsp.buf.range_formatting, { desc = 'Range format' })
   end
 end
 

@@ -24,22 +24,21 @@ require('gitsigns').setup {
       if vim.wo.diff then return ']h' end
       vim.schedule(function() gs.next_hunk() end)
       return '<Ignore>'
-    end, {expr = true})
+    end, { expr = true })
 
     map('n', '[h', function()
       if vim.wo.diff then return '[h' end
       vim.schedule(function() gs.prev_hunk() end)
       return '<Ignore>'
-    end, {expr = true})
+    end, { expr = true })
 
     -- Actions
-    map({'n', 'v'}, '<leader>gs', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>gu', ':Gitsigns reset_hunk<CR>')
+    map({ 'n', 'v' }, '<leader>gs', ':Gitsigns stage_hunk<CR>', { desc = 'Stage hunk' })
+    map({ 'n', 'v' }, '<leader>gu', ':Gitsigns reset_hunk<CR>', { desc = 'Reset hunk' })
+    map('n', '<leader>gS', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
     -- map('n', '<leader>hS', gs.stage_buffer)
-    map('n', '<leader>gS', gs.undo_stage_hunk)
     -- map('n', '<leader>hR', gs.reset_buffer)
-    map('n', '<leader>gp', gs.preview_hunk)
-    map('n', '<leader>gD', gs.diffthis)
+    map('n', '<leader>gp', gs.preview_hunk, { desc = 'Diff preview hunk' })
 
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
