@@ -14,8 +14,8 @@ wk.register({
 
 local map = vim.keymap.set
 
-map({ 'n', 'i', 'v', 'x', 'o' }, '<Up>', 'gk')
-map({ 'n', 'i', 'v', 'x', 'o' }, '<Down>', 'gj')
+map({ 'n', 'v', 'x', 'o' }, '<Up>', 'gk')
+map({ 'n', 'v', 'x', 'o' }, '<Down>', 'gj')
 
 -- Buffers
 map('n', '<Leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
@@ -47,12 +47,19 @@ map('n', '<Leader>ws', '<C-w>s', { desc = 'Split horizontally' })
 map('n', '<Leader>wd', '<C-w>c', { desc = 'Close' })
 
 -- Yanking (copying)
+map({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
 map('n', '<Leader>yp', ':let @+=@% <CR>', { desc = "Copy current file's absolute path"})
 
 -- Pasting
 map('x', 'p', '"_dhp', { desc = 'Replace selection on paste' })
-map('n', 'p', 'p`[v`]=', { desc = 'Paste (below) then auto indent' })
-map('n', 'P', 'P`[v`]=', { desc = 'Paste (above) then auto indent' })
+map('n', 'p', 'p`[v`]=', { desc = 'Paste (after) then auto indent' })
+map('n', 'P', 'P`[v`]=', { desc = 'Paste (below) then auto indent' })
+-- map({'n','x'}, 'p', '<Plug>(YankyPutAfterFilter)', { desc = '' })
+-- map({'n','x'}, 'P', '<Plug>(YankyPutBeforeFilter)', { desc = 'Paste (above) then auto indent' })
+-- map({'n','x'}, 'gp', '<Plug>(YankyGPutAfter)')
+-- map({'n','x'}, 'gP', '<Plug>(YankyGPutBefore)')
+map('n', '<C-n>', '<Plug>(YankyCycleForward)')
+map('n', '<C-p>', '<Plug>(YankyCycleBackward)')
 
 -- Code
 map('n', '<Leader>cts', ':%s/\t/<space><space>/g<CR>', { desc = 'Tab -> Space' })
@@ -62,9 +69,24 @@ map('n', '<Leader>cl', 'f<Space>xi<CR><Esc>', { desc = 'Break line on space' })
 -- Git
 map('n', '<Leader>gd', ':DiffviewOpen<CR>', { desc = 'Open diff view' })
 map('n', '<Leader>gg', ':FloatermNew lazygit<CR>', { desc = 'Open Lazygit' })
+map('n', '<Leader>gco', '<Plug>(git-conflict-ours)', { desc = 'Choose ours' })
+map('n', '<Leader>gct', '<Plug>(git-conflict-theirs)', { desc = 'Choose theirs' })
+map('n', '<Leader>gcb', '<Plug>(git-conflict-both)', { desc = 'Choose both' })
+map('n', '<Leader>gcn', '<Plug>(git-conflict-none)', { desc = 'Choose none' })
+map('n', '[x', '<Plug>(git-conflict-prev-conflict)')
+map('n', ']x', '<Plug>(git-conflict-next-conflict)')
 
 -- Config
-map('n', '<Leader>hrr', ':execute "luafile $HOME/.config/nvim/init.lua" | PackerCompile<CR>', { desc = 'Reload config' })
+local function reload_config ()
+  -- Invalidate `require` caches
+  require('plenary.reload').reload_module('my.')
+
+  -- vim.cmd('PackerCompile')
+  vim.cmd('source $HOME/.config/nvim/init.lua')
+
+  vim.notify('Config reloaded!', 'success', { render = 'minimal' })
+end
+map('n', '<Leader>hr', reload_config, { desc = 'Reload config' })
 
 -- Saving
 map('n', ';w', ':w')

@@ -13,27 +13,6 @@ require'lsp_signature'.setup {
 
 require('lspkind').init {}
 
--- Refocus quickfix list immediately to counter `wincmd p` in the default impl
-local orig_handler_references = vim.lsp.handlers['textDocument/references']
-vim.lsp.handlers['textDocument/references'] = function (err, method, result)
-  orig_handler_references(err, method, result)
-
-  if result ~= nil then
-    vim.cmd [[ botright cwindow ]]
-  end
-end
-
--- Refocus quickfix list immediately to counter `wincmd p` in the default impl
-local function location_handler_focus_qf (handler)
-  return function (err, method, result)
-    handler(err, method, result)
-
-    if vim.tbl_islist(result) and #result > 1 then
-      vim.cmd [[ botright cwindow ]]
-    end
-  end
-end
-
 local function preview_location_callback(_, result)
   if result == nil or vim.tbl_isempty(result) then
     return nil
@@ -46,10 +25,6 @@ local function peek_definition()
   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
 end
 
-local orig_handler_definition = vim.lsp.handlers['textDocument/definition']
-local orig_handler_type_definition = vim.lsp.handlers['textDocument/typeDefinition']
-vim.lsp.handlers['textDocument/definition'] = location_handler_focus_qf(orig_handler_definition)
-vim.lsp.handlers['textDocument/typeDefinition'] = location_handler_focus_qf(orig_handler_type_definition)
 vim.lsp.handlers['textDocument/hover'] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = true,
@@ -90,9 +65,10 @@ local on_attach = function(client, bufnr)
 
   -- Set some keybinds conditional on server capabilities
   if client.server_capabilities.documentFormattingProvider then
-    map('n', '<Leader>cf', function () vim.lsp.buf.format({ async = true }) end, { desc = 'Format buffer' })
-  elseif client.server_capabilities.documentRangeFormattingProvider then
-    map({ 'v', 'x' }, '<Leader>cf', vim.lsp.buf.range_formatting, { desc = 'Range format' })
+    map('n', '<Leader>cf', function () vim.lsp.buf.formatting({ async = true }) end, { desc = 'Format buffer' })
+  end
+  if client.server_capabilities.documentRangeFormattingProvider then
+    map({ 'v', 'x' }, '<Leader>cf', vim.lsp.buf.format, { desc = 'Range format' })
   end
 end
 

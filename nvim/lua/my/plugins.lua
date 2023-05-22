@@ -43,7 +43,15 @@ require('packer').startup {
       },
       config = function () require('plugins.fzf') end,
     }
-    use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+    use {
+      'kevinhwang91/nvim-bqf',
+      ft = 'qf',
+      config = function ()
+        require('bqf').setup {
+          auto_resize_height = true,
+        }
+      end,
+    }
 
     ------------------------------------------------------------------------------
     -- EDITORS
@@ -52,13 +60,7 @@ require('packer').startup {
       'kylechui/nvim-surround',
       event = {'BufReadPost'},
       config = function()
-        require('nvim-surround').setup {
-          delimiters = {
-            invalid_key_behavior = function(char)
-              return { char, char }
-            end,
-          },
-        }
+        require('nvim-surround').setup { }
       end
     }
     use { 'tpope/vim-abolish' }
@@ -98,18 +100,41 @@ require('packer').startup {
       end
     }
     use {
+      'L3MON4D3/LuaSnip',
+      requires = { 'rafamadriz/friendly-snippets' },
+      config = function ()
+        require('luasnip.loaders.from_vscode').lazy_load()
+
+        local ls = require('luasnip')
+        local map = vim.keymap.set
+        map({'i', 's'}, '<C-l>', function ()
+          if ls.jumpable(1) then
+            ls.jump(1)
+          end
+        end)
+        map({'i', 's'}, '<C-h>', function ()
+          if ls.jumpable(-1) then
+            ls.jump(-1)
+          end
+        end)
+      end,
+    }
+    use {
       'hrsh7th/nvim-cmp',
       requires = {
-        'hrsh7th/vim-vsnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-buffer',
+        'saadparwaiz1/cmp_luasnip',
       },
       config = function () require('plugins.cmp') end,
     }
     use 'tversteeg/registers.nvim'
+    use {
+      'gbprod/yanky.nvim',
+      config = function() require('yanky').setup {} end
+    }
 
     ------------------------------------------------------------------------------
     -- THEMES & APPEARANCES
@@ -166,10 +191,11 @@ require('packer').startup {
     }
     use {
       'karb94/neoscroll.nvim',
-      config = function () require('neoscroll').setup() end,
+      config = function () require('neoscroll').setup({ easing_function = 'cubic' }) end,
     }
     use {
       'folke/zen-mode.nvim',
+      disable = true,
       config = function()
         require('zen-mode').setup {
           plugins = {
@@ -235,6 +261,7 @@ require('packer').startup {
       },
       'onsails/lspkind-nvim',
       'ray-x/lsp_signature.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
     }
 
     ------------------------------------------------------------------------------
@@ -267,6 +294,14 @@ require('packer').startup {
             },
           }
         }
+      end,
+    }
+    use {
+      'akinsho/git-conflict.nvim',
+      config = function ()
+        require('git-conflict').setup({
+          default_mappings = false,
+        })
       end,
     }
 

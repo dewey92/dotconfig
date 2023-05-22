@@ -2,6 +2,7 @@ local utils = require('my.utils')
 local g = vim.g
 
 g.mapleader = ' '
+g.editorconfig = false
 
 --------------------------------------------------------------------------------
 -- GENERAL
@@ -49,17 +50,20 @@ local tabs_options = {
 }
 utils.apply_options(tabs_options)
 
-vim.opt.listchars:append('tab:▸ ')
--- vim.opt.listchars:append('eol:↴')
-vim.opt.listchars:append('extends:❯')
-vim.opt.listchars:append('precedes:❮')
-vim.opt.listchars:append('lead:·')
+vim.opt.listchars = {
+  tab = '▸ ',
+  extends = '❯',
+  precedes = '❮',
+  -- eol = '↴',
+  -- lead = '·',
+}
 
 vim.cmd [[
   filetype plugin indent on
   augroup fts
     au!
     au FileType php             setlocal noexpandtab
+    au FileType smarty          setlocal noexpandtab
     au FileType typescript      setlocal noexpandtab
     au FileType typescriptreact setlocal noexpandtab
     au FileType javascript      setlocal noexpandtab

@@ -1,4 +1,5 @@
 local nvim_lsp = require('lspconfig')
+local null_ls = require('null-ls')
 
 local M = {}
 
@@ -32,7 +33,6 @@ end
 M.setup = function (on_attach)
   nvim_lsp.tsserver.setup {
     on_attach = function (client, bufnr)
-      client.server_capabilities.documentFormattingProvider = true
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
@@ -44,10 +44,7 @@ M.setup = function (on_attach)
   }
 
   nvim_lsp.eslint.setup {
-    on_attach = function (client, bufnr)
-      client.server_capabilities.documentFormattingProvider = true
-      on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     root_dir = require('lspconfig.util').root_pattern('.git')
     --[[ settings = {
       options = {
@@ -64,15 +61,21 @@ M.setup = function (on_attach)
     --[[ init_options = {
       documentFormatting = true,
     }, ]]
-    on_attach = function (client)
-      client.server_capabilities.documentFormattingProvider = true
-    end,
+    on_attach = on_attach,
     settings = {
       stylelintplus = {
         autoFixOnSave = true,
         autoFixOnFormat = true,
       }
     },
+  }
+
+  null_ls.setup {
+    sources = {
+      null_ls.builtins.formatting.prettier.with({
+        on_attach = on_attach
+      })
+    }
   }
 end
 

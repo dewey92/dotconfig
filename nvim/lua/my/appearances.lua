@@ -22,6 +22,7 @@ _G.load_theme = function (theme)
     lightline_theme = 'gruvbox_material'
 
     vim.cmd [[ packadd gruvbox-material ]]
+
   elseif theme == 'gruvbox8_hard' then
     g.gruvbox_contrast_dark = 'hard'
     g.gruvbox_bold = 1
@@ -34,11 +35,13 @@ _G.load_theme = function (theme)
     -- vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
 
     vim.cmd [[ packadd vim-gruvbox8 ]]
+
   elseif theme == 'embark' then -- It's nice but colors in lazygit are broken
     g.embark_terminal_italics = 1
     lightline_theme = 'embark'
 
     vim.cmd [[ packadd embark ]]
+
   elseif theme == 'tokyonight' then
     g.tokyonight_style = 'night'
     g.tokyonight_italic_functions = true
@@ -47,12 +50,14 @@ _G.load_theme = function (theme)
     vim.o.background = 'dark'
 
     vim.cmd [[ packadd tokyonight.nvim ]]
+
   elseif theme == 'miramare' then
     g.miramare_enable_italic = 1
     g.miramare_current_word = 'bold'
     lightline_theme = 'miramare'
 
     vim.cmd [[ packadd miramare ]]
+
   elseif theme == 'material' then
     g.material_style = 'lighter'
     g.material_italic_comments = 1
@@ -65,8 +70,10 @@ _G.load_theme = function (theme)
 
     vim.cmd [[ packadd colorbuddy.nvim ]]
     vim.cmd [[ packadd material.nvim ]]
+
   elseif theme == 'moonfly' then
     lightline_theme = 'moonfly'
+
   elseif theme == 'dawnfox' then
     lightline_theme = 'nightfox'
 
@@ -75,12 +82,15 @@ _G.load_theme = function (theme)
     require('nightfox').init({
       dim_inactive = true,
     })
+
   elseif theme == 'kanagawa' then
-    lightline_theme = 'kanagawa'
+    lightline_theme = 'tokyonight'
 
     vim.cmd [[ packadd kanagawa.nvim ]]
+    vim.cmd [[ packadd tokyonight.nvim ]]
 
     require('kanagawa').setup {}
+
   elseif theme == 'base16-tomorrow-night' then
     lightline_theme = 'base16-tomorrow-night'
     theme = 'base16-tomorrow-night-eighties'
@@ -98,7 +108,7 @@ vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
-load_theme('kanagawa')
+load_theme('gruvbox8_hard')
 
 --------------------------------------------------------------------------------
 -- Lightline
@@ -191,6 +201,9 @@ vim.api.nvim_exec([[
 
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
+
+  " Quickfix should always be at the bottom
+  autocmd FileType qf wincmd J
 ]], false)
 
 --------------------------------------------------------------------------------

@@ -2,9 +2,10 @@ local M = {}
 
 M.border = {'┌', '─', '┐', '│', '┘', '─', '└', '│'}
 
-M.apply_options = function (opts)
+M.apply_options = function (opts, key)
+  local group = key or 'opt'
   for k, v in pairs(opts) do
-    vim.opt[k] = v
+    vim[group][k] = v
   end
 end
 

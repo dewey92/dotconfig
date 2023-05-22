@@ -10,13 +10,16 @@ xmap <silent> <Leader>s<space> <CMD>HopPattern<CR>
 nmap <silent> f <CMD>HopChar1CurrentLineAC<CR>
 vmap <silent> f <CMD>HopChar1CurrentLineAC<CR>
 xmap <silent> f <CMD>HopChar1CurrentLineAC<CR>
+omap <silent> f <CMD>HopChar1CurrentLineAC<CR>
 nmap <silent> F <CMD>HopChar1CurrentLineBC<CR>
 vmap <silent> F <CMD>HopChar1CurrentLineBC<CR>
 xmap <silent> F <CMD>HopChar1CurrentLineBC<CR>
+omap <silent> F <CMD>HopChar1CurrentLineBC<CR>
 
 " Not really Hop specific mapping, but useful since it's under 's' namespace
 " for Search-and-replace
 nnoremap <Leader>sg :silent Rg<Space>
+xnoremap <Leader>sG "ry \|:slent Rg<Space><C-r>r
 nnoremap <Leader>sr :%s///g<Left><Left>
 xnoremap <Leader>sr :s///g<Left><Left>
 xnoremap <Leader>sR "ry \|:%s/<C-r>r/<C-r>r/g<Left><Left>
