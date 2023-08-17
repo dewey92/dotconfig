@@ -19,6 +19,7 @@ g.vim_markdown_fenced_languages = {
   'haskell',
   'hs=haskell',
 }
+vim.g.markdown_recommended_style = 0
 
 vim.cmd [[
   augroup Markdown

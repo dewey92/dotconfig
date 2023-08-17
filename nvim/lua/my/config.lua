@@ -67,7 +67,7 @@ vim.cmd [[
     au FileType typescript      setlocal noexpandtab
     au FileType typescriptreact setlocal noexpandtab
     au FileType javascript      setlocal noexpandtab
-    au FileType markdown        setlocal wrap linebreak
+    au FileType markdown        setlocal expandtab wrap linebreak
   augroup END
 ]]
 
