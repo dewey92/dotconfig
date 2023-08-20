@@ -13,17 +13,7 @@ utils.apply_options(options)
 
 local lightline_theme = ''
 _G.load_theme = function (theme)
-  if theme == 'gruvbox-material' then
-    g.gruvbox_material_background = 'hard'
-    g.gruvbox_material_enable_italic = 1
-    g.gruvbox_material_enable_bold = 1
-    g.gruvbox_material_current_word = 'bold'
-    g.gruvbox_material_diagnostic_line_highlight = 1
-    lightline_theme = 'gruvbox_material'
-
-    vim.cmd [[ packadd gruvbox-material ]]
-
-  elseif theme == 'gruvbox8_hard' then
+  if theme == 'gruvbox8_hard' then
     g.gruvbox_contrast_dark = 'hard'
     g.gruvbox_bold = 1
     g.gruvbox_underline = 1
@@ -36,66 +26,44 @@ _G.load_theme = function (theme)
 
     vim.cmd [[ packadd vim-gruvbox8 ]]
 
-  elseif theme == 'embark' then -- It's nice but colors in lazygit are broken
-    g.embark_terminal_italics = 1
-    lightline_theme = 'embark'
+  elseif theme == 'catppuccin' then
+    lightline_theme = 'catppuccin'
+    theme = 'catppuccin-mocha'
 
-    vim.cmd [[ packadd embark ]]
+    vim.cmd [[ packadd catppuccin ]]
 
-  elseif theme == 'tokyonight' then
-    g.tokyonight_style = 'night'
-    g.tokyonight_italic_functions = true
-    lightline_theme = 'tokyonight'
-
-    vim.o.background = 'dark'
-
-    vim.cmd [[ packadd tokyonight.nvim ]]
-
-  elseif theme == 'miramare' then
-    g.miramare_enable_italic = 1
-    g.miramare_current_word = 'bold'
-    lightline_theme = 'miramare'
-
-    vim.cmd [[ packadd miramare ]]
-
-  elseif theme == 'material' then
-    g.material_style = 'lighter'
-    g.material_italic_comments = 1
-    g.material_italic_keywords = 1
-    g.material_italic_functions = 1
-
-    lightline_theme = 'material'
-
-    vim.o.background = 'light'
-
-    vim.cmd [[ packadd colorbuddy.nvim ]]
-    vim.cmd [[ packadd material.nvim ]]
-
-  elseif theme == 'moonfly' then
-    lightline_theme = 'moonfly'
-
-  elseif theme == 'dawnfox' then
-    lightline_theme = 'nightfox'
-
-    vim.cmd [[ packadd nightfox.nvim ]]
-
-    require('nightfox').init({
-      dim_inactive = true,
+    require('catppuccin').setup({
+      color_overrides = {
+        mocha = {
+          rosewater = "#efc9c2",
+          flamingo = "#ebb2b2",
+          pink = "#f2a7de",
+          mauve = "#b889f4",
+          red = "#ea7183",
+          maroon = "#ea838c",
+          peach = "#f39967",
+          yellow = "#eaca89",
+          green = "#96d382",
+          teal = "#78cec1",
+          sky = "#91d7e3",
+          sapphire = "#68bae0",
+          blue = "#739df2",
+          lavender = "#a0a8f6",
+          text = "#b5c1f1",
+          subtext1 = "#a6b0d8",
+          subtext0 = "#959ec2",
+          overlay2 = "#848cad",
+          overlay1 = "#717997",
+          overlay0 = "#63677f",
+          surface2 = "#505469",
+          surface1 = "#3e4255",
+          surface0 = "#2c2f40",
+          base = "#1a1c2a",
+          mantle = "#141620",
+          crust = "#0e0f16",
+        },
+      },
     })
-
-  elseif theme == 'kanagawa' then
-    lightline_theme = 'tokyonight'
-
-    vim.cmd [[ packadd kanagawa.nvim ]]
-    vim.cmd [[ packadd tokyonight.nvim ]]
-
-    require('kanagawa').setup {}
-
-  elseif theme == 'base16-tomorrow-night' then
-    lightline_theme = 'base16-tomorrow-night'
-    theme = 'base16-tomorrow-night-eighties'
-
-    vim.cmd [[ packadd nvim-base16 ]]
   end
 
   vim.cmd('colorscheme ' .. theme)
@@ -108,7 +76,7 @@ vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
 vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
-load_theme('gruvbox8_hard')
+load_theme('catppuccin')
 
 --------------------------------------------------------------------------------
 -- Lightline

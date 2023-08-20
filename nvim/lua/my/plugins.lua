@@ -70,8 +70,8 @@ require('packer').startup {
       config = function () require('nvim-autopairs').setup() end,
     }
     use {
-      'phaazon/hop.nvim',
-      config = function () require('plugins.hop') end,
+      'folke/flash.nvim',
+      config = function () require('plugins.flash') end,
     }
     use {
       'numToStr/Comment.nvim',
@@ -131,19 +131,8 @@ require('packer').startup {
       config = function () require('nvim-web-devicons').setup { default = true } end,
     }
     use {
-      { 'npxbr/gruvbox.nvim', requires = { 'rktjmp/lush.nvim' }, disable = true },
       { 'lifepillar/vim-gruvbox8', opt = true },
-      { 'sainnhe/gruvbox-material', opt = true },
-      { 'drewtempelmeyer/palenight.vim', opt = true },
-      { 'franbach/miramare', opt = true },
-      { 'embark-theme/vim', as = 'embark', opt = true },
-      -- { 'marko-cerovac/material.nvim', requires = { 'tjdevries/colorbuddy.nvim' }, opt = true },
-      { 'challenger-deep-theme/vim', as = 'challenger-deep', opt = true },
-      { 'bluz71/vim-moonfly-colors', opt = true },
-      { 'folke/tokyonight.nvim', opt = true },
-      { 'EdenEast/nightfox.nvim', opt = true },
-      { 'RRethy/nvim-base16', opt = true },
-      { 'rebelot/kanagawa.nvim', opt = true },
+      { 'catppuccin/nvim', as = 'catppuccin', opt = true },
     }
 
     use 'itchyny/lightline.vim'
@@ -178,6 +167,8 @@ require('packer').startup {
       'lukas-reineke/indent-blankline.nvim',
       config = function ()
         require('indent_blankline').setup {
+          char = ' ', -- hide to look cleaner
+          context_char = '│', -- only show the indent guide for context
           show_current_context = true,
           show_current_context_start = true,
           show_first_indent_level = false,

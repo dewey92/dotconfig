@@ -24,10 +24,19 @@ M.setup = function ()
         },
       },
     },
-    on_attach = function (client)
+    on_attach = function (client, bufnr)
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
+
+      require('nvim-lsp-ts-utils').setup {}
+
+      -- Format on save
+      --[[ vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('MyTSOrganizeImports', {}),
+        command = 'TSLspOrganize',
+        buffer = bufnr,
+      }) ]]
     end,
   }
 
