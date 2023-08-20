@@ -84,7 +84,7 @@ local function reload_config ()
   -- vim.cmd('PackerCompile')
   vim.cmd('source $HOME/.config/nvim/init.lua')
 
-  vim.notify('Config reloaded!', 'success', { render = 'minimal' })
+  vim.notify('Config reloaded!', vim.log.levels.INFO, { render = 'minimal' })
 end
 map('n', '<Leader>hr', reload_config, { desc = 'Reload config' })
 
@@ -107,6 +107,9 @@ map('n', '<C-k>', ':m .-2<CR>==', { desc = 'Move line up' })
 map('n', '<C-j>', ':m .+1<CR>==', { desc = 'Move line down' })
 map('x', '<C-k>' , ':m \'<-2<CR>gv=gv', { desc = 'Move selection up' })
 map('x', '<C-j>', ':m \'>+1<CR>gv=gv', { desc = 'Move selection down' })
+
+-- Search
+vim.cmd[[ source $HOME/.config/nvim/vimscript/search.vim ]]
 
 -- etc
 map('n', 'n', 'nzz')

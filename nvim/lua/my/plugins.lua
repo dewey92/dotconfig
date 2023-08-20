@@ -71,31 +71,18 @@ require('packer').startup {
     }
     use {
       'phaazon/hop.nvim',
-      config = function ()
-        require('hop').setup()
-        vim.cmd[[ source $HOME/.config/nvim/packages/hop.vim ]]
-      end,
+      config = function () require('plugins.hop') end,
     }
     use {
       'numToStr/Comment.nvim',
       config = function ()
         require('Comment').setup({
-          -- @see: https://github.com/JoosepAlviste/nvim-ts-context-commentstring#commentnvim
-          pre_hook = function(ctx)
-            local U = require 'Comment.utils'
-
-            local location = nil
-            if ctx.ctype == U.ctype.block then
-              location = require('ts_context_commentstring.utils').get_cursor_location()
-            elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-              location = require('ts_context_commentstring.utils').get_visual_start_location()
-            end
-
-            return require('ts_context_commentstring.internal').calculate_commentstring {
-              key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-              location = location,
-            }
-          end,
+          context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+          },
+          -- @see: https://github.com/JoosepAlviste/nvim-ts-context-commentstring/wiki/Integrations#commentnvim
+          pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
         })
       end
     }
@@ -165,8 +152,17 @@ require('packer').startup {
       config = function () require('colorizer').setup() end,
     }
     use {
-      'mhinz/vim-startify',
-      config = function() vim.g.startify_change_to_dir = 0 end,
+      'goolord/alpha-nvim',
+      requires = { 'nvim-tree/nvim-web-devicons' },
+      config = function ()
+        local startify = require('alpha.themes.startify').config
+        startify.opts.keymap = {
+          press = '<CR>',
+          queue_press = { 'v', '<Space>' },
+        }
+
+        require('alpha').setup(startify)
+      end
     }
     use {
       'TaDaa/vimade',
@@ -244,7 +240,6 @@ require('packer').startup {
       },
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/playground',
-      'p00f/nvim-ts-rainbow',
       'windwp/nvim-ts-autotag',
       'JoosepAlviste/nvim-ts-context-commentstring',
       'jose-elias-alvarez/nvim-lsp-ts-utils',
@@ -261,7 +256,19 @@ require('packer').startup {
       },
       'onsails/lspkind-nvim',
       'ray-x/lsp_signature.nvim',
-      'jose-elias-alvarez/null-ls.nvim',
+    }
+
+    use {
+      'HiPhish/rainbow-delimiters.nvim',
+      config = function ()
+        require 'rainbow-delimiters.setup' {
+          query = {
+            [''] = 'rainbow-delimiters',
+            lua = 'rainbow-blocks',
+            javascript = 'rainbow-delimiters-react',
+          }
+        }
+      end
     }
 
     ------------------------------------------------------------------------------
@@ -315,7 +322,7 @@ require('packer').startup {
     }
     use {
       'voldikss/vim-floaterm',
-      config = function () vim.cmd[[ source $HOME/.config/nvim/packages/floaterm.vim ]] end,
+      config = function () vim.cmd[[ source $HOME/.config/nvim/vimscript/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
   end,

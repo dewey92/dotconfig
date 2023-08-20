@@ -129,10 +129,7 @@ g.lightline = {
 }
 
 _G.get_icon_lightline = function ()
-  local icon, hlgroup = utils.get_icon(
-    vim.fn.expand('%'),
-    vim.fn.expand('%')
-  )
+  local icon, hlgroup = utils.get_icon(vim.fn.expand('%'))
   local fg = utils.get_hlgroup_attr(hlgroup, 'foreground')
 
   local function apply_icon_hi(modes)
@@ -147,38 +144,25 @@ _G.get_icon_lightline = function ()
   return icon
 end
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
 function! GetIconLightline()
   return v:lua.get_icon_lightline()
 endfunction
-]], false)
-
---------------------------------------------------------------------------------
--- Startify
---------------------------------------------------------------------------------
-_G.get_icon_startify = function (path)
-  return utils.get_icon(path)
-end
-
-vim.api.nvim_exec([[
-function! StartifyEntryFormat() abort
-  return 'v:lua.get_icon_startify(absolute_path) . " " . entry_path'
-endfunction
-]], false)
+]], {})
 
 --------------------------------------------------------------------------------
 -- Git diff
 --------------------------------------------------------------------------------
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   hi DiffAdd gui=NONE guifg=NONE guibg=#555714
   hi DiffChange gui=NONE guifg=NONE guibg=#6e5213
   hi DiffDelete gui=NONE guifg=NONE guibg=#4d160f
-]], false)
+]], {})
 
 --------------------------------------------------------------------------------
 -- Windows
 --------------------------------------------------------------------------------
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   augroup ExpandActiveWin
     au!
     au WinEnter * :call ResizeSplits()
@@ -204,12 +188,12 @@ vim.api.nvim_exec([[
 
   " Quickfix should always be at the bottom
   autocmd FileType qf wincmd J
-]], false)
+]], {})
 
 --------------------------------------------------------------------------------
 -- etc
 --------------------------------------------------------------------------------
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   " Enable hybrid line numbering, only for the focused buffer
   set number relativenumber
   augroup numbertoggle
@@ -227,9 +211,9 @@ vim.api.nvim_exec([[
     au InsertLeave * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif
     au BufWinLeave * call clearmatches()
   augroup END
-]], false)
+]], {})
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   " set foldmethod=expr
   " set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
-]], false)
+]], {})

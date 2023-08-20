@@ -2,9 +2,8 @@ local nvim_lsp = require('lspconfig')
 
 local M = {}
 
-M.setup = function(on_attach)
+M.setup = function()
   nvim_lsp.hls.setup {
-    on_attach = on_attach,
     settings = {
       haskell = {
         formattingProvider = 'fourmolu',

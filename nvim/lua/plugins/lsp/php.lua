@@ -2,8 +2,8 @@ local nvim_lsp = require('lspconfig')
 
 local M = {}
 
-M.setup = function(on_attach)
-  nvim_lsp.intelephense.setup { on_attach = on_attach }
+M.setup = function()
+  nvim_lsp.intelephense.setup {}
 end
 
 return M

@@ -2,9 +2,8 @@ local nvim_lsp = require('lspconfig')
 
 local M = {}
 
-M.setup = function(on_attach)
+M.setup = function()
   nvim_lsp.purescriptls.setup {
-    on_attach = on_attach,
     settings = {
       purescript = {
         addSpagoSources = true -- e.g. any purescript language-server config here
