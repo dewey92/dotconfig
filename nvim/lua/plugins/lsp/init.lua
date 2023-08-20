@@ -34,6 +34,20 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('MyLspCapabilities', {}),
+  callback = function(ev)
+    local bufnr = ev.buf
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+    if client == nil then return end
+
+    if client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint(bufnr, true)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('MyLspKeymaps', {}),
   callback = function(ev)
     -- Enable completion
