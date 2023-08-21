@@ -33,6 +33,7 @@ require('gitsigns').setup {
     end, { expr = true })
 
     -- Actions
+    map('n', '<leader>gb', ':Gitsigns blame_line<CR>', { desc = 'Blame line' })
     map({ 'n', 'v' }, '<leader>gs', ':Gitsigns stage_hunk<CR>', { desc = 'Stage hunk' })
     map({ 'n', 'v' }, '<leader>gu', ':Gitsigns reset_hunk<CR>', { desc = 'Reset hunk' })
     map('n', '<leader>gS', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
