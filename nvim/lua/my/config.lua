@@ -51,7 +51,8 @@ local tabs_options = {
 utils.apply_options(tabs_options)
 
 vim.opt.listchars = {
-  tab = '▸ ',
+  -- tab = '▸ ',
+  tab = '  ',
   extends = '❯',
   precedes = '❮',
   -- eol = '↴',

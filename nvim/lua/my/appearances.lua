@@ -85,14 +85,15 @@ g.lightline = {
   colorscheme = lightline_theme,
   active = {
     left = { {'mode'}, {'getIconLightline'}, {'readonly', 'relativepath', 'modified'} },
-    right = { {'lineinfo'}, {'percent'}, {'filetype'}, {'cocstatus'} },
+    right = { {'lineinfo', 'indentation'}, {'percent'}, {'filetype'} },
   },
   inactive = {
     left = { {'getIcon'}, {'filename'} },
-    right = { {'lineinfo'}, {'percent'} }
+    right = { {'lineinfo'}, {'percent'} },
   },
   component_function = {
-    getIconLightline = 'GetIconLightline'
+    getIconLightline = 'GetIconLightline',
+    indentation = 'GetIndentChar',
   }
 }
 
@@ -115,6 +116,10 @@ end
 vim.api.nvim_exec2([[
 function! GetIconLightline()
   return v:lua.get_icon_lightline()
+endfunction
+
+function! GetIndentChar()
+  return &expandtab == 1 ? 'Space' : 'Tab'
 endfunction
 ]], {})
 
@@ -179,9 +184,14 @@ vim.api.nvim_exec2([[
     au InsertLeave * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif
     au BufWinLeave * call clearmatches()
   augroup END
-]], {})
 
-vim.api.nvim_exec2([[
-  " set foldmethod=expr
-  " set foldexpr=v:lnum==1?'>1':getline(v:lnum)=~'import'?1:nvim_treesitter#foldexpr()
+  augroup HighlightMixedIndentations
+    au!
+    au BufWinEnter * if !empty(&ft) && &expandtab == 0 | match ExtraWhitespace /^\t*\zs \+/ | endif
+    au InsertLeave * if !empty(&ft) && &expandtab == 0 | match ExtraWhitespace /^\t*\zs \+/ | endif
+
+    au BufWinEnter * if !empty(&ft) && &expandtab == 1 | match ExtraWhitespace /^ *\zs\t\+/ | endif
+    au InsertLeave * if !empty(&ft) && &expandtab == 1 | match ExtraWhitespace /^ *\zs\t\+/ | endif
+    au BufWinLeave * call clearmatches()
+  augroup END
 ]], {})
