@@ -316,6 +316,19 @@ require('packer').startup {
       config = function () vim.cmd[[ source $HOME/.config/nvim/vimscript/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
+    use {
+      'james1236/backseat.nvim',
+      config = function()
+        require('backseat').setup({
+          -- openai_model_id = 'gpt-3.5-turbo',
+          openai_model_id = 'gpt-4', --gpt-4 (If you do not have access to a model, it says "The model does not exist")
+          additional_instruction = "You're a very senior developer, respond snarkily with concrete suggestions",
+          highlight = {
+            group = 'DiagnosticVirtualTextInfo',
+          },
+        })
+      end
+    }
   end,
 
   config = {

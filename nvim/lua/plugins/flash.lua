@@ -7,8 +7,12 @@ flash.setup({
     uppercase = false,
   },
   modes = {
+    search = {
+      enabled = false,
+    },
     char = {
-      jump_labels = true
+      jump_labels = true,
+      multi_line = false,
     },
     treesitter_search = {
       search = {

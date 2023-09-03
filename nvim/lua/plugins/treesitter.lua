@@ -1,7 +1,27 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = 'all',
+  ensure_installed = {
+    'bash',
+    'css',
+    'diff',
+    'dockerfile',
+    'html',
+    'javascript',
+    'json',
+    'json5',
+    'jsonc',
+    'lua',
+    'php',
+    'toml',
+    'tsx',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
+  },
   highlight = {
     enable = true,
+    -- disable = {'tsx', 'php'},
+    -- additional_vim_regex_highlighting = true,
   },
   indent = {
     enable = true,

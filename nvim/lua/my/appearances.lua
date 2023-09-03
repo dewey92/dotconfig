@@ -33,6 +33,10 @@ _G.load_theme = function (theme)
     vim.cmd [[ packadd catppuccin ]]
 
     require('catppuccin').setup({
+      styles = {
+        keywords = {'bold'},
+        strings = {'italic'},
+      },
       color_overrides = {
         mocha = {
           rosewater = "#efc9c2",
@@ -58,7 +62,8 @@ _G.load_theme = function (theme)
           surface2 = "#505469",
           surface1 = "#3e4255",
           surface0 = "#2c2f40",
-          base = "#1a1c2a",
+          -- base = "#1a1c2a",
+          base = "#10151a",
           mantle = "#141620",
           crust = "#0e0f16",
         },
@@ -70,12 +75,12 @@ _G.load_theme = function (theme)
 end
 
 -- Transparent
-vim.cmd [[ autocmd ColorScheme * hi Normal guibg=NONE ]]
-vim.cmd [[ autocmd ColorScheme * hi NormalNC guibg=NONE ]]
-vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
-vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
-vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
-vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
+-- vim.cmd [[ autocmd ColorScheme * hi Normal guibg=NONE ]]
+-- vim.cmd [[ autocmd ColorScheme * hi NormalNC guibg=NONE ]]
+-- vim.cmd [[ autocmd ColorScheme * hi NonText guibg=NONE ]]
+-- vim.cmd [[ autocmd ColorScheme * hi EndOfBuffer guibg=NONE ]]
+-- vim.cmd [[ autocmd ColorScheme * hi SignColumn guibg=NONE ]]
+-- vim.cmd [[ autocmd ColorScheme * set laststatus=3 ]]
 load_theme('catppuccin')
 
 --------------------------------------------------------------------------------

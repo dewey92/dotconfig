@@ -18,25 +18,18 @@ M.setup = function ()
         inlayHints = {
           includeInlayEnumMemberValueHints = true,
           includeInlayFunctionParameterTypeHints = false,
-          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHints = 'literals',
           includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayPropertyDeclarationTypeHints = false,
         },
       },
     },
-    on_attach = function (client, bufnr)
+    on_attach = function (client)
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
 
       require('nvim-lsp-ts-utils').setup {}
-
-      -- Format on save
-      --[[ vim.api.nvim_create_autocmd('BufWritePre', {
-        group = vim.api.nvim_create_augroup('MyTSOrganizeImports', {}),
-        command = 'TSLspOrganize',
-        buffer = bufnr,
-      }) ]]
     end,
   }
 
