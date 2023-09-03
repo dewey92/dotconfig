@@ -45,6 +45,7 @@ map('n', '<Leader>wL', '<C-w>L', { desc = 'Move to the most right' })
 map('n', '<Leader>wv', '<C-w>v', { desc = 'Split vertically' })
 map('n', '<Leader>ws', '<C-w>s', { desc = 'Split horizontally' })
 map('n', '<Leader>wd', '<C-w>c', { desc = 'Close' })
+map('n', '<Leader>wm', '<C-w>|', { desc = 'Maximize' })
 
 -- Yanking (copying)
 map({ 'n', 'x' }, 'y', '<Plug>(YankyYank)')
@@ -107,9 +108,6 @@ map('n', '<C-k>', ':m .-2<CR>==', { desc = 'Move line up' })
 map('n', '<C-j>', ':m .+1<CR>==', { desc = 'Move line down' })
 map('x', '<C-k>' , ':m \'<-2<CR>gv=gv', { desc = 'Move selection up' })
 map('x', '<C-j>', ':m \'>+1<CR>gv=gv', { desc = 'Move selection down' })
-
--- Search
-vim.cmd[[ source $HOME/.config/nvim/vimscript/search.vim ]]
 
 -- etc
 map('n', 'n', 'nzz')
