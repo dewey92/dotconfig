@@ -4,11 +4,11 @@ M.search_register = 'r'
 
 -- Keymaps, inline r register for simplicity
 local map = vim.keymap.set
-map('n', '<Leader>sg', ':Rg<Space>')
-map('x', '<Leader>sG', [["ry:Rg<Space><C-r>r]])
-map('n', '<Leader>sr', ':%s///g<Left><Left>')
-map('x', '<Leader>sr', ':s///g<Left><Left>')
-map('x', '<Leader>sR', [["ry:%s/<C-r>r/<C-r>r/g<Left><Left>]])
+map('n', '<Leader>sg', ':Rg<Space>', { desc = 'Rg' })
+map('x', '<Leader>sG', [["ry:Rg<Space><C-r>r]], { desc = 'Rg prefilled with r register' })
+map('n', '<Leader>sr', ':%s///g<Left><Left>', { desc = 'Buffer search & replace' })
+map('x', '<Leader>sr', ':s///g<Left><Left>', { desc = 'Range search & replace' })
+map('x', '<Leader>sR', [["ry:%s/<C-r>r/<C-r>r/g<Left><Left>]], { desc = 'Range search & replace prefilled with r register' })
 
 local function construct_key_strokes (use_register)
   local key_strokes = string.format(
