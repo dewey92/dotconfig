@@ -1,4 +1,7 @@
 local fzf = require('fzf-lua')
+local actions = require('fzf-lua.actions')
+local defaults = require('fzf-lua.defaults').defaults
+local my_search = require('my.search')
 
 local function find_sibling_files ()
   fzf.files {
@@ -24,7 +27,21 @@ end
 require('fzf-lua').setup {
   winopts = {
     hl = { border = 'FloatBorder' }
-  }
+  },
+  actions = {
+    files = vim.tbl_extend('force', defaults.actions.files, {
+      ["alt-q"] = function (selected, opts)
+        -- Put the last query to register
+        local query = fzf.get_last_query()
+        if (query ~= '') then
+          -- TODO: Escape for vimregex
+          vim.fn.setreg(my_search.search_register, query)
+        end
+
+        actions.file_sel_to_qf(selected, opts)
+      end,
+    }),
+  },
 }
 
 --------------------------------------------------------------------------------
