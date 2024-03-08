@@ -34,8 +34,11 @@ M.setup = function ()
   }
 
   nvim_lsp.eslint.setup {
-    root_dir = require('lspconfig.util').root_pattern('.git'),
-    --[[ settings = {
+    -- root_dir = require('lspconfig.util').root_pattern('.git'),
+    settings = {
+      experimental = {
+        useFlatConfig = false,
+      },
       options = {
         overrideConfig = {
           parserOptions = {
@@ -43,7 +46,7 @@ M.setup = function ()
           }
         }
       }
-    } ]]
+    }
   }
 
   nvim_lsp.stylelint_lsp.setup {

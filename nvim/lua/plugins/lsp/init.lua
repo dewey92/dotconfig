@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client == nil then return end
 
     if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint(bufnr, true)
+      vim.lsp.inlay_hint.enable(bufnr, true)
     end
   end,
 })
@@ -91,6 +91,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --------------------------------------------------------------------------------
 require('plugins.lsp.php').setup()
 require('plugins.lsp.web').setup()
+-- require('plugins.lsp.emmet').setup()
 require('plugins.lsp.lua').setup()
 require('plugins.lsp.purescript').setup()
 require('plugins.lsp.haskell').setup()

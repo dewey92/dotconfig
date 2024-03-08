@@ -20,8 +20,8 @@ require'nvim-treesitter.configs'.setup {
   },
   highlight = {
     enable = true,
-    -- disable = {'tsx', 'php'},
-    -- additional_vim_regex_highlighting = true,
+    disable = {'tsx', 'php'},
+    additional_vim_regex_highlighting = true,
   },
   indent = {
     enable = true,
@@ -31,11 +31,6 @@ require'nvim-treesitter.configs'.setup {
   },
   autotag = {
     enable = true,
-  },
-  context_commentstring = {
-    enable = true,
-    -- Following line is to make it work with Comment.nvim
-    enable_autocmd = false
   },
   textobjects = {
     select = {
@@ -51,4 +46,8 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+}
+
+require'ts_context_commentstring'.setup {
+  enable_autocmd = false,
 }

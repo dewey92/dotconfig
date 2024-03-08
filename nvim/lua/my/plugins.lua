@@ -166,13 +166,11 @@ require('packer').startup {
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = function ()
-        require('indent_blankline').setup {
-          char = ' ', -- hide to look cleaner
-          context_char = '│', -- only show the indent guide for context
-          show_current_context = true,
-          show_current_context_start = true,
-          show_first_indent_level = false,
-          use_treesitter = true,
+        require('ibl').setup {
+          indent = {
+            char = ' ', -- hide to look cleaner
+            tab_char = '│', -- only show the indent guide for context
+          },
         }
       end,
     }
@@ -328,6 +326,11 @@ require('packer').startup {
           },
         })
       end
+    }
+    use {
+      'glacambre/firenvim',
+      run = function() vim.fn['firenvim#install'](0) end,
+      disable = true,
     }
   end,
 
