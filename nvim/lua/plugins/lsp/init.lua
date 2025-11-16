@@ -21,12 +21,11 @@ local function preview_location_callback(_, result)
 end
 
 local function peek_definition()
-  local params = vim.lsp.util.make_position_params()
+  local params = vim.lsp.util.make_position_params(0, 'utf-8')
   return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
 end
 
-vim.lsp.handlers['textDocument/hover'] =  vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
   virtual_text = true,
   signs = true,
   underline = true,
@@ -42,7 +41,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client == nil then return end
 
     if client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(bufnr, true)
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
   end,
 })
@@ -66,13 +65,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'gD', function () vim.cmd('vsplit'); vim.lsp.buf.definition() end, { desc = 'Go to definition in vsplit' })
     map('n', 'gt', vim.lsp.buf.type_definition, { desc = 'Go to type definition' })
     map('n', 'gr', vim.lsp.buf.references, { desc = 'References' })
-    map('n', 'K', vim.lsp.buf.hover)
+    map('n', 'K', function () vim.lsp.buf.hover({ border = border }) end)
     map('n', '<Leader>ci', vim.lsp.buf.implementation, { desc = 'See implementation' })
     -- nnoremap { '<C-k>', vim.lsp.buf.signature_help, buf_opts }
     map('n', '<Leader>cr', vim.lsp.buf.rename, { desc = 'Rename' })
     map('n', '\\e', function () vim.diagnostic.open_float({ border = border }) end, { desc = 'See error' })
-    map('n', '[e', function () vim.diagnostic.goto_prev({ float = { border = border } }) end, { desc = 'Prev error' })
-    map('n', ']e', function () vim.diagnostic.goto_next({ float = { border = border } }) end, { desc = 'Next error' })
+    map('n', '[e', function () vim.diagnostic.jump({ count = -1, float = { border = border } }) end, { desc = 'Prev error' })
+    map('n', ']e', function () vim.diagnostic.jump({ count = 1, float = { border = border } }) end, { desc = 'Next error' })
     map('n', '<Leader>ce',
       function () vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR }) end,
       { desc = 'List errors' }

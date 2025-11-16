@@ -179,6 +179,21 @@ require('packer').startup {
       config = function () require('neoscroll').setup({ easing_function = 'cubic' }) end,
     }
     use {
+      'folke/todo-comments.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function ()
+        require('todo-comments').setup({
+          highlight = {
+            keyword = 'wide',
+            pattern = { [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
+          },
+          search = {
+            pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]],
+          },
+        })
+      end,
+    }
+    use {
       'folke/zen-mode.nvim',
       disable = true,
       config = function()
@@ -231,12 +246,19 @@ require('packer').startup {
       'nvim-treesitter/playground',
       'windwp/nvim-ts-autotag',
       'JoosepAlviste/nvim-ts-context-commentstring',
-      'jose-elias-alvarez/nvim-lsp-ts-utils',
+      {
+        'pmizio/typescript-tools.nvim',
+        requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+        config = function()
+          require('typescript-tools').setup {}
+        end,
+      }
     }
 
     use 'purescript-contrib/purescript-vim'
     use 'vmchale/dhall-vim'
-    use "b0o/schemastore.nvim"
+    use 'b0o/schemastore.nvim'
+    use 'jxnblk/vim-mdx-js'
 
     use {
       {
@@ -314,19 +336,6 @@ require('packer').startup {
       config = function () vim.cmd[[ source $HOME/.config/nvim/vimscript/floaterm.vim ]] end,
     }
     use 'tweekmonster/startuptime.vim'
-    use {
-      'james1236/backseat.nvim',
-      config = function()
-        require('backseat').setup({
-          -- openai_model_id = 'gpt-3.5-turbo',
-          openai_model_id = 'gpt-4', --gpt-4 (If you do not have access to a model, it says "The model does not exist")
-          additional_instruction = "You're a very senior developer, respond snarkily with concrete suggestions",
-          highlight = {
-            group = 'DiagnosticVirtualTextInfo',
-          },
-        })
-      end
-    }
     use {
       'glacambre/firenvim',
       run = function() vim.fn['firenvim#install'](0) end,

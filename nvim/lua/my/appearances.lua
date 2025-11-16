@@ -22,8 +22,7 @@ _G.load_theme = function (theme)
     g.gruvbox_transp_bg = 0
     lightline_theme = 'gruvbox8'
 
-    -- vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
-
+    vim.cmd [[ autocmd ColorScheme * hi Normal guibg=#10151a ]]
     vim.cmd [[ packadd vim-gruvbox8 ]]
 
   elseif theme == 'catppuccin' then
@@ -33,6 +32,7 @@ _G.load_theme = function (theme)
     vim.cmd [[ packadd catppuccin ]]
 
     require('catppuccin').setup({
+      kitty = false,
       styles = {
         keywords = {'bold'},
         strings = {'italic'},
@@ -181,7 +181,7 @@ vim.api.nvim_exec2([[
   augroup END
 
   " Create whitespace group
-  highlight ExtraWhitespace ctermbg=red guibg=red
+  highlight ExtraWhitespace ctermbg=DarkRed guibg=DarkRed
   augroup HighlightTrailingSpace
     au!
     au BufWinEnter * if !empty(&ft) | match ExtraWhitespace /\s\+$/ | endif

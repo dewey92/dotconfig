@@ -1,15 +1,15 @@
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = vim.lsp.config
 
 local M = {}
 
 M.setup = function()
-  nvim_lsp.hls.setup {
+  nvim_lsp('hls', {
     settings = {
       haskell = {
         formattingProvider = 'fourmolu',
       },
     },
-  }
+  })
 end
 
 return M

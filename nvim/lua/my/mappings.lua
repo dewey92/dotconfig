@@ -65,7 +65,7 @@ map('n', '<C-p>', '<Plug>(YankyCycleBackward)')
 -- Code
 map('n', '<Leader>cts', ':%s/\t/<space><space>/g<CR>', { desc = 'Tab -> Space' })
 map('n', '<Leader>cst', ':%s/<space><space>/\t/g<CR>', { desc = 'Space -> Tab' })
-map('n', '<Leader>cl', 'f<Space>xi<CR><Esc>', { desc = 'Break line on space' })
+map('n', '<Leader>cl', 'f,lxi<CR><Esc>', { desc = 'Break line on comma' })
 
 -- Git
 map('n', '<Leader>gd', ':DiffviewOpen<CR>', { desc = 'Open diff view' })
@@ -119,7 +119,7 @@ local au = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 au('FileType', {
-  group = augroup('QfMapping', {}),
+  group = augroup('QfMapping', { clear = true }),
   pattern = 'qf',
   callback = function (event)
     map('n', '<C-c>', ':q<CR>', { buffer = event.buf })

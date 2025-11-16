@@ -1,9 +1,9 @@
-local nvim_lsp = require('lspconfig')
+local nvim_lsp = vim.lsp.config
 
 local M = {}
 
 M.setup = function()
-  nvim_lsp.lua_ls.setup {
+  nvim_lsp('lua_ls', {
     settings = {
       Lua = {
         runtime = {
@@ -33,7 +33,7 @@ M.setup = function()
         },
       },
     },
-  }
+  })
 end
 
 return M

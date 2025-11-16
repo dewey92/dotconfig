@@ -1,5 +1,12 @@
 local g = vim.g
 
+vim.filetype.add({
+  extension = {
+    mdx = "mdx",
+  },
+})
+vim.treesitter.language.register("markdown", "mdx")
+
 -- Purescript
 g.purescript_disable_indent = 1
 --[[ g.purescript_indent_do = 2

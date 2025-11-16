@@ -1,5 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
+    'astro',
     'bash',
     'css',
     'diff',
@@ -10,7 +11,9 @@ require'nvim-treesitter.configs'.setup {
     'json5',
     'jsonc',
     'lua',
+    'markdown',
     'php',
+    'scss',
     'toml',
     'tsx',
     'typescript',

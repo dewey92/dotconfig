@@ -1,55 +1,48 @@
-local nvim_lsp = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local M = {}
 
 M.setup = function ()
-  nvim_lsp.tsserver.setup {
-    init_options = {
-      preferences = {
-        quotePreference = 'single',
-      }
-    },
+  require('typescript-tools').setup {
+    capabilities = capabilities,
     settings = {
-      typescript = {
-        format = {
-          convertTabsToSpaces = false,
-          insertSpaceAfterFunctionKeywordForAnonymousFunctions = true,
-        },
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionParameterTypeHints = false,
-          includeInlayParameterNameHints = 'literals',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-          includeInlayPropertyDeclarationTypeHints = false,
-        },
+      tsserver_format_options = {
+        convertTabsToSpaces = false,
+        insertSpaceAfterFunctionKeywordForAnonymousFunctions = true,
+        semicolons = false,
+      },
+      tsserver_file_preferences = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionParameterTypeHints = false,
+        includeInlayParameterNameHints = 'literals',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = false,
+        quotePreference = 'single',
       },
     },
     on_attach = function (client)
       if client.config.flags then
         client.config.flags.allow_incremental_sync = true
       end
-
-      require('nvim-lsp-ts-utils').setup {}
     end,
   }
 
-  nvim_lsp.eslint.setup {
-    -- root_dir = require('lspconfig.util').root_pattern('.git'),
+  vim.lsp.config('eslint', {
     settings = {
-      experimental = {
-        useFlatConfig = false,
-      },
-      options = {
+      workingDirectories = { mode = 'auto' },
+      useFlatConfig = true,
+      --[[ options = {
         overrideConfig = {
           parserOptions = {
-            project = { './**/tsconfig.json' }
+            project = { 'tsconfig.json', './**/tsconfig.json' }
           }
         }
-      }
+      } ]]
     }
-  }
+  })
+  vim.lsp.enable('eslint')
 
-  nvim_lsp.stylelint_lsp.setup {
+  vim.lsp.config('stylelint_lsp', {
     --[[ init_options = {
       documentFormatting = true,
     }, ]]
@@ -60,7 +53,18 @@ M.setup = function ()
         validateOnSave = true,
       }
     },
-  }
+  })
+  vim.lsp.enable('stylelint_lsp')
+
+  vim.lsp.config('astro', {
+    capabilities = capabilities,
+    -- root_dir = require('lspconfig.util').root_pattern('astro.config.mjs', '.git'),
+  })
+
+  vim.lsp.config('tailwindcss', {
+    capabilities = capabilities,
+    -- root_dir = require('lspconfig.util').root_pattern('component.json', '.git'),
+  })
 end
 
 return M

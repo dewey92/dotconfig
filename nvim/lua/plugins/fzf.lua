@@ -25,9 +25,7 @@ local function find_config_files ()
 end
 
 require('fzf-lua').setup {
-  winopts = {
-    hl = { border = 'FloatBorder' }
-  },
+  hls = { border = 'FloatBorder' },
   actions = {
     files = vim.tbl_extend('force', defaults.actions.files, {
       ["alt-q"] = function (selected, opts)

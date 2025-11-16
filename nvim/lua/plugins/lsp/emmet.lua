@@ -1,5 +1,5 @@
-local nvim_lsp = require('lspconfig')
-local emmet_ls = require('lspconfig.server_configurations.emmet_ls')
+local nvim_lsp = vim.lsp.config
+local emmet_ls = nvim_lsp.server_configurations.emmet_ls
 
 local M = {}
 
