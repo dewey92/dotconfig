@@ -269,7 +269,7 @@ time-alt = %H:%M:%S
 ; format-underline = #0a6cf5
 
 format-font = 2
-format-foreground = ${colors.sky}
+format-foreground = ${colors.flamingo}
 
 label = %date% - %time%
 
@@ -310,9 +310,9 @@ format-volume = <label-volume> <bar-volume>
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
+format-muted-prefix = " "
+label-muted = muted
+label-muted-foreground = #666
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
