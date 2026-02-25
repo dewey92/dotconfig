@@ -9,5 +9,5 @@ let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 
 nnoremap <silent> <Leader>gg :FloatermNew lazygit<CR>
-nnoremap <silent> <Leader>oe :FloatermNew ranger<CR>
+nnoremap <silent> <Leader>oe :FloatermNew yazi<CR>
 nnoremap <silent> <Leader>tj :FloatermNew --wintype=split --height=6<CR>

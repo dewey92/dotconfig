@@ -19,6 +19,9 @@ M.setup = function ()
         includeInlayPropertyDeclarationTypeHints = false,
         quotePreference = 'single',
       },
+      tsserver_plugins = {
+        "@styled/typescript-styled-plugin",
+      },
     },
     on_attach = function (client)
       if client.config.flags then
@@ -26,6 +29,8 @@ M.setup = function ()
       end
     end,
   }
+
+  -- vim.lsp.enable('tsgo')
 
   vim.lsp.config('eslint', {
     settings = {
@@ -54,7 +59,7 @@ M.setup = function ()
       }
     },
   })
-  vim.lsp.enable('stylelint_lsp')
+  -- vim.lsp.enable('stylelint_lsp')
 
   vim.lsp.config('astro', {
     capabilities = capabilities,

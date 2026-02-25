@@ -242,8 +242,10 @@ require('packer').startup {
         run = ':TSUpdate',
         config = function () require('plugins.treesitter') end,
       },
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/playground',
+      {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        branch = 'main',
+      },
       'windwp/nvim-ts-autotag',
       'JoosepAlviste/nvim-ts-context-commentstring',
       {
