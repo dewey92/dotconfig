@@ -1,6 +1,7 @@
 autoload/plugged/*
 sessions
 packer_compiled.vim
+packer_compiled.lua
 
 .DS_Store
 .netrwhist
