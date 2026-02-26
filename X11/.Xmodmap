@@ -2,6 +2,8 @@
 clear lock
 clear mod5
 add lock = Mode_switch
+
+! keycode num = normal_key with_shift with_Mode_switch whith_both_shift_and_Mode_shift
 keycode 66 = Mode_switch Caps_Lock NoSymbol NoSymbol
 keycode 43 = h H Left Left
 keycode 44 = j J Down Down
